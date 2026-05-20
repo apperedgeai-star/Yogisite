@@ -52,7 +52,7 @@ export default function Mechanism() {
     <section
       ref={sectionRef}
       id="mechanism"
-      className="section-surface section-surface--mechanism section-padding relative z-content"
+      className="section-surface section-surface--mechanism section-padding relative z-content pb-24 md:pb-0"
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
         <div className="lg:sticky lg:top-[22vh] lg:z-sticky lg:self-start">

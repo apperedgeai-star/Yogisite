@@ -20,7 +20,7 @@
   /* ── BACKGROUNDS (v3) ── */
   --void: #030303;
   --deep: #060606;
-  --surface: rgba(12, 12, 12, 0.96);
+  --surface: rgba(12, 12, 12, 0.9);
   --card: #111111;
   --card-hover: #161616;
   --glass: rgba(255, 255, 255, 0.03);
@@ -216,39 +216,39 @@ footer.section-surface {
 }
 
 .section-surface--problem {
-  --surface: rgba(3, 3, 3, 0.94);
+  --surface: rgba(3, 3, 3, 0.88);
 }
 
 .section-surface--mechanism {
-  --surface: rgba(6, 6, 6, 0.96);
+  --surface: rgba(6, 6, 6, 0.9);
 }
 
 .section-surface--services {
-  --surface: rgba(10, 10, 10, 0.97);
+  --surface: rgba(10, 10, 10, 0.92);
 }
 
 .section-surface--proof {
-  --surface: rgba(3, 3, 3, 0.95);
+  --surface: rgba(3, 3, 3, 0.9);
 }
 
 .section-surface--about {
-  --surface: rgba(6, 6, 6, 0.96);
+  --surface: rgba(6, 6, 6, 0.9);
 }
 
 .section-surface--faq {
-  --surface: rgba(3, 3, 3, 0.94);
+  --surface: rgba(3, 3, 3, 0.88);
 }
 
 .section-surface--footer {
-  --surface: rgba(3, 3, 3, 0.97);
+  --surface: rgba(3, 3, 3, 0.92);
 }
 
 .section-surface--programs {
-  --surface: rgba(10, 10, 10, 0.97);
+  --surface: rgba(10, 10, 10, 0.92);
 }
 
 .section-surface--how-it-works {
-  --surface: rgba(6, 6, 6, 0.96);
+  --surface: rgba(6, 6, 6, 0.9);
 }
 
 body {
@@ -261,26 +261,24 @@ body {
   touch-action: manipulation;
 }
 
-@media (max-width: 767px) {
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background:
-      radial-gradient(
-        ellipse 80% 50% at 20% 20%,
-        rgba(212, 168, 67, 0.04) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 60% 40% at 80% 80%,
-        rgba(212, 168, 67, 0.03) 0%,
-        transparent 60%
-      ),
-      var(--void);
-  }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 15% 25%,
+      rgba(212, 168, 67, 0.06) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 85% 75%,
+      rgba(212, 168, 67, 0.04) 0%,
+      transparent 50%
+    ),
+    var(--void);
 }
 
 @keyframes marquee-proof-scroll {
@@ -315,12 +313,13 @@ body {
 .marquee-logo-img {
   height: 24px !important;
   width: auto !important;
+  min-width: 48px;
   max-width: 120px;
   object-fit: contain;
   flex-shrink: 0;
   display: block;
-  filter: brightness(0) invert(1);
-  opacity: 0.45;
+  filter: grayscale(1) brightness(2.2) contrast(0);
+  opacity: 0.5;
   transition: opacity 0.25s ease;
 }
 
@@ -617,8 +616,7 @@ body {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
   cursor: default;
   transition:
     transform 0.3s ease,
@@ -634,7 +632,7 @@ body {
 
 .client-card__image {
   object-fit: cover;
-  filter: brightness(0.5) saturate(0.35);
+  filter: grayscale(0.4) brightness(0.42) saturate(0.3);
   transition:
     transform 0.5s ease,
     filter 0.5s ease;
@@ -642,7 +640,7 @@ body {
 
 .client-card:hover .client-card__image {
   transform: scale(1.03);
-  filter: brightness(0.55) saturate(0.45);
+  filter: grayscale(0.25) brightness(0.48) saturate(0.4);
 }
 
 .client-card__overlay {
@@ -650,7 +648,7 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: rgba(3, 3, 3, 0.62);
+  background: rgba(3, 3, 3, 0.68);
 }
 
 .client-card__scrim {
@@ -1876,8 +1874,10 @@ html.custom-cursor * {
 }
 
 .proof-card {
-  background: var(--card);
-  border-color: var(--b1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition:
     box-shadow 0.2s ease,
     border-color 0.2s ease;

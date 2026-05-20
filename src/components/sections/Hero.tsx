@@ -154,7 +154,7 @@ export default function Hero({ ready = false }: HeroProps) {
         />
 
         <motion.p
-          className="hero-proof mt-6 hidden md:mt-8 md:block"
+          className="hero-proof mt-6 md:mt-8"
           {...fade(STAGGER * 5 + 0.04)}
         >
           {PROOF_LINE}

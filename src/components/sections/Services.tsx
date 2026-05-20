@@ -167,7 +167,7 @@ function DragonsHeadTab() {
           <span className="badge-red">Only 5 Spots</span>
         </div>
         <header className="relative z-[1] mt-6 max-w-2xl">
-          <h3 className="type-section mt-0">Dragon&apos;s Head</h3>
+          <h3 className="type-subhead mt-0">Dragon&apos;s Head</h3>
           <p className="type-body mt-3">
             Personal Branding & Content Distribution System
           </p>
@@ -278,7 +278,7 @@ function JupiterNodeTab() {
       <BentoCell>
         <GhostNumber>02</GhostNumber>
         <header className="relative z-[1] max-w-2xl">
-          <h3 className="type-section mt-0">Jupiter Node</h3>
+          <h3 className="type-subhead mt-0">Jupiter Node</h3>
           <p className="type-body mt-3">
             Result-Driven Campaign. Clear Finish Line.
           </p>

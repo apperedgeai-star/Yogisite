@@ -17,7 +17,7 @@ export function SceneCanvas() {
   const [desktop, setDesktop] = useState(false);
   const [dpr, setDpr] = useState(1.5);
   const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0.45]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 0.85, 0.5]);
 
   useEffect(() => {
     const sync = () => {

@@ -18,7 +18,7 @@ export function ClientCard({
   imageAlt,
 }: ClientCardProps) {
   return (
-    <article className="client-card">
+    <article className="client-card glass-card">
       <Image
         src={imageSrc}
         alt={imageAlt ?? clientName}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 import { animateNumber } from "@/lib/animate-number";
 import { prefersReducedMotion } from "@/lib/utils";
 
@@ -14,6 +13,15 @@ type StatCounterProps = {
   format?: (n: number) => string;
 };
 
+function finalDisplay(
+  value: number,
+  prefix: string,
+  suffix: string,
+  format?: (n: number) => string
+) {
+  return format ? format(value) : `${prefix}${value}${suffix}`;
+}
+
 export function StatCounter({
   value,
   suffix = "",
@@ -22,47 +30,62 @@ export function StatCounter({
   format,
 }: StatCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2, margin: "0px 0px -5% 0px" });
-  const [display, setDisplay] = useState(() =>
-    format ? format(0) : `${prefix}0${suffix}`
-  );
   const animated = useRef(false);
+  const [display, setDisplay] = useState(() =>
+    prefersReducedMotion()
+      ? finalDisplay(value, prefix, suffix, format)
+      : finalDisplay(0, prefix, suffix, format)
+  );
 
   useEffect(() => {
-    let cancel: (() => void) | undefined;
+    const el = ref.current;
+    if (!el) return;
 
-    const run = () => {
-      if (animated.current) return;
+    let cancelAnim: (() => void) | undefined;
+    let cancelled = false;
+
+    const start = () => {
+      if (cancelled || animated.current) return;
       animated.current = true;
 
       if (prefersReducedMotion()) {
-        setDisplay(format ? format(value) : `${prefix}${value}${suffix}`);
+        setDisplay(finalDisplay(value, prefix, suffix, format));
         return;
       }
 
-      cancel = animateNumber({
+      setDisplay(finalDisplay(0, prefix, suffix, format));
+      cancelAnim = animateNumber({
         to: value,
-        durationMs: 2000,
+        durationMs: 2200,
         onUpdate: (n) => {
           const rounded = Math.round(n);
-          setDisplay(
-            format ? format(rounded) : `${prefix}${rounded}${suffix}`
-          );
+          setDisplay(finalDisplay(rounded, prefix, suffix, format));
+        },
+        onComplete: () => {
+          setDisplay(finalDisplay(value, prefix, suffix, format));
         },
       });
     };
 
-    if (inView) {
-      run();
-      return () => cancel?.();
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          start();
+        }
+      },
+      { threshold: 0.12, rootMargin: "80px 0px -10% 0px" }
+    );
 
-    const fallback = window.setTimeout(run, 1200);
+    observer.observe(el);
+    const fallback = window.setTimeout(start, 700);
+
     return () => {
+      cancelled = true;
+      observer.disconnect();
       window.clearTimeout(fallback);
-      cancel?.();
+      cancelAnim?.();
     };
-  }, [inView, value, prefix, suffix, format]);
+  }, [value, prefix, suffix, format]);
 
   return (
     <div
