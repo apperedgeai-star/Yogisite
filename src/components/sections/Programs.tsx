@@ -66,10 +66,7 @@ export default function Programs() {
 
             <div className="mt-8 space-y-2 border-t border-[var(--b1)] pt-8 font-satoshi">
               <p style={{ color: "var(--t2)" }}>
-                <span
-                  className="font-editorial"
-                  style={{ fontSize: "var(--f-lg)", color: "var(--t1)" }}
-                >
+                <span className="price-number" style={{ fontSize: "var(--f-lg)" }}>
                   ₹59,000
                 </span>
                 <span
@@ -80,7 +77,10 @@ export default function Programs() {
                 </span>
               </p>
               <p style={{ color: "var(--t3)" }}>
-                <span style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}>
+                <span
+                  className="price-number"
+                  style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
+                >
                   ₹80,000
                 </span>
                 <span className="ml-2" style={{ fontSize: "var(--f-sm)" }}>
@@ -126,7 +126,7 @@ export default function Programs() {
             </p>
 
             <p
-              className="mt-8 border-t border-[var(--b1)] pt-8 font-editorial"
+              className="price-number mt-8 border-t border-[var(--b1)] pt-8"
               style={{ fontSize: "var(--f-xl)", color: "var(--g300)" }}
             >
               ₹99,000

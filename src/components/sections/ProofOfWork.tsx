@@ -109,10 +109,7 @@ function BrandProofCard({ card }: { card: BrandCard }) {
           {card.title}
         </h3>
         {card.metric && (
-          <p
-            className="mt-2 font-editorial"
-            style={{ fontSize: "var(--f-md)", color: "var(--g300)" }}
-          >
+          <p className="metric-number mt-2" style={{ fontSize: "var(--f-md)" }}>
             {card.metric}
           </p>
         )}
@@ -190,7 +187,7 @@ export default function ProofOfWork() {
                 >
                   <span style={{ color: "var(--t1)" }}>{creator.name}</span>
                   {" "}
-                  <span style={{ color: "var(--g300)" }}>
+                  <span className="metric-number" style={{ fontSize: "inherit" }}>
                     {creator.followers}
                   </span>
                 </li>

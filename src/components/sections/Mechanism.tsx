@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useGsapScope } from "@/hooks/useGsapScope";
+import { NetworkDiagram } from "@/components/ui/NetworkDiagram";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const OTHERS_ITEMS = [
@@ -107,6 +108,10 @@ export default function Mechanism() {
               ))}
             </ul>
           </article>
+
+          <div className="mechanism-panel">
+            <NetworkDiagram />
+          </div>
         </div>
       </div>
     </section>

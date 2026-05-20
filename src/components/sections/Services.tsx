@@ -76,16 +76,7 @@ function BentoCell({
 
 function GhostNumber({ children }: { children: string }) {
   return (
-    <span
-      className="pointer-events-none absolute right-4 top-4 select-none font-editorial md:right-6 md:top-6"
-      style={{
-        fontSize: 120,
-        lineHeight: 1,
-        color: "var(--t1)",
-        opacity: 0.06,
-      }}
-      aria-hidden
-    >
+    <span className="ghost-number right-4 top-4 md:right-6 md:top-6" aria-hidden>
       {children}
     </span>
   );
@@ -247,8 +238,8 @@ function DragonsHeadTab() {
               50K Followers or Money Back
             </span>
             <p
-              className="mt-4 font-editorial"
-              style={{ fontSize: "var(--f-2xl)", color: "var(--t1)", lineHeight: 1.1 }}
+              className="price-number mt-4"
+              style={{ fontSize: "var(--f-2xl)" }}
             >
               ₹2,00,000 / month
             </p>
@@ -256,7 +247,11 @@ function DragonsHeadTab() {
               className="mt-2 font-satoshi"
               style={{ fontSize: "var(--f-sm)", color: "var(--t3)" }}
             >
-              6-month contract · ₹5,000 token confirms spot
+              6-month contract ·{" "}
+              <span className="price-number" style={{ fontSize: "inherit", color: "var(--t2)" }}>
+                ₹5,000
+              </span>{" "}
+              token confirms spot
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 lg:items-end">
@@ -304,8 +299,8 @@ function JupiterNodeTab() {
         {JUPITER_METRICS.map((m) => (
           <BentoCell key={m.label} className="text-center">
             <p
-              className="font-editorial"
-              style={{ fontSize: "var(--f-xl)", color: "var(--g300)", lineHeight: 1 }}
+              className="metric-number"
+              style={{ fontSize: "var(--f-xl)" }}
             >
               {m.value}
             </p>
@@ -343,7 +338,7 @@ function JupiterNodeTab() {
         <p className="font-satoshi" style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}>
           <span className="text-[var(--g300)]">Add-On:</span> Influencer Outreach
           for 15 Creators —{" "}
-          <span style={{ color: "var(--t1)" }}>+₹20,000</span>
+          <span className="price-number">+₹20,000</span>
         </p>
         <p
           className="mt-2 font-satoshi"
@@ -366,8 +361,8 @@ function JupiterNodeTab() {
           1 Million Views or We Continue Free
         </span>
         <p
-          className="mt-4 font-editorial"
-          style={{ fontSize: "var(--f-2xl)", color: "var(--t1)", lineHeight: 1.1 }}
+          className="price-number mt-4"
+          style={{ fontSize: "var(--f-2xl)" }}
         >
           Custom Pricing · Min. ₹4,00,000
         </p>
@@ -437,7 +432,7 @@ export default function Services() {
                   aria-controls={`panel-${tab.id}`}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "tap-target flex min-h-[48px] items-center justify-center py-3 font-satoshi transition-[color,border-color] duration-300",
+                    "tab-label tap-target flex min-h-[48px] items-center justify-center py-3 transition-[color,border-color] duration-300",
                     "border-b-2"
                   )}
                   style={{

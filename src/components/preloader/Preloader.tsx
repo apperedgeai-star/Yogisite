@@ -121,10 +121,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         </p>
 
         <p
-          className="mt-8 font-editorial tabular-nums text-primary transition-opacity duration-300"
+          className="stat-number mt-8 text-primary transition-opacity duration-300"
           style={{
             fontSize: "clamp(60px, 8vw, 100px)",
-            lineHeight: 1,
             opacity: showCounter ? 1 : 0,
           }}
           aria-live="polite"

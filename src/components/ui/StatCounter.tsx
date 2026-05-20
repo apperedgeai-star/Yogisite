@@ -56,21 +56,8 @@ export function StatCounter({
       ref={ref}
       className="flex flex-col items-center px-4 py-6 text-center md:items-start md:px-8 md:py-0 md:text-left"
     >
-      <p
-        className="font-editorial font-normal text-[var(--g300)]"
-        style={{
-          fontSize: "clamp(36px, 10vw, var(--f-3xl))",
-          lineHeight: 1,
-        }}
-      >
-        {display}
-      </p>
-      <p
-        className="mt-3 font-satoshi text-muted"
-        style={{ fontSize: "var(--text-sm)" }}
-      >
-        {label}
-      </p>
+      <p className="stat-number">{display}</p>
+      <p className="stat-label">{label}</p>
     </div>
   );
 }

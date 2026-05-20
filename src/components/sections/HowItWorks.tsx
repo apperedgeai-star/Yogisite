@@ -198,16 +198,7 @@ export default function HowItWorks() {
                     >
                       {step.icon}
                     </span>
-                    <span
-                      className="font-satoshi uppercase"
-                      style={{
-                        fontSize: "var(--f-xs)",
-                        letterSpacing: "0.35em",
-                        color: "var(--g300)",
-                      }}
-                    >
-                      {step.num}
-                    </span>
+                    <span className="step-number">{step.num}</span>
                   </div>
 
                   <h3

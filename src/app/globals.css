@@ -305,13 +305,68 @@ canvas {
   right: 2rem;
   top: 2rem;
   z-index: 0;
-  font-family: "Editorial", Georgia, serif;
+  font-family: "Editorial", "Cormorant Garamond", Georgia, serif;
   font-size: clamp(64px, 12vw, 120px);
   font-weight: 400;
   line-height: 1;
   color: var(--text-primary);
-  opacity: 0.08;
+  opacity: 0.06;
   user-select: none;
+}
+
+/* Numbers, stats, prices — Satoshi only (Editorial = headings & pull quotes) */
+.stat-number {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--g300);
+  font-size: var(--f-3xl);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: var(--f-xs);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-top: 8px;
+}
+
+.metric-number {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--g300);
+  line-height: 1;
+}
+
+.price-number {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--t1);
+}
+
+.step-number {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--g300);
+  font-size: var(--f-xs);
+}
+
+.tab-label {
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 html.custom-cursor,
@@ -342,6 +397,12 @@ html.custom-cursor * {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .network-diagram-zoom,
+  .network-diagram-pulse,
+  .network-diagram-particle {
+    animation: none !important;
   }
 }
 
@@ -463,6 +524,66 @@ html.custom-cursor * {
     transform: scaleY(0);
     opacity: 0.3;
   }
+}
+
+/* Network diagram (Mechanism showcase image) */
+@keyframes subtleZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes networkCenterPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 30px rgba(212, 168, 67, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 30px rgba(212, 168, 67, 0);
+  }
+}
+
+@keyframes networkParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.network-diagram-zoom {
+  animation: subtleZoom 8s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.network-diagram-pulse {
+  animation: networkCenterPulse 2.5s ease-out infinite;
+}
+
+.network-diagram-particle {
+  animation: networkParticleFloat 3.5s ease-out infinite;
+}
+
+.network-diagram-chip {
+  transition:
+    border-color 0.8s ease,
+    box-shadow 0.8s ease;
+}
+
+.network-diagram-chip--active {
+  border-color: rgba(212, 168, 67, 1) !important;
+  box-shadow: 0 0 12px rgba(212, 168, 67, 0.5);
 }
 
 .network-line {

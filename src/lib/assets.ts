@@ -28,4 +28,6 @@ export const ASSETS = {
     jupiter: "/jupiter.webp",
   },
   favicon: "/favicon.ico",
+  /** Mechanism / distribution network diagram background */
+  networkShowcase: "/soicial_platform_showcase.jpeg",
 } as const;
