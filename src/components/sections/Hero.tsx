@@ -89,14 +89,16 @@ export default function Hero({ ready = false }: HeroProps) {
         animate={{ opacity: show ? 1 : 0 }}
         transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 0.1 }}
       >
-        <Image
-          src={ASSETS.heroAmbient}
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        <div className="relative h-full w-full overflow-hidden">
+          <Image
+            src={ASSETS.heroAmbient}
+            alt=""
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
         <motion.div
           className="hero-image-scrim absolute inset-0"
           initial={false}

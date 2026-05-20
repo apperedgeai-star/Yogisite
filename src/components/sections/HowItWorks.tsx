@@ -119,7 +119,7 @@ export default function HowItWorks() {
     <section
       ref={sectionRef}
       id="how-it-works"
-      className="section-padding relative z-content bg-[var(--deep)]"
+      className="section-surface section-surface--how-it-works section-padding relative z-content"
     >
       <div className="section-intro mx-auto max-w-2xl">
         <p className="type-label mb-4">How It Works</p>

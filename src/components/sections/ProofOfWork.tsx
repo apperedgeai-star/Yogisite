@@ -1,44 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import { ASSETS } from "@/lib/assets";
+import { ClientCard } from "@/components/ui/ClientCard";
 
-type BrandCard = {
-  id: string;
-  client: string;
-  campaign: string;
-  result?: string;
-  quote?: string;
-  image: string;
-  imageAlt: string;
-};
-
-const BRAND_CARDS: BrandCard[] = [
+const CLIENT_CARDS = [
   {
     id: "vision11",
-    client: "Vision11",
-    campaign: "Vision11 × CSK · IPL 2025",
-    result: "50M+ Views",
-    image: ASSETS.clients.vision11,
+    imageSrc: ASSETS.clients.vision11,
+    clientName: "Vision11 × CSK",
+    campaign: "IPL 2025 Campaign",
+    result: "50M+",
+    resultLabel: "Views Delivered",
     imageAlt: "Vision11 × CSK campaign",
   },
   {
     id: "starbucks",
-    client: "Starbucks India",
-    campaign: "Starbucks India",
-    quote: "Global brand standards. Premium shoots, delivered on brief.",
-    image: ASSETS.clients.starbucks,
+    imageSrc: ASSETS.clients.starbucks,
+    clientName: "Starbucks India",
+    campaign: "Premium Content Shoots",
+    result: "Global",
+    resultLabel: "Brand Standards",
     imageAlt: "Starbucks India campaign",
   },
   {
     id: "rapido",
-    client: "Rapido",
-    campaign: "Rapido",
-    quote: "Humanising India's leading ride platform",
-    image: ASSETS.clients.rapido,
+    imageSrc: ASSETS.clients.rapido,
+    clientName: "Rapido",
+    campaign: "Platform Humanisation",
+    result: "India's #1",
+    resultLabel: "Bike Taxi Platform",
     imageAlt: "Rapido campaign",
   },
-];
+] as const;
 
 const CREATORS = [
   { name: "Nawaz Shaikh", followers: "1.6M+", role: "Creator partner" },
@@ -49,37 +42,11 @@ const CREATORS = [
   { name: "Viplav Panghal", followers: "190K", role: "Creator partner" },
 ];
 
-function BrandProofCard({ card }: { card: BrandCard }) {
-  return (
-    <article className="proof-brand-card group">
-      <Image
-        src={card.image}
-        alt={card.imageAlt}
-        fill
-        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-        sizes="(max-width: 768px) 100vw, 33vw"
-        loading="lazy"
-      />
-      <div className="proof-brand-card__overlay" aria-hidden />
-      <div className="proof-brand-card__content">
-        <p className="proof-client-name">{card.client}</p>
-        <p className="proof-campaign">{card.campaign}</p>
-        {card.result && <p className="proof-result">{card.result}</p>}
-        {card.quote && !card.result && (
-          <p className="proof-result" style={{ fontWeight: 400, color: "var(--t2)" }}>
-            {card.quote}
-          </p>
-        )}
-      </div>
-    </article>
-  );
-}
-
 export default function ProofOfWork() {
   return (
     <section
       id="work"
-      className="section-padding relative z-content bg-[var(--void)]"
+      className="section-surface section-surface--proof section-padding relative z-content"
     >
       <div className="mx-auto max-w-7xl">
         <p className="type-label mb-4">The Work Speaks</p>
@@ -88,8 +55,8 @@ export default function ProofOfWork() {
         </h2>
 
         <div className="proof-grid">
-          {BRAND_CARDS.map((card) => (
-            <BrandProofCard key={card.id} card={card} />
+          {CLIENT_CARDS.map(({ id, ...card }) => (
+            <ClientCard key={id} {...card} />
           ))}
 
           <article className="proof-card proof-card--wide border border-[var(--b1)] p-6 md:p-8">

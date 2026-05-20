@@ -83,7 +83,7 @@ export default function Problem() {
     <section
       ref={sectionRef}
       id="problem"
-      className="section-padding relative z-content overflow-hidden bg-deep"
+      className="section-surface section-surface--problem section-padding relative z-content overflow-hidden"
     >
       {showDiamond && <FloatingDiamond />}
 

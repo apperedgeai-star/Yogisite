@@ -32,7 +32,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="section-padding relative z-content overflow-hidden bg-[var(--void)]"
+      className="section-surface section-surface--about section-padding relative z-content overflow-hidden"
     >
       <div className="relative z-[1] mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] lg:items-start lg:gap-16">
         <div className="order-2 lg:order-1 lg:pr-6">
@@ -72,30 +72,24 @@ export default function About() {
           ref={portraitRef}
           className="relative order-1 lg:order-2 lg:sticky lg:top-28"
         >
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm lg:aspect-auto lg:h-[min(85vh,720px)]">
+          <div className="about-portrait">
             <motion.div
-              className="absolute inset-0 h-full w-full lg:h-[106%] lg:-top-[3%]"
+              className="about-portrait__parallax absolute inset-0 overflow-hidden"
               style={{ y: parallax ? imageY : 0 }}
             >
-              <Image
-                src={ASSETS.portrait}
-                alt="Yogii Kumar — Founder, Recun Marketing 18"
-                fill
-                priority={false}
-                loading="lazy"
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 45vw"
-              />
+              <div className="relative h-full w-full overflow-hidden">
+                <Image
+                  src={ASSETS.portrait}
+                  alt="Yogii Kumar — Founder, Recun Marketing 18"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  className="object-cover"
+                  style={{ objectPosition: "center top" }}
+                />
+              </div>
             </motion.div>
-
-            <div
-              className="pointer-events-none absolute inset-0 z-[1]"
-              style={{
-                background:
-                  "linear-gradient(to top, #030303 0%, transparent 40%)",
-              }}
-              aria-hidden
-            />
+            <div className="about-portrait__fade" aria-hidden />
           </div>
         </motion.div>
       </div>

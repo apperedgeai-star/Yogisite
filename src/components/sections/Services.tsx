@@ -7,9 +7,9 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
 import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
 import { cn, prefersReducedMotion } from "@/lib/utils";
@@ -84,41 +84,6 @@ function GhostNumber({ children }: { children: string }) {
   );
 }
 
-function ServiceVisual({
-  src,
-  alt,
-  position = "center",
-}: {
-  src: string;
-  alt: string;
-  position?: string;
-}) {
-  return (
-    <div
-      className="relative mb-4 aspect-[21/9] w-full overflow-hidden rounded-sm border"
-      style={{ borderColor: "var(--b1)" }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        className="object-cover"
-        style={{ objectPosition: position }}
-        sizes="(max-width: 768px) 100vw, 50vw"
-        loading="lazy"
-      />
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(to top, var(--surface) 0%, transparent 45%, rgba(0,0,0,0.35) 100%)",
-        }}
-      />
-    </div>
-  );
-}
-
 function JourneyTimeline() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [lineReady, setLineReady] = useState(false);
@@ -188,10 +153,11 @@ function DragonsHeadTab() {
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="lg:col-span-2">
-        <ServiceVisual
+        <ServiceImageBlock
           src={ASSETS.services.dragon}
           alt="Dragon's Head — personal branding and distribution system"
-          position="center 35%"
+          overlayLabel="Personal Branding System"
+          objectPosition="center 35%"
         />
       </div>
       <BentoCell className="lg:col-span-2">
@@ -303,10 +269,11 @@ function DragonsHeadTab() {
 function JupiterNodeTab() {
   return (
     <div className="grid grid-cols-1 gap-4">
-      <ServiceVisual
+      <ServiceImageBlock
         src={ASSETS.services.jupiter}
         alt="Jupiter Node — result-driven campaign system"
-        position="center 40%"
+        overlayLabel="Campaign System"
+        objectPosition="center 40%"
       />
       <BentoCell>
         <GhostNumber>02</GhostNumber>
@@ -393,7 +360,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="section-padding relative z-content bg-[var(--surface)]"
+      className="section-surface section-surface--services section-padding relative z-content"
     >
       <header className="section-intro mx-auto mb-10 max-w-7xl md:mb-12">
         <p className="type-label mb-4">Services</p>
@@ -404,7 +371,7 @@ export default function Services() {
 
       <div className="mx-auto max-w-7xl">
         <div
-          className="services-tab-bar sticky z-[45] -mx-5 border-b bg-[var(--surface)]/95 px-5 backdrop-blur-md md:-mx-12 md:px-12"
+          className="services-tab-bar sticky z-[45] -mx-5 border-b bg-[rgba(10,10,10,0.92)] px-5 backdrop-blur-md md:-mx-12 md:px-12"
           style={{
             top: "calc(env(safe-area-inset-top, 0px) + 4.25rem)",
             borderColor: "var(--b1)",

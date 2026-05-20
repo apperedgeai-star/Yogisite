@@ -36,7 +36,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="section-padding relative z-content bg-[var(--deep)]"
+      className="section-surface section-surface--faq section-padding relative z-content"
     >
       <div className="mx-auto max-w-3xl">
         <p className="type-label mb-4">FAQ</p>

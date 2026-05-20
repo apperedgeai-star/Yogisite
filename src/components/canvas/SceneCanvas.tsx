@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Suspense, lazy, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { getDeviceDpr, isMobileViewport, prefersReducedMotion } from "@/lib/utils";
 
 const Canvas = dynamic(
@@ -14,7 +15,9 @@ const ParticleField = lazy(() => import("./ParticleField"));
 export function SceneCanvas() {
   const [mounted, setMounted] = useState(false);
   const [desktop, setDesktop] = useState(false);
-  const [dpr, setDpr] = useState(1);
+  const [dpr, setDpr] = useState(1.5);
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0.45]);
 
   useEffect(() => {
     const sync = () => {
@@ -34,7 +37,7 @@ export function SceneCanvas() {
   }
 
   return (
-    <Canvas
+    <motion.div
       style={{
         position: "fixed",
         top: 0,
@@ -43,27 +46,35 @@ export function SceneCanvas() {
         height: "100%",
         zIndex: -1,
         pointerEvents: "none",
-        background: "transparent",
+        opacity,
       }}
-      camera={{ position: [0, 0, 5], fov: 60, near: 0.1, far: 100 }}
-      dpr={Math.min(dpr, 1.5)}
-      gl={{
-        alpha: true,
-        antialias: false,
-        premultipliedAlpha: false,
-        powerPreference: "high-performance",
-        stencil: false,
-        depth: false,
-      }}
-      onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 0);
-      }}
-      frameloop="always"
     >
-      <Suspense fallback={null}>
-        <ParticleField />
-      </Suspense>
-    </Canvas>
+      <Canvas
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "transparent",
+        }}
+        camera={{ position: [0, 0, 5], fov: 60, near: 0.1, far: 100 }}
+        dpr={Math.max(1.5, Math.min(dpr, 2))}
+        gl={{
+          alpha: true,
+          antialias: false,
+          premultipliedAlpha: false,
+          powerPreference: "high-performance",
+          stencil: false,
+          depth: false,
+        }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
+        frameloop="always"
+      >
+        <Suspense fallback={null}>
+          <ParticleField />
+        </Suspense>
+      </Canvas>
+    </motion.div>
   );
 }
 

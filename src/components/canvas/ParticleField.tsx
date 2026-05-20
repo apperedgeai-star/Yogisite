@@ -5,7 +5,6 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useSmoothScroll } from "@/providers/LenisProvider";
 import { getParticleCount, prefersReducedMotion } from "@/lib/utils";
-import { useCanvasMouse } from "./useCanvasMouse";
 
 const VERTEX_SHADER = /* glsl */ `
 uniform float uTime;
@@ -69,7 +68,8 @@ function createParticleAttributes(count: number) {
 export default function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null);
   const { scrollY } = useSmoothScroll();
-  const { step } = useCanvasMouse(0.06);
+  const mouseTarget = useRef(new THREE.Vector2(0, 0));
+  const mouseCurrent = useRef(new THREE.Vector2(0, 0));
   const reduced = prefersReducedMotion();
 
   const [count, setCount] = useState(2500);
@@ -77,6 +77,15 @@ export default function ParticleField() {
   useEffect(() => {
     setCount(reduced ? 0 : Math.min(getParticleCount(), 2500));
   }, [reduced]);
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      mouseTarget.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseTarget.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
 
   const attributes = useMemo(
     () => (count > 0 ? createParticleAttributes(count) : null),
@@ -125,10 +134,20 @@ export default function ParticleField() {
     const points = pointsRef.current;
     if (!points || !geometry) return;
     const uniforms = (points.material as THREE.ShaderMaterial).uniforms;
-    const mouse = step();
+
+    mouseCurrent.current.x = THREE.MathUtils.lerp(
+      mouseCurrent.current.x,
+      mouseTarget.current.x,
+      0.04
+    );
+    mouseCurrent.current.y = THREE.MathUtils.lerp(
+      mouseCurrent.current.y,
+      mouseTarget.current.y,
+      0.04
+    );
+
     uniforms.uTime.value = state.clock.elapsedTime;
-    uniforms.uMouse.value.x = mouse.x;
-    uniforms.uMouse.value.y = mouse.y;
+    uniforms.uMouse.value.copy(mouseCurrent.current);
     uniforms.uScroll.value = scrollY.current;
   });
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ASSETS } from "@/lib/assets";
 
 const DIVIDER = (
@@ -24,6 +25,21 @@ type MarqueeProps = {
   className?: string;
 };
 
+function MarqueeLogo({ src, alt }: { src: string; alt: string }) {
+  return (
+    <span className="marquee-logo-wrap relative mx-4 inline-block shrink-0 overflow-hidden">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="120px"
+        className="marquee-logo-img object-contain object-center"
+        loading="lazy"
+      />
+    </span>
+  );
+}
+
 function MarqueeTrack({
   items,
   ariaHidden,
@@ -40,15 +56,7 @@ function MarqueeTrack({
         <span key={`${item.kind}-${i}`} className="flex shrink-0 items-center">
           {i > 0 && DIVIDER}
           {item.kind === "logo" ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={item.src}
-              alt={item.alt}
-              width={96}
-              height={24}
-              className="marquee-logo mx-4"
-              loading="lazy"
-            />
+            <MarqueeLogo src={item.src} alt={item.alt} />
           ) : (
             <span className="marquee-proof-text px-3">{item.label}</span>
           )}
@@ -75,4 +83,3 @@ export function Marquee({
     </div>
   );
 }
-

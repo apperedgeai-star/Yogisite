@@ -20,7 +20,7 @@
   /* ── BACKGROUNDS (v3) ── */
   --void: #030303;
   --deep: #060606;
-  --surface: #0c0c0c;
+  --surface: rgba(12, 12, 12, 0.96);
   --card: #111111;
   --card-hover: #161616;
   --glass: rgba(255, 255, 255, 0.03);
@@ -195,6 +195,62 @@ html.lenis body {
   overflow: hidden;
 }
 
+section,
+footer.section-surface {
+  position: relative;
+  background: transparent;
+}
+
+.section-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-surface > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-surface--problem {
+  --surface: rgba(3, 3, 3, 0.94);
+}
+
+.section-surface--mechanism {
+  --surface: rgba(6, 6, 6, 0.96);
+}
+
+.section-surface--services {
+  --surface: rgba(10, 10, 10, 0.97);
+}
+
+.section-surface--proof {
+  --surface: rgba(3, 3, 3, 0.95);
+}
+
+.section-surface--about {
+  --surface: rgba(6, 6, 6, 0.96);
+}
+
+.section-surface--faq {
+  --surface: rgba(3, 3, 3, 0.94);
+}
+
+.section-surface--footer {
+  --surface: rgba(3, 3, 3, 0.97);
+}
+
+.section-surface--programs {
+  --surface: rgba(10, 10, 10, 0.97);
+}
+
+.section-surface--how-it-works {
+  --surface: rgba(6, 6, 6, 0.96);
+}
+
 body {
   background: var(--void);
   color: var(--t1);
@@ -251,18 +307,80 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.marquee-logo {
-  height: 22px;
-  width: auto;
-  max-width: 96px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+.marquee-logo-wrap {
+  height: 28px;
+  width: 100px;
+  min-width: 80px;
+  max-width: 120px;
+  flex-shrink: 0;
   opacity: 0.5;
   transition: opacity 0.25s ease;
 }
 
-.marquee-proof-root .marquee-logo:hover {
-  opacity: 0.9;
+.marquee-logo-wrap:hover {
+  opacity: 0.85;
+}
+
+.marquee-logo-img {
+  filter: brightness(0) invert(1);
+}
+
+.marquee-proof-root:hover .marquee-logo-wrap,
+.marquee-proof-viewport:hover .marquee-logo-wrap {
+  opacity: 0.85;
+}
+
+/* About — founder portrait */
+.about-portrait {
+  position: relative;
+  width: 100%;
+  height: clamp(400px, 60vh, 700px);
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.about-portrait__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, #030303 0%, transparent 50%);
+}
+
+/* Programs — card image strip */
+.program-card-media {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: -2rem -2rem 1.5rem;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+
+@media (min-width: 768px) {
+  .program-card-media {
+    margin: -2.5rem -2.5rem 1.75rem;
+  }
+}
+
+.program-card-media__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--surface) 100%
+  );
+}
+
+.program-card--outline .program-card-media__scrim {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--glass) 100%
+  );
 }
 
 .marquee-proof-text {
@@ -447,60 +565,127 @@ body {
   color: var(--t1);
 }
 
-/* Proof cards */
-.proof-brand-card {
+/* Service tab hero images */
+.service-image-block {
   position: relative;
-  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: clamp(200px, 30vw, 360px);
   overflow: hidden;
-  border: 1px solid var(--b1);
-  cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 168, 67, 0.15);
 }
 
-@media (min-width: 768px) {
-  .proof-brand-card {
-    aspect-ratio: 4 / 3;
-  }
-}
-
-.proof-brand-card:hover {
-  border-color: var(--b-gold);
-}
-
-.proof-brand-card__overlay {
+.service-image-block__scrim {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.75) 100%
+    to top,
+    rgba(3, 3, 3, 0.85) 0%,
+    rgba(3, 3, 3, 0.1) 60%,
+    transparent 100%
   );
-  transition: opacity 0.3s ease;
 }
 
-.proof-brand-card:hover .proof-brand-card__overlay {
-  opacity: 0.92;
-}
-
-.proof-brand-card__content {
+.service-image-block__label {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 20px;
+  left: 24px;
   z-index: 2;
-  padding: 1.5rem;
-}
-
-.proof-client-name {
+  margin: 0;
   font-family: "Satoshi", system-ui, sans-serif;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--t3);
+  color: rgba(212, 168, 67, 0.8);
 }
 
+/* Proof — client cards */
+.client-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: default;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.client-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212, 168, 67, 0.35);
+  box-shadow: 0 20px 60px rgba(212, 168, 67, 0.1);
+}
+
+.client-card__image {
+  transition: transform 0.5s ease;
+}
+
+.client-card:hover .client-card__image {
+  transform: scale(1.03);
+}
+
+.client-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(3, 3, 3, 0.92) 0%,
+    rgba(3, 3, 3, 0.3) 55%,
+    transparent 100%
+  );
+}
+
+.client-card__content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 24px;
+}
+
+.client-card__client {
+  margin: 0 0 6px;
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(212, 168, 67, 0.7);
+}
+
+.client-card__campaign {
+  margin: 0 0 8px;
+  font-family: "Editorial", "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #f2ede6;
+}
+
+.client-card__result {
+  margin: 0;
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #d4a843;
+}
+
+.client-card__result-label {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+/* Legacy proof typography (creator row) */
 .proof-campaign {
   font-family: "Editorial", "Cormorant Garamond", Georgia, serif;
   font-size: 22px;
@@ -1129,7 +1314,7 @@ html.custom-cursor * {
   min-height: 100svh;
   align-items: center;
   overflow: hidden;
-  background: var(--void);
+  background: transparent;
   padding-top: max(24px, env(safe-area-inset-top));
   padding-bottom: max(5rem, env(safe-area-inset-bottom));
   padding-inline: 20px;

@@ -36,7 +36,7 @@ export default function Footer() {
     <footer
       ref={footerRef}
       id="contact"
-      className="relative z-content bg-[var(--void)] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+      className="section-surface section-surface--footer relative z-content pb-[max(1.5rem,env(safe-area-inset-bottom))]"
     >
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden px-5 py-24 text-center md:px-6 md:py-32">

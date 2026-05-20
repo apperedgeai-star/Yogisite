@@ -14,6 +14,8 @@
 export const ASSETS = {
   portrait: "/images/yogii-portrait.jpg",
   heroAmbient: "/images/hero-ambient.jpg",
+  /** Dark atmospheric strip for Programs cards (no dedicated asset yet) */
+  programAtmosphere: "/images/hero-ambient.jpg",
   og: "/images/og-image.jpg",
   audio: "/audio/ambient-loop.mp3",
   fonts: {

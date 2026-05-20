@@ -30,13 +30,16 @@ export function ParallaxImage({
       ref={ref}
       className={`relative w-full overflow-hidden ${height} ${className}`}
     >
-      <motion.div className="absolute inset-0" style={{ y, scale }}>
+      <motion.div
+        className="absolute inset-0 overflow-hidden"
+        style={{ y, scale }}
+      >
         <Image
           src={src}
           alt={alt}
           fill
           loading="lazy"
-          className="object-cover"
+          className="object-cover object-center"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </motion.div>
