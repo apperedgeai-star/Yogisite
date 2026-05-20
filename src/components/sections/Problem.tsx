@@ -64,13 +64,11 @@ export default function Problem() {
       }
 
       gsap.from(lines, {
-        y: 80,
-        rotateX: 10,
+        y: 24,
         opacity: 0,
-        duration: 0.85,
-        stagger: 0.14,
+        duration: 0.65,
+        stagger: 0.12,
         ease: "power3.out",
-        transformOrigin: "bottom center",
         scrollTrigger: {
           trigger: statementRef.current,
           start: "top 78%",
@@ -125,11 +123,7 @@ export default function Problem() {
                 ref={(el) => {
                   lineRefs.current[i] = el;
                 }}
-                className="block font-editorial font-normal text-primary opacity-0"
-                style={{
-                  fontSize: "clamp(28px, 4vw, 56px)",
-                  lineHeight: 1.05,
-                }}
+                className="type-subhead block text-primary opacity-0"
               >
                 {line}
               </span>
@@ -139,12 +133,8 @@ export default function Problem() {
           <div className="overflow-hidden py-1">
             <span
               ref={punchlineRef}
-              className="block font-editorial italic text-gold-300 opacity-0"
-              style={{
-                fontSize: "clamp(36px, 5vw, 72px)",
-                lineHeight: 1.05,
-                transformOrigin: "bottom center",
-              }}
+              className="type-section block italic text-gold-300 opacity-0"
+              style={{ transformOrigin: "bottom center" }}
             >
               you are invisible.
             </span>

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { LenisProvider } from "@/providers/LenisProvider";
+import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
 import "./globals.css";
 
 const siteUrl =
@@ -66,9 +67,23 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="/images/hero-ambient.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+        <link
+          rel="preload"
+          href="/images/yogii-portrait.jpg"
+          as="image"
+          type="image/jpeg"
+        />
       </head>
       <body className="bg-void font-satoshi text-primary antialiased">
-        <LenisProvider>{children}</LenisProvider>
+        <ScrollInitProvider>
+          <LenisProvider>{children}</LenisProvider>
+        </ScrollInitProvider>
       </body>
     </html>
   );

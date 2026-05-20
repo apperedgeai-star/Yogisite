@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { bindFirstInteractionAudio } from "@/lib/audio";
 import { refreshScrollTriggerAfterFonts } from "@/lib/scroll-trigger-refresh";
 import { useMagneticElements } from "@/lib/useMagneticElements";
+import { useScrollInit } from "@/providers/ScrollInitProvider";
 import Preloader from "@/components/preloader/Preloader";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
@@ -36,8 +37,14 @@ const Footer = dynamic(() => import("@/components/sections/Footer"));
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
+  const { markScrollReady } = useScrollInit();
 
   useMagneticElements(!loading);
+
+  const handlePreloaderComplete = () => {
+    markScrollReady();
+    setLoading(false);
+  };
 
   useEffect(() => {
     return bindFirstInteractionAudio();
@@ -50,7 +57,7 @@ export default function HomePage() {
 
   return (
     <>
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      {loading && <Preloader onComplete={handlePreloaderComplete} />}
       {!loading && <SceneCanvas />}
       {!loading && <Cursor />}
       {!loading && <SoundToggle variant="dock" />}

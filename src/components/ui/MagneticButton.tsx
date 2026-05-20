@@ -21,7 +21,7 @@ export function MagneticButton({
   dataCursor,
 }: MagneticButtonProps) {
   const base = cn(
-    "magnetic hoverable interactive tap-target inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full px-8 py-4 font-satoshi text-sm font-medium tracking-wide transition-colors duration-300",
+    "type-button magnetic hoverable interactive tap-target inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full px-8 py-4 transition-colors duration-300",
     variant === "filled"
       ? "border border-transparent bg-gold-300 text-void hover:bg-gold-200"
       : "border border-[var(--border-visible)] text-primary hover:border-gold-300 hover:text-gold-300",

@@ -7,6 +7,7 @@ import { ASSETS } from "@/lib/assets";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { prefersReducedMotion } from "@/lib/utils";
 import { SITE } from "@/lib/site";
+import { SCROLL_SCRUB_MIN } from "@/lib/gsap-config";
 import { useGsapReady } from "@/providers/LenisProvider";
 
 const HEADLINE_LINES = ["We make", "founders", "famous."];
@@ -15,8 +16,13 @@ const SUB_LINES = [
   "But they're more visible.",
   "The gap is distribution. We close it.",
 ];
-const LINE_DELAYS = [0.25, 0.38, 0.51];
-const LINE_EASE = [0.76, 0, 0.24, 1] as const;
+const PROOF_LINE =
+  "Vision11 · Starbucks · Rapido · 50M+ views delivered";
+
+const REVEAL_Y = 24;
+const REVEAL_DURATION = 0.65;
+const REVEAL_EASE = [0.25, 0.1, 0.25, 1] as const;
+const STAGGER = 0.12;
 
 type HeroProps = {
   ready?: boolean;
@@ -42,11 +48,11 @@ export default function Hero({ ready = false }: HeroProps) {
           trigger: heroRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1,
+          scrub: SCROLL_SCRUB_MIN,
         },
       })
         .to(headlineRef.current, {
-          scale: 1.08,
+          scale: 1.04,
           opacity: 0,
           ease: "none",
         })
@@ -56,92 +62,66 @@ export default function Hero({ ready = false }: HeroProps) {
     gsapReady && ready
   );
 
+  const fade = (delay: number) => ({
+    initial: false as const,
+    animate: show ? { y: 0, opacity: 1 } : { y: REVEAL_Y, opacity: 0 },
+    transition: {
+      duration: reduced ? 0 : REVEAL_DURATION,
+      delay: reduced ? 0 : animate ? delay : 0,
+      ease: REVEAL_EASE,
+    },
+  });
+
   return (
-    <section
-      ref={heroRef}
-      id="hero"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pb-28 pt-[max(5.5rem,env(safe-area-inset-top))] md:pb-28 md:pt-28"
-      style={{ paddingInline: 20 }}
-    >
-      {/* Mobile — CSS ambient only (no portrait / WebGL) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] md:hidden"
+    <section ref={heroRef} id="hero" className="hero-section">
+      <motion.div
+        className="hero-bg-fallback pointer-events-none absolute inset-0 z-[1]"
         aria-hidden
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 20% 20%, rgba(212, 168, 67, 0.06) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212, 168, 67, 0.04) 0%, transparent 60%),
-            var(--void)
-          `,
-        }}
+        initial={false}
+        animate={{ opacity: show ? 1 : 0 }}
+        transition={{ duration: reduced ? 0 : 1.2 }}
       />
 
-      {/* Desktop — portrait + ambient */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] hidden overflow-hidden md:block"
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-[2] overflow-hidden"
         aria-hidden
+        initial={false}
+        animate={{ opacity: show ? 1 : 0 }}
+        transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 0.1 }}
       >
         <Image
-          src={ASSETS.portrait}
+          src={ASSETS.heroAmbient}
           alt=""
           fill
           priority
-          className="object-cover object-[75%_25%] opacity-[0.28]"
-          sizes="50vw"
+          className="object-cover object-center"
+          sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse 55% 45% at 75% 35%, rgba(212, 168, 67, 0.06) 0%, transparent 55%),
-              linear-gradient(105deg, var(--void) 0%, transparent 48%, rgba(3, 3, 3, 0.4) 100%)
-            `,
-          }}
-        />
-      </div>
-
-      <div
-        className="pointer-events-none absolute inset-0 z-[2]"
-        aria-hidden
-        style={{
-          background: `
-            linear-gradient(90deg, var(--void) 0%, var(--void) 42%, transparent 72%),
-            radial-gradient(ellipse 70% 80% at 50% 50%,
-              rgba(3, 3, 3, 0.15) 0%,
-              rgba(3, 3, 3, 0.75) 70%,
-              rgba(3, 3, 3, 0.98) 100%)
-          `,
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-5xl">
-        <motion.p
-          className="mb-6 font-satoshi uppercase"
-          style={{
-            fontSize: "var(--f-xs)",
-            letterSpacing: "0.45em",
-            color: "var(--g300)",
-          }}
+        <motion.div
+          className="hero-image-scrim absolute inset-0"
           initial={false}
-          animate={show ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-          transition={{
-            duration: reduced ? 0 : 0.7,
-            delay: reduced ? 0 : animate ? 0.1 : 0,
-          }}
-        >
-          Personal Branding & Distribution
-        </motion.p>
+          animate={{ opacity: show ? 1 : 0 }}
+          transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 0.2 }}
+        />
+      </motion.div>
 
-        <h1
-          ref={headlineRef}
-          className="font-editorial font-normal"
-          style={{
-            fontSize: "clamp(58px, 11vw, 140px)",
-            lineHeight: 0.9,
-            color: "var(--t1)",
-            transformOrigin: "left center",
-          }}
-        >
+      <div className="hero-grain pointer-events-none absolute inset-0 z-[3]" aria-hidden />
+      <motion.div
+        className="hero-glow pointer-events-none absolute inset-0 z-[4]"
+        aria-hidden
+        initial={false}
+        animate={{ opacity: show ? 1 : 0 }}
+        transition={{ duration: reduced ? 0 : 1.6, delay: reduced ? 0 : 0.3 }}
+      />
+      <div className="hero-vignette pointer-events-none absolute inset-0 z-[5]" aria-hidden />
+
+      <motion.div
+        className="relative z-10 w-full max-w-3xl md:max-w-4xl"
+        {...fade(0)}
+      >
+        <p className="hero-eyebrow mb-6">Personal Branding & Distribution</p>
+
+        <h1 ref={headlineRef} className="hero-headline">
           {HEADLINE_LINES.map((line, i) => (
             <span key={line} className="block overflow-hidden py-0.5">
               <motion.span
@@ -149,9 +129,9 @@ export default function Hero({ ready = false }: HeroProps) {
                 initial={false}
                 animate={show ? { y: "0%" } : { y: "100%" }}
                 transition={{
-                  duration: reduced ? 0 : 0.85,
-                  delay: reduced ? 0 : animate ? LINE_DELAYS[i] : 0,
-                  ease: LINE_EASE,
+                  duration: reduced ? 0 : REVEAL_DURATION,
+                  delay: reduced ? 0 : animate ? i * STAGGER : 0,
+                  ease: REVEAL_EASE,
                 }}
               >
                 {line}
@@ -162,86 +142,63 @@ export default function Hero({ ready = false }: HeroProps) {
 
         <motion.div
           ref={subtextRef}
-          className="mt-6 max-w-md space-y-1"
-          initial={false}
-          animate={show ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
-          transition={{
-            duration: reduced ? 0 : 0.7,
-            delay: reduced ? 0 : animate ? 0.68 : 0,
-          }}
+          className="mt-after-headline max-w-md space-y-1"
+          {...fade(STAGGER * 3)}
         >
           {SUB_LINES.map((line) => (
-            <p
-              key={line}
-              className="block font-satoshi"
-              style={{
-                fontSize: "var(--f-base)",
-                color: "var(--t2)",
-                lineHeight: 1.5,
-              }}
-            >
+            <p key={line} className="hero-subtext">
               {line}
             </p>
           ))}
         </motion.div>
 
         <motion.div
-          className="mt-10 flex w-full max-w-md flex-col gap-4 md:max-w-none md:flex-row md:items-center"
-          initial={false}
-          animate={show ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
-          transition={{
-            duration: reduced ? 0 : 0.7,
-            delay: reduced ? 0 : animate ? 0.85 : 0,
-          }}
+          className="mt-before-cta flex w-full max-w-md flex-col gap-4 sm:flex-row sm:items-center"
+          {...fade(STAGGER * 4)}
         >
           <a
             href={SITE.booking}
             target="_blank"
             rel="noopener noreferrer"
-            className="magnetic hoverable tap-target flex min-h-[48px] w-full items-center justify-center rounded-full px-8 py-4 font-satoshi font-semibold tracking-wide transition-[transform,background-color] duration-300 active:scale-[0.98] md:w-auto md:hover:scale-[1.02]"
-            style={{
-              fontSize: 13,
-              background: SITE.gold,
-              color: "#000000",
-            }}
+            className="hero-cta-primary magnetic hoverable tap-target w-full cursor-pointer sm:w-auto"
           >
             Claim Your Spot →
           </a>
           <a
             href="#how-it-works"
-            className="hoverable tap-target flex min-h-[44px] w-full items-center justify-center font-satoshi font-medium underline underline-offset-4 transition-colors md:w-auto md:rounded-full md:border md:px-8 md:py-4 md:font-semibold md:no-underline"
-            style={{
-              fontSize: 13,
-              color: "var(--t2)",
-            }}
+            className="hero-cta-secondary hoverable tap-target min-h-[44px] w-full cursor-pointer sm:w-auto"
           >
             Watch How It Works
           </a>
         </motion.div>
-      </div>
+
+        <motion.hr
+          className="hero-divider mt-10 hidden md:mt-12 md:block"
+          aria-hidden
+          {...fade(STAGGER * 5)}
+        />
+
+        <motion.p
+          className="hero-proof mt-6 hidden md:mt-8 md:block"
+          {...fade(STAGGER * 5 + 0.04)}
+        >
+          {PROOF_LINE}
+        </motion.p>
+      </motion.div>
 
       <motion.div
-        className="absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 md:bottom-10"
+        className="absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-5 z-10 flex flex-col items-start gap-2 md:left-[clamp(8vw,10vw,12vw)] md:bottom-10"
         initial={false}
         animate={{ opacity: show ? 1 : 0 }}
         transition={{
-          duration: reduced ? 0 : 0.6,
-          delay: reduced ? 0 : animate ? 1.3 : 0,
+          duration: reduced ? 0 : REVEAL_DURATION,
+          delay: reduced ? 0 : animate ? STAGGER * 6 : 0,
+          ease: REVEAL_EASE,
         }}
       >
-        <span
-          className="font-satoshi uppercase"
-          style={{
-            fontSize: "var(--f-xs)",
-            letterSpacing: "0.4em",
-            color: "var(--t3)",
-          }}
-        >
-          Scroll
-        </span>
-        <span className="hero-scroll-line block h-12 w-px origin-top bg-[var(--g300)]/50" />
+        <span className="hero-scroll-label">Scroll</span>
+        <span className="hero-scroll-line" aria-hidden />
       </motion.div>
     </section>
   );
 }
-

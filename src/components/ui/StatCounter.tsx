@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { animateNumber } from "@/lib/animate-number";
+import { animateNumber, easePower3Out } from "@/lib/animate-number";
 import { prefersReducedMotion } from "@/lib/utils";
 
 type StatCounterProps = {
@@ -56,8 +56,8 @@ export function StatCounter({
       ref={ref}
       className="flex flex-col items-center px-4 py-6 text-center md:items-start md:px-8 md:py-0 md:text-left"
     >
-      <p className="stat-number">{display}</p>
-      <p className="stat-label">{label}</p>
+      <p className="problem-stat-number">{display}</p>
+      <p className="problem-stat-label">{label}</p>
     </div>
   );
 }

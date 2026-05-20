@@ -110,22 +110,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       role="presentation"
     >
       <div className="pointer-events-none absolute inset-0 z-[5] flex flex-col items-center justify-center">
-        <p
-          className="font-editorial text-gold-300"
-          style={{
-            fontSize: 12,
-            letterSpacing: "0.5em",
-          }}
-        >
-          RM18
-        </p>
+        <p className="type-label text-gold-300">RM18</p>
 
         <p
-          className="stat-number mt-8 text-primary transition-opacity duration-300"
-          style={{
-            fontSize: "clamp(60px, 8vw, 100px)",
-            opacity: showCounter ? 1 : 0,
-          }}
+          className="type-preloader-count mt-8 text-primary transition-opacity duration-300"
+          style={{ opacity: showCounter ? 1 : 0 }}
           aria-live="polite"
         >
           {String(count).padStart(2, "0")}

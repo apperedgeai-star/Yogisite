@@ -8,27 +8,23 @@ const STEPS = [
   {
     num: "01",
     title: "Watch the VSL",
-    body: "A detailed video on WhatsApp explaining our model. No fluff. No sales theatrics. Just the system.",
-    icon: "▶",
+    body: "A straight walkthrough on WhatsApp — how we distribute, what you commit, and what we deliver. No pitch theatre.",
   },
   {
     num: "02",
     title: "Book Discovery Call",
-    body: "25 minutes with Yogii Kumar. We build a dedicated authority plan for your specific niche and market.",
+    body: "25 minutes with Yogii Kumar. We map your niche, your offer, and a distribution plan built for your market.",
     link: SITE.booking,
-    icon: "◎",
   },
   {
     num: "03",
     title: "Pay ₹5,000 Token",
-    body: "Secures your spot. Only 5 clients at a time. Fully adjusted against your first month's invoice.",
-    icon: "◆",
+    body: "Reserves your slot. Five clients max at a time. Credited fully against month one.",
   },
   {
     num: "04",
     title: "We Build Authority",
-    body: "Onboarding in Week 1. Content live in Week 2. Your only job: one batch shoot and one strategy call per month.",
-    icon: "⬆",
+    body: "Onboarding week one. Content live week two. Your time: one batch shoot and one strategy call per month.",
   },
 ] as const;
 
@@ -125,21 +121,10 @@ export default function HowItWorks() {
       id="how-it-works"
       className="section-padding relative z-content bg-[var(--deep)]"
     >
-      <div className="mx-auto max-w-2xl text-center">
-        <h2
-          className="font-editorial font-normal"
-          style={{
-            fontSize: "var(--f-2xl)",
-            color: "var(--t1)",
-            lineHeight: 1.05,
-          }}
-        >
-          Simple. Ruthlessly efficient.
-        </h2>
-        <p
-          className="mt-4 font-satoshi"
-          style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
-        >
+      <div className="section-intro mx-auto max-w-2xl">
+        <p className="type-label mb-4">How It Works</p>
+        <h2 className="type-section">Simple. Ruthlessly efficient.</h2>
+        <p className="type-body mt-after-headline">
           Requires only 4–5 hours of your time per month.
         </p>
       </div>
@@ -191,31 +176,11 @@ export default function HowItWorks() {
                     i <= activeThrough ? "opacity-100" : "opacity-40"
                   )}
                 >
-                  <div className="mb-3 flex items-center gap-3">
-                    <span
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--b1)] font-satoshi text-sm text-[var(--g300)]"
-                      aria-hidden
-                    >
-                      {step.icon}
-                    </span>
-                    <span className="step-number">{step.num}</span>
-                  </div>
+                  <span className="step-number mb-3 block">{step.num}</span>
 
-                  <h3
-                    className="font-editorial font-normal"
-                    style={{
-                      fontSize: "var(--f-lg)",
-                      color: "var(--t1)",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    {step.title}
-                  </h3>
+                  <h3 className="type-subhead">{step.title}</h3>
 
-                  <p
-                    className="mt-3 font-satoshi leading-relaxed"
-                    style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
-                  >
+                  <p className="type-body mt-3">
                     {step.body}
                   </p>
 
@@ -224,11 +189,8 @@ export default function HowItWorks() {
                       href={step.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hoverable mt-3 inline-block font-satoshi transition-colors hover:text-[var(--g300)]"
-                      style={{
-                        fontSize: "var(--f-sm)",
-                        color: "var(--g300)",
-                      }}
+                      className="type-caption hoverable mt-3 inline-block transition-colors hover:text-[var(--g300)]"
+                      style={{ color: "var(--g300)" }}
                     >
                       {SITE.booking.replace("https://", "")}
                     </a>

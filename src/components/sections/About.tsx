@@ -5,16 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ASSETS } from "@/lib/assets";
 
-const BODY_COPY = `COO and CMO at two startups simultaneously.
-Secured ₹2 crore in funding for Festum Evento.
-Established a UAE entity from scratch.
-Built an AI SaaS prototype valued at $1M+ pre-launch.`;
-
 const CREDENTIAL_PILLS = [
   "₹2 Cr Raised",
-  "UAE Entity",
+  "UAE Entity Built",
   "$1M+ SaaS",
-  "35% Scholarship Declined",
+  "Scholarship Declined",
 ];
 
 export default function About() {
@@ -23,7 +18,7 @@ export default function About() {
     target: portraitRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
   const [parallax, setParallax] = useState(false);
 
   useEffect(() => {
@@ -35,79 +30,51 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="section-padding relative z-content bg-[var(--void)]">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-        {/* Left — copy (below portrait on mobile) */}
-        <div className="order-2 lg:order-1 lg:pr-4">
-          <p
-            className="font-satoshi uppercase"
-            style={{
-              fontSize: "var(--f-xs)",
-              letterSpacing: "0.45em",
-              color: "var(--g300)",
-            }}
-          >
-            The Founder
-          </p>
+    <section
+      id="about"
+      className="section-padding relative z-content overflow-hidden bg-[var(--void)]"
+    >
+      <div className="relative z-[1] mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] lg:items-start lg:gap-16">
+        <div className="order-2 lg:order-1 lg:pr-6">
+          <p className="about-founder-label">The Founder</p>
 
-          <h2
-            className="mt-6 whitespace-pre-line font-editorial font-normal"
-            style={{
-              fontSize: "var(--f-3xl)",
-              lineHeight: 0.88,
-              color: "var(--t1)",
-            }}
-          >
+          <h2 className="about-founder-headline mt-6 whitespace-pre-line">
             {"Execution\nover\neverything."}
           </h2>
 
-          <p
-            className="mt-8 whitespace-pre-line font-satoshi leading-relaxed"
-            style={{
-              fontSize: "var(--f-base)",
-              color: "var(--t2)",
-            }}
-          >
-            {BODY_COPY}
+          <p className="about-body mt-8">
+            Before founding Recun Marketing 18, Yogii Kumar was COO and CMO at
+            two startups simultaneously. He secured ₹2 crore in funding for
+            Festum Evento and built a UAE entity from the ground up.
           </p>
 
-          <blockquote
-            className="mx-auto mt-8 max-w-md border-0 px-2 text-center font-editorial italic lg:mx-0 lg:max-w-none lg:border-l-2 lg:pl-5 lg:text-left"
-            style={{
-              borderColor: "var(--g300)",
-              fontSize: "clamp(22px, 5vw, var(--f-md))",
-              color: "var(--g200)",
-              lineHeight: 1.25,
-            }}
-          >
-            &ldquo;I chose execution over education.&rdquo;
+          <p className="about-body mt-6">
+            He built an AI SaaS prototype valued at over $1 million before its
+            public launch. Then walked away from it to focus on one thing:
+            building authority for founders who deserve to be seen.
+          </p>
+
+          <blockquote className="about-pull mt-8">
+            Master&apos;s Union selected me. Offered their highest-ever
+            scholarship. I declined. I chose execution over education.
           </blockquote>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap gap-2">
             {CREDENTIAL_PILLS.map((pill) => (
-              <span
-                key={pill}
-                className="rounded-full border px-4 py-1.5 font-satoshi tracking-wide"
-                style={{
-                  fontSize: "var(--f-xs)",
-                  borderColor: "var(--b-gold)",
-                  color: "var(--g300)",
-                }}
-              >
+              <span key={pill} className="about-pill">
                 {pill}
               </span>
             ))}
           </div>
         </div>
 
-        {/* Right — portrait (first on mobile) */}
-        <div
+        <motion.div
           ref={portraitRef}
           className="relative order-1 lg:order-2 lg:sticky lg:top-28"
         >
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm lg:aspect-auto lg:h-[700px]">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm lg:aspect-auto lg:h-[min(85vh,720px)]">
             <motion.div
-              className="absolute inset-0 h-full w-full lg:h-[110%] lg:-top-[5%]"
+              className="absolute inset-0 h-full w-full lg:h-[106%] lg:-top-[3%]"
               style={{ y: parallax ? imageY : 0 }}
             >
               <Image
@@ -117,7 +84,7 @@ export default function About() {
                 priority={false}
                 loading="lazy"
                 className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 45vw"
               />
             </motion.div>
 
@@ -125,26 +92,13 @@ export default function About() {
               className="pointer-events-none absolute inset-0 z-[1]"
               style={{
                 background:
-                  "linear-gradient(to bottom, transparent 55%, var(--void) 100%)",
+                  "linear-gradient(to top, #030303 0%, transparent 40%)",
               }}
               aria-hidden
             />
-
-            <span
-              className="pointer-events-none absolute right-2 top-1/2 z-[2] origin-center -translate-y-1/2 rotate-[-90deg] font-satoshi uppercase"
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.35em",
-                color: "var(--t4)",
-              }}
-              aria-hidden
-            >
-              ©YK
-            </span>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
-

@@ -2,6 +2,9 @@ export function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - t, 3);
 }
 
+/** GSAP power3.out equivalent */
+export const easePower3Out = easeOutCubic;
+
 type AnimateNumberOptions = {
   from?: number;
   to: number;

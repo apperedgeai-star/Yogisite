@@ -1,10 +1,7 @@
-import Image from "next/image";
 import { ASSETS } from "@/lib/assets";
 
-const STAR = (
-  <span className="marquee-star shrink-0" aria-hidden>
-    ★
-  </span>
+const DIVIDER = (
+  <span className="marquee-divider shrink-0" aria-hidden />
 );
 
 export type MarqueeItem =
@@ -14,20 +11,17 @@ export type MarqueeItem =
 export const DEFAULT_MARQUEE_ITEMS: MarqueeItem[] = [
   { kind: "logo", src: ASSETS.clients.vision11, alt: "Vision11" },
   { kind: "text", label: "50M+ Views" },
-  { kind: "logo", src: ASSETS.clients.starbucks, alt: "Starbucks" },
-  { kind: "text", label: "Global Campaigns" },
+  { kind: "logo", src: ASSETS.clients.starbucks, alt: "Starbucks India" },
+  { kind: "text", label: "3+ National Brands" },
   { kind: "logo", src: ASSETS.clients.rapido, alt: "Rapido" },
-  { kind: "text", label: "Platform Content" },
   { kind: "text", label: "10+ A-List Creators" },
-  { kind: "text", label: "3 National Brands" },
-  { kind: "text", label: "₹2L/Month" },
-  { kind: "text", label: "50K Followers Guaranteed" },
+  { kind: "text", label: "Global Campaigns" },
+  { kind: "text", label: "Platform Content" },
 ];
 
 type MarqueeProps = {
   items?: MarqueeItem[];
   className?: string;
-  heightClass?: string;
 };
 
 function MarqueeTrack({
@@ -44,26 +38,23 @@ function MarqueeTrack({
     >
       {items.map((item, i) => (
         <span key={`${item.kind}-${i}`} className="flex shrink-0 items-center">
-          {i > 0 && STAR}
+          {i > 0 && DIVIDER}
           {item.kind === "logo" ? (
-            <span className="relative mx-3 inline-flex h-6 w-20 shrink-0 overflow-hidden md:h-7 md:w-24">
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                loading="lazy"
-                className="object-contain object-center opacity-80"
-                sizes="96px"
-              />
-            </span>
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.src}
+              alt={item.alt}
+              width={96}
+              height={24}
+              className="marquee-logo mx-4"
+              loading="lazy"
+            />
           ) : (
-            <span className="marquee-proof-text whitespace-nowrap px-1 font-satoshi uppercase">
-              {item.label}
-            </span>
+            <span className="marquee-proof-text px-3">{item.label}</span>
           )}
         </span>
       ))}
-      {STAR}
+      {DIVIDER}
     </div>
   );
 }
@@ -72,16 +63,16 @@ function MarqueeTrack({
 export function Marquee({
   items = DEFAULT_MARQUEE_ITEMS,
   className = "",
-  heightClass = "h-12",
 }: MarqueeProps) {
   return (
     <div
-      className={`marquee-proof-viewport flex ${heightClass} items-center overflow-hidden ${className}`}
+      className={`marquee-proof-viewport marquee-proof-bar flex items-center overflow-hidden ${className}`}
     >
-      <div className="marquee-proof-inner flex w-max">
+      <div className="marquee-proof-inner flex w-max items-center">
         <MarqueeTrack items={items} />
         <MarqueeTrack items={items} ariaHidden />
       </div>
     </div>
   );
 }
+

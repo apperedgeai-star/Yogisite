@@ -39,28 +39,12 @@ export default function FAQ() {
       className="section-padding relative z-content bg-[var(--deep)]"
     >
       <div className="mx-auto max-w-3xl">
-        <p
-          className="mb-4 text-center font-satoshi uppercase"
-          style={{
-            fontSize: "var(--f-xs)",
-            letterSpacing: "0.45em",
-            color: "var(--g300)",
-          }}
-        >
-          FAQ
-        </p>
-        <h2
-          className="mb-10 text-center font-editorial font-normal md:mb-14"
-          style={{
-            fontSize: "var(--f-2xl)",
-            color: "var(--t1)",
-            lineHeight: 1.05,
-          }}
-        >
+        <p className="type-label mb-4">FAQ</p>
+        <h2 className="type-section mb-10 md:mb-14">
           Straight answers.
         </h2>
 
-        <div className="space-y-3 md:space-y-4">
+        <div>
           {FAQ_ITEMS.map((item, index) => (
             <AccordionCard
               key={item.q}

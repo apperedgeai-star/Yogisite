@@ -97,19 +97,10 @@ export default function Navbar() {
             href="#"
             className="hoverable interactive flex items-center gap-3 justify-self-start"
           >
+            <span className="type-nav-brand">YK</span>
             <span
-              className="font-editorial text-gold-300"
-              style={{ fontSize: 20 }}
-            >
-              YK
-            </span>
-            <span
-              className="hidden font-satoshi uppercase lg:inline"
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.35em",
-                color: "var(--t3)",
-              }}
+              className="type-label hidden lg:inline"
+              style={{ color: "var(--t3)" }}
             >
               Recun Marketing 18
             </span>
@@ -120,8 +111,8 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="hoverable nav-link relative font-satoshi transition-colors duration-300"
-                style={{ fontSize: 13, color: "var(--t2)" }}
+                className="type-nav-link hoverable nav-link relative transition-colors duration-300"
+                style={{ color: "var(--t2)" }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = "var(--g300)";
                 }}
@@ -139,9 +130,8 @@ export default function Navbar() {
               href={SITE.booking}
               target="_blank"
               rel="noopener noreferrer"
-              className="hoverable rounded-full border px-5 py-2 font-satoshi transition-colors duration-300"
+              className="type-button hoverable rounded-full border px-5 py-2 transition-colors duration-300"
               style={{
-                fontSize: 12,
                 borderColor: "var(--g-border)",
                 color: "var(--t1)",
               }}

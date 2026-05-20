@@ -7,8 +7,10 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
 import { cn, prefersReducedMotion } from "@/lib/utils";
 
@@ -64,7 +66,7 @@ function BentoCell({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-sm border bg-[var(--surface)] p-6 md:p-8",
+        "card-padding relative overflow-hidden rounded-sm border bg-[var(--surface)]",
         className
       )}
       style={{ borderColor: "var(--b1)", ...style }}
@@ -79,6 +81,41 @@ function GhostNumber({ children }: { children: string }) {
     <span className="ghost-number right-4 top-4 md:right-6 md:top-6" aria-hidden>
       {children}
     </span>
+  );
+}
+
+function ServiceVisual({
+  src,
+  alt,
+  position = "center",
+}: {
+  src: string;
+  alt: string;
+  position?: string;
+}) {
+  return (
+    <div
+      className="relative mb-4 aspect-[21/9] w-full overflow-hidden rounded-sm border"
+      style={{ borderColor: "var(--b1)" }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        style={{ objectPosition: position }}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        loading="lazy"
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        style={{
+          background:
+            "linear-gradient(to top, var(--surface) 0%, transparent 45%, rgba(0,0,0,0.35) 100%)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -133,20 +170,10 @@ function JourneyTimeline() {
                 transitionDelay: lineReady ? `${i * 80}ms` : "0ms",
               }}
             >
-              <p
-                className="font-satoshi uppercase"
-                style={{
-                  fontSize: "var(--f-xs)",
-                  letterSpacing: "0.25em",
-                  color: "var(--t3)",
-                }}
-              >
+              <p className="type-label" style={{ color: "var(--t3)" }}>
                 {step.months}
               </p>
-              <p
-                className="mt-1 font-satoshi"
-                style={{ fontSize: "var(--f-base)", color: "var(--t1)" }}
-              >
+              <p className="type-body-strong mt-1">
                 {step.milestone}
               </p>
             </div>
@@ -160,6 +187,13 @@ function JourneyTimeline() {
 function DragonsHeadTab() {
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="lg:col-span-2">
+        <ServiceVisual
+          src={ASSETS.services.dragon}
+          alt="Dragon's Head — personal branding and distribution system"
+          position="center 35%"
+        />
+      </div>
       <BentoCell className="lg:col-span-2">
         <GhostNumber>01</GhostNumber>
         <div className="relative z-[1] flex flex-wrap gap-3">
@@ -167,16 +201,8 @@ function DragonsHeadTab() {
           <span className="badge-red">Only 5 Spots</span>
         </div>
         <header className="relative z-[1] mt-6 max-w-2xl">
-          <h3
-            className="font-editorial font-normal"
-            style={{ fontSize: "var(--f-3xl)", color: "var(--t1)", lineHeight: 1.05 }}
-          >
-            Dragon&apos;s Head
-          </h3>
-          <p
-            className="mt-3 font-satoshi"
-            style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
-          >
+          <h3 className="type-section mt-0">Dragon&apos;s Head</h3>
+          <p className="type-body mt-3">
             Personal Branding & Content Distribution System
           </p>
         </header>
@@ -257,7 +283,7 @@ function DragonsHeadTab() {
           <div className="flex flex-col items-start gap-3 lg:items-end">
             <MagneticButton
               href={SITE.booking}
-              className="!bg-[var(--g300)] !text-black hover:!bg-[var(--g200)]"
+              className="!bg-[var(--g300)] !text-[#030303] hover:!bg-[var(--g200)]"
             >
               Secure Your Spot →
             </MagneticButton>
@@ -277,19 +303,16 @@ function DragonsHeadTab() {
 function JupiterNodeTab() {
   return (
     <div className="grid grid-cols-1 gap-4">
+      <ServiceVisual
+        src={ASSETS.services.jupiter}
+        alt="Jupiter Node — result-driven campaign system"
+        position="center 40%"
+      />
       <BentoCell>
         <GhostNumber>02</GhostNumber>
         <header className="relative z-[1] max-w-2xl">
-          <h3
-            className="font-editorial font-normal"
-            style={{ fontSize: "var(--f-3xl)", color: "var(--t1)", lineHeight: 1.05 }}
-          >
-            Jupiter Node
-          </h3>
-          <p
-            className="mt-3 font-satoshi"
-            style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
-          >
+          <h3 className="type-section mt-0">Jupiter Node</h3>
+          <p className="type-body mt-3">
             Result-Driven Campaign. Clear Finish Line.
           </p>
         </header>
@@ -297,21 +320,14 @@ function JupiterNodeTab() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {JUPITER_METRICS.map((m) => (
-          <BentoCell key={m.label} className="text-center">
+          <BentoCell key={m.label}>
             <p
               className="metric-number"
               style={{ fontSize: "var(--f-xl)" }}
             >
               {m.value}
             </p>
-            <p
-              className="mt-3 font-satoshi uppercase"
-              style={{
-                fontSize: "var(--f-xs)",
-                letterSpacing: "0.25em",
-                color: "var(--t3)",
-              }}
-            >
+            <p className="type-label mt-3" style={{ color: "var(--t3)" }}>
               {m.label}
             </p>
           </BentoCell>
@@ -319,7 +335,7 @@ function JupiterNodeTab() {
       </div>
 
       <BentoCell>
-        <ul className="space-y-2.5 font-satoshi" style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}>
+        <ul className="type-body space-y-2.5">
           {JUPITER_INCLUSIONS.map((item) => (
             <li key={item} className="flex gap-2">
               <span className="text-[var(--g300)]" aria-hidden>
@@ -335,17 +351,12 @@ function JupiterNodeTab() {
         className="border-[var(--b-gold)]"
         style={{ background: "var(--glass)", borderColor: "var(--b-gold)" }}
       >
-        <p className="font-satoshi" style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}>
+        <p className="type-body">
           <span className="text-[var(--g300)]">Add-On:</span> Influencer Outreach
           for 15 Creators —{" "}
           <span className="price-number">+₹20,000</span>
         </p>
-        <p
-          className="mt-2 font-satoshi"
-          style={{ fontSize: "var(--f-sm)", color: "var(--t3)" }}
-        >
-          Or brand handles outreach for free
-        </p>
+        <p className="type-caption mt-2">Or brand handles outreach for free</p>
       </BentoCell>
 
       <BentoCell>
@@ -384,25 +395,9 @@ export default function Services() {
       id="services"
       className="section-padding relative z-content bg-[var(--surface)]"
     >
-      <header className="mx-auto mb-10 max-w-7xl text-center md:mb-12">
-        <p
-          className="mb-4 font-satoshi uppercase"
-          style={{
-            fontSize: "var(--f-xs)",
-            letterSpacing: "0.45em",
-            color: "var(--g300)",
-          }}
-        >
-          Services
-        </p>
-        <h2
-          className="font-editorial font-normal whitespace-pre-line"
-          style={{
-            fontSize: "var(--f-2xl)",
-            color: "var(--t1)",
-            lineHeight: 1.05,
-          }}
-        >
+      <header className="section-intro mx-auto mb-10 max-w-7xl md:mb-12">
+        <p className="type-label mb-4">Services</p>
+        <h2 className="type-section whitespace-pre-line">
           {"Two systems.\nOne goal."}
         </h2>
       </header>
@@ -432,14 +427,9 @@ export default function Services() {
                   aria-controls={`panel-${tab.id}`}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "tab-label tap-target flex min-h-[48px] items-center justify-center py-3 transition-[color,border-color] duration-300",
-                    "border-b-2"
+                    "services-tab tap-target w-full cursor-pointer",
+                    selected && "services-tab--active"
                   )}
-                  style={{
-                    fontSize: "var(--f-sm)",
-                    borderBottomColor: selected ? "var(--g300)" : "transparent",
-                    color: selected ? "var(--g300)" : "var(--t3)",
-                  }}
                   onMouseEnter={(e) => {
                     if (!selected) e.currentTarget.style.color = "var(--t2)";
                   }}
@@ -456,7 +446,7 @@ export default function Services() {
 
         <div className="pt-8">
           <AnimatePresence mode="wait">
-            <motion.div
+            <div
               key={activeTab}
               role="tabpanel"
               id={`panel-${activeTab}`}
@@ -468,7 +458,7 @@ export default function Services() {
               ) : (
                 <JupiterNodeTab />
               )}
-            </motion.div>
+            </div>
           </AnimatePresence>
         </div>
       </div>

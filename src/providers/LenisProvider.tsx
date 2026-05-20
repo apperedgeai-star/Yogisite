@@ -17,6 +17,7 @@ import {
   LENIS_TOUCH_MULTIPLIER,
 } from "@/lib/lenis-config";
 import { refreshScrollTriggerAfterFonts } from "@/lib/scroll-trigger-refresh";
+import { useScrollInit } from "@/providers/ScrollInitProvider";
 import type { gsap as GsapCore } from "gsap";
 
 type SmoothScrollContextValue = {
@@ -46,6 +47,7 @@ export function useGsapReady() {
 }
 
 export function LenisProvider({ children }: { children: ReactNode }) {
+  const { scrollReady } = useScrollInit();
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const [gsapReady, setGsapReady] = useState(false);
   const scrollVelocity = useRef(0);
@@ -53,6 +55,8 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   const gsapRef = useRef<typeof GsapCore | null>(null);
 
   useEffect(() => {
+    if (!scrollReady) return;
+
     let lenisInstance: Lenis | null = null;
     let raf: ((time: number) => void) | null = null;
     let cancelled = false;
@@ -106,7 +110,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       setGsapReady(false);
       window.__scrollVelocity = 0;
     };
-  }, []);
+  }, [scrollReady]);
 
   return (
     <SmoothScrollContext.Provider

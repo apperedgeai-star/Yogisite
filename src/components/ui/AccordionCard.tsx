@@ -1,8 +1,9 @@
 ﻿"use client";
 
-import { cn } from "@/lib/utils";
-
-const OPEN_SHADOW = "0 0 0 1px var(--g300)";
+import { useEffect, useRef } from "react";
+import { cn, prefersReducedMotion } from "@/lib/utils";
+import { loadGsap } from "@/lib/gsap-loader";
+import type { GsapContextHandle } from "@/lib/gsap-scope";
 
 type AccordionCardProps = {
   question: string;
@@ -17,36 +18,78 @@ export function AccordionCard({
   open,
   onToggle,
 }: AccordionCardProps) {
+  const itemRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const body = bodyRef.current;
+    const inner = innerRef.current;
+    const root = itemRef.current;
+    if (!body || !inner || !root) return;
+
+    if (prefersReducedMotion()) {
+      body.style.height = open ? "auto" : "0px";
+      body.style.opacity = open ? "1" : "0";
+      return;
+    }
+
+    let cancelled = false;
+    let ctx: GsapContextHandle | undefined;
+
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+
+      ctx = gsap.context(() => {
+        if (open) {
+          gsap.set(body, { height: "auto", opacity: 0 });
+          const h = inner.offsetHeight;
+          gsap.fromTo(
+            body,
+            { height: 0, opacity: 0 },
+            {
+              height: h,
+              opacity: 1,
+              duration: 0.45,
+              ease: "power3.out",
+              onComplete: () => {
+                gsap.set(body, { height: "auto" });
+              },
+            }
+          );
+        } else {
+          const h = body.offsetHeight;
+          gsap.fromTo(
+            body,
+            { height: h, opacity: 1 },
+            {
+              height: 0,
+              opacity: 0,
+              duration: 0.35,
+              ease: "power3.inOut",
+            }
+          );
+        }
+      }, root) as GsapContextHandle;
+    });
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, [open]);
+
   return (
-    <div
-      className={cn(
-        "accordion-card rounded-sm border bg-[var(--card)] transition-[border-color,box-shadow] duration-300",
-        open && "border-[var(--g300)]"
-      )}
-      style={{
-        borderColor: open ? "var(--g300)" : "var(--b1)",
-        boxShadow: open ? OPEN_SHADOW : "0 0 0 0px transparent",
-      }}
-    >
+    <div ref={itemRef} className={cn("faq-item", open && "faq-item--open")}>
       <button
         type="button"
-        className="tap-target hoverable flex min-h-[44px] w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-6"
+        className="tap-target hoverable flex w-full cursor-pointer items-start justify-between gap-6 text-left"
         onClick={onToggle}
         aria-expanded={open}
       >
+        <span className="faq-question">{question}</span>
         <span
-          className="font-satoshi font-medium"
-          style={{ fontSize: "var(--f-base)", color: "var(--t1)" }}
-        >
-          {question}
-        </span>
-        <span
-          className={cn(
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border font-satoshi text-lg leading-none transition-[transform,border-color,background-color,color] duration-300",
-            open
-              ? "rotate-45 border-[var(--g300)] bg-[var(--g-glow)] text-[var(--g300)]"
-              : "border-[var(--b2)] text-[var(--g300)]"
-          )}
+          className={cn("faq-toggle", open && "faq-toggle--open")}
           aria-hidden
         >
           +
@@ -54,18 +97,12 @@ export function AccordionCard({
       </button>
 
       <div
-        className={cn(
-          "grid transition-[grid-template-rows,opacity] duration-[550ms] ease-[cubic-bezier(0.76,0,0.24,1)]",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        )}
+        ref={bodyRef}
+        className="overflow-hidden"
+        style={{ height: 0, opacity: 0 }}
       >
-        <div className="overflow-hidden">
-          <div
-            className="px-6 pb-6 font-satoshi leading-relaxed md:px-8 md:pb-8"
-            style={{ fontSize: "var(--f-base)", color: "var(--t2)" }}
-          >
-            <p>{answer}</p>
-          </div>
+        <div ref={innerRef} className="faq-answer">
+          <p>{answer}</p>
         </div>
       </div>
     </div>

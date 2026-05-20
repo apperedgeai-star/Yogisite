@@ -1,17 +1,19 @@
 /**
- * Canonical public asset paths — v3 delivery.
+ * Canonical public asset paths — premium redesign.
  *
  * Section mapping:
- * - portrait → Hero (desktop bg), About
+ * - portrait, heroAmbient → Hero, About
  * - og → layout metadata / social share
  * - clients.* → MarqueeBar, ProofOfWork
- * - services.dragon | jupiter → Services tab panels (optional imagery)
+ * - services.dragon | jupiter → Services tab panels
+ * - networkShowcase → Mechanism / NetworkDiagram
  * - audio → SoundToggle ambient loop
  * - fonts.* → globals.css @font-face
  * - favicon → layout icons
  */
 export const ASSETS = {
   portrait: "/images/yogii-portrait.jpg",
+  heroAmbient: "/images/hero-ambient.jpg",
   og: "/images/og-image.jpg",
   audio: "/audio/ambient-loop.mp3",
   fonts: {
@@ -28,6 +30,5 @@ export const ASSETS = {
     jupiter: "/jupiter.webp",
   },
   favicon: "/favicon.ico",
-  /** Mechanism / distribution network diagram background */
   networkShowcase: "/soicial_platform_showcase.jpeg",
 } as const;

@@ -28,15 +28,14 @@ export default function Mechanism() {
     sectionRef,
     ({ gsap }) => {
       if (prefersReducedMotion()) return;
-      const column = sectionRef.current?.querySelector(".mechanism-panels");
+      const column = sectionRef.current?.querySelector(".mechanism-compare");
       const panels = gsap.utils.toArray<HTMLElement>(".mechanism-panel");
       if (!column || !panels.length) return;
 
-      gsap.set(panels, { opacity: 1, y: 0 });
       gsap.from(panels, {
-        y: 40,
+        y: 24,
         opacity: 0,
-        duration: 0.75,
+        duration: 0.65,
         stagger: 0.12,
         ease: "power3.out",
         scrollTrigger: {
@@ -57,33 +56,26 @@ export default function Mechanism() {
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
         <div className="lg:sticky lg:top-[22vh] lg:z-sticky lg:self-start">
-          <p className="mb-4 font-satoshi text-[11px] uppercase tracking-[0.5em] text-gold-300">
-            The Mechanism
-          </p>
-          <h2
-            className="font-editorial font-normal text-primary"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 0.95 }}
-          >
+          <p className="type-label mb-4">The Mechanism</p>
+          <h2 className="type-section text-primary">
             <span className="block">Distribution</span>
             <span className="block">is the</span>
             <span className="block text-gold-300">new king.</span>
           </h2>
-          <p className="mt-5 max-w-xs font-satoshi text-sm leading-relaxed text-muted md:text-base">
-            Everyone makes content. Nobody asks where it goes after it&apos;s
-            made.
+          <p className="type-body mt-5 max-w-xs text-muted">
+            Everyone posts. Almost no one owns distribution. That&apos;s the gap
+            we engineer closed.
           </p>
         </div>
 
-        <div className="mechanism-panels flex flex-col gap-5">
-          <article className="mechanism-panel min-h-[180px] rounded-2xl border border-red-500/35 bg-red-950/40 p-6 backdrop-blur-sm md:p-8">
-            <p className="mb-2 font-satoshi text-[10px] font-medium uppercase tracking-[0.35em] text-red-300">
-              What Others Do
-            </p>
-            <div className="mb-5 h-px w-full bg-red-400/35" />
-            <ul className="space-y-2.5 font-satoshi text-sm text-secondary">
+        <div>
+        <div className="mechanism-compare mechanism-panel">
+          <article className="mechanism-card--others">
+            <p className="type-label mb-4 text-red-300">What Others Do</p>
+            <ul>
               {OTHERS_ITEMS.map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="shrink-0 text-red-400" aria-hidden>
+                <li key={item} className="mechanism-item">
+                  <span className="mechanism-item-icon text-red-400" aria-hidden>
                     ×
                   </span>
                   {item}
@@ -92,15 +84,12 @@ export default function Mechanism() {
             </ul>
           </article>
 
-          <article className="mechanism-panel min-h-[180px] rounded-2xl border border-gold-300/35 bg-gold-500/12 p-6 backdrop-blur-sm md:p-8">
-            <p className="mb-2 font-satoshi text-[10px] font-medium uppercase tracking-[0.35em] text-gold-300">
-              What We Do
-            </p>
-            <div className="mb-5 h-px w-full bg-gold-300/35" />
-            <ul className="space-y-2.5 font-satoshi text-sm text-secondary">
+          <article className="mechanism-card--ours">
+            <p className="type-label mb-4">What We Do</p>
+            <ul>
               {OUR_ITEMS.map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="shrink-0 text-gold-300" aria-hidden>
+                <li key={item} className="mechanism-item">
+                  <span className="mechanism-item-icon text-gold-300" aria-hidden>
                     ✓
                   </span>
                   {item}
@@ -108,10 +97,11 @@ export default function Mechanism() {
               ))}
             </ul>
           </article>
+        </div>
 
-          <div className="mechanism-panel">
-            <NetworkDiagram />
-          </div>
+        <div className="mechanism-panel mt-6">
+          <NetworkDiagram />
+        </div>
         </div>
       </div>
     </section>
