@@ -67,18 +67,6 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/images/hero-ambient.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/images/yogii-portrait.jpg"
-          as="image"
-          type="image/jpeg"
-        />
       </head>
       <body className="bg-void font-satoshi text-primary antialiased">
         <ScrollInitProvider>

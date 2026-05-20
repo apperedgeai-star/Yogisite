@@ -344,6 +344,7 @@ body {
   line-height: 1.6;
   letter-spacing: 0;
   color: var(--t2);
+  overflow-wrap: anywhere;
 }
 
 .mechanism-item + .mechanism-item {
@@ -883,8 +884,6 @@ html.custom-cursor * {
   .network-solar-ring,
   .network-solar-particle,
   .network-solar-satellite-orbit,
-  .network-solar-satellite-orbit-x,
-  .network-solar-satellite-orbit-y,
   .network-solar-center-sphere {
     animation: none !important;
   }
@@ -1352,7 +1351,7 @@ html.custom-cursor * {
 .network-diagram-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 900 / 500;
   overflow: hidden;
   border-radius: 8px;
   border: 1px solid rgba(212, 168, 67, 0.2);
@@ -1365,18 +1364,15 @@ html.custom-cursor * {
     #030303;
 }
 
-.network-solar-stage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 .network-solar-svg {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+.network-solar-foreign {
+  overflow: visible;
 }
 
 .network-solar-line {
@@ -1441,16 +1437,12 @@ html.custom-cursor * {
   }
 }
 
-.network-solar-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 3;
+.network-solar-center-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;
-  transform: translate(-50%, calc(-50% - 12px));
+  width: 100%;
+  height: 100%;
 }
 
 .network-solar-center-sphere {
@@ -1481,22 +1473,14 @@ html.custom-cursor * {
   white-space: pre-line;
 }
 
-.network-solar-satellite {
-  position: absolute;
-  z-index: 2;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
 .network-solar-satellite-orbit {
-  position: absolute;
-  left: 0;
-  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translate(-50%, -22px) translate(-8px, -6px);
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding-top: 4px;
   animation: networkSatelliteFloat var(--orbit-duration-x, 8s) ease-in-out
     infinite alternate;
   animation-delay: var(--orbit-delay, 0s);
@@ -1505,13 +1489,61 @@ html.custom-cursor * {
 
 @keyframes networkSatelliteFloat {
   0% {
-    transform: translate(-50%, -22px) translate(-8px, -6px);
+    transform: translate(-6px, -5px);
   }
   50% {
-    transform: translate(-50%, -22px) translate(8px, 6px);
+    transform: translate(6px, 5px);
   }
   100% {
-    transform: translate(-50%, -22px) translate(-8px, -6px);
+    transform: translate(-6px, -5px);
+  }
+}
+
+@media (max-width: 767px) {
+  .network-solar-center-sphere {
+    width: 52px;
+    height: 52px;
+    box-shadow:
+      0 0 24px rgba(212, 168, 67, 0.7),
+      0 0 48px rgba(212, 168, 67, 0.35);
+  }
+
+  .network-solar-center-label {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+
+  .network-solar-satellite-sphere {
+    width: 26px;
+    height: 26px;
+    box-shadow: 0 0 10px rgba(212, 168, 67, 0.45);
+  }
+
+  .network-solar-satellite-icon {
+    width: 14px;
+    height: 14px;
+    margin-top: 4px;
+  }
+
+  .network-solar-satellite-label {
+    font-size: 7px;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+    max-width: 72px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  @keyframes networkSatelliteFloat {
+    0% {
+      transform: translate(-4px, -3px);
+    }
+    50% {
+      transform: translate(4px, 3px);
+    }
+    100% {
+      transform: translate(-4px, -3px);
+    }
   }
 }
 

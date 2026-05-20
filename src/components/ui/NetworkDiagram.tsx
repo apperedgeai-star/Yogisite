@@ -145,12 +145,34 @@ function lineLength(x1: number, y1: number, x2: number, y2: number) {
   return Math.hypot(x2 - x1, y2 - y1);
 }
 
-function pctX(x: number) {
-  return `${(x / VB_W) * 100}%`;
-}
+function SatelliteNode({
+  node,
+}: {
+  node: SatelliteConfig & { x: number; y: number };
+}) {
+  const Icon = node.Icon;
+  const orbitStyle = {
+    "--orbit-duration-x": `${node.orbitDuration}s`,
+    "--orbit-delay": `${node.orbitDelay}s`,
+  } as CSSProperties;
 
-function pctY(y: number) {
-  return `${(y / VB_H) * 100}%`;
+  return (
+    <g transform={`translate(${node.x} ${node.y})`}>
+      <foreignObject
+        x={-48}
+        y={-48}
+        width={96}
+        height={100}
+        className="network-solar-foreign overflow-visible"
+      >
+        <div className="network-solar-satellite-orbit" style={orbitStyle}>
+          <div className="network-solar-satellite-sphere" aria-hidden />
+          <Icon className="network-solar-satellite-icon" aria-hidden />
+          <span className="network-solar-satellite-label">{node.label}</span>
+        </div>
+      </foreignObject>
+    </g>
+  );
 }
 
 export function NetworkDiagram() {
@@ -165,98 +187,88 @@ export function NetworkDiagram() {
       role="img"
       aria-label="Animated distribution network: your main page connected to nine platform channels"
     >
-      <div className="network-solar-stage">
-        <svg
-          className="network-solar-svg"
-          viewBox={`0 0 ${VB_W} ${VB_H}`}
-          preserveAspectRatio="xMidYMid meet"
-          aria-hidden
-        >
-          {nodes.map((node) => {
-            const len = lineLength(CX, CY, node.x, node.y);
-            return (
-              <line
-                key={`line-${node.id}`}
-                x1={CX}
-                y1={CY}
-                x2={node.x}
-                y2={node.y}
-                className="network-solar-line"
-                style={
-                  {
-                    "--line-len": len,
-                    animationDelay: `${node.lineDelay}s`,
-                  } as CSSProperties
-                }
-              />
-            );
-          })}
-
-          {[0, 1, 2].map((i) => (
-            <circle
-              key={`ring-${i}`}
-              cx={CX}
-              cy={CY}
-              r={40}
-              className="network-solar-ring"
-              style={{ animationDelay: `${i}s` }}
-            />
-          ))}
-
-          {AMBIENT_PARTICLES.map((p, i) => (
-            <circle
-              key={`particle-${i}`}
-              cx={p.cx}
-              cy={p.cy}
-              r={1.5}
-              className="network-solar-particle"
+      <svg
+        className="network-solar-svg"
+        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden
+      >
+        {nodes.map((node) => {
+          const len = Math.max(lineLength(CX, CY, node.x, node.y), 48);
+          return (
+            <line
+              key={`line-${node.id}`}
+              x1={CX}
+              y1={CY}
+              x2={node.x}
+              y2={node.y}
+              className="network-solar-line"
               style={
                 {
-                  "--particle-opacity": p.opacity,
-                  animationDelay: `${p.delay}s`,
-                  animationDuration: `${p.duration}s`,
+                  "--line-len": len,
+                  animationDelay: `${node.lineDelay}s`,
                 } as CSSProperties
               }
             />
-          ))}
-        </svg>
+          );
+        })}
 
-        <div className="network-solar-center">
-          <div className="network-solar-center-sphere" aria-hidden />
-          <p className="network-solar-center-label">
-            YOUR
-            <br />
-            MAIN PAGE
-          </p>
-        </div>
+        {[0, 1, 2].map((i) => (
+          <circle
+            key={`ring-${i}`}
+            cx={CX}
+            cy={CY}
+            r={40}
+            className="network-solar-ring"
+            style={{ animationDelay: `${i}s` }}
+          />
+        ))}
 
-        {nodes.map((node) => (
-          <div
-            key={node.id}
-            className="network-solar-satellite"
+        {AMBIENT_PARTICLES.map((p, i) => (
+          <circle
+            key={`particle-${i}`}
+            cx={p.cx}
+            cy={p.cy}
+            r={1.5}
+            className="network-solar-particle"
             style={
               {
-                left: pctX(node.x),
-                top: pctY(node.y),
-                "--orbit-duration-x": `${node.orbitDuration}s`,
-                "--orbit-duration-y": `${node.orbitDuration * 1.15}s`,
-                "--orbit-delay": `${node.orbitDelay}s`,
+                "--particle-opacity": p.opacity,
+                animationDelay: `${p.delay}s`,
+                animationDuration: `${p.duration}s`,
               } as CSSProperties
             }
+          />
+        ))}
+
+        {nodes.map((node) => (
+          <SatelliteNode key={node.id} node={node} />
+        ))}
+
+        <g transform={`translate(${CX} ${CY})`}>
+          <foreignObject
+            x={-52}
+            y={-52}
+            width={104}
+            height={120}
+            className="network-solar-foreign overflow-visible"
           >
-            <div className="network-solar-satellite-orbit">
+            <div
+                  className="network-solar-center-inner"
+            >
               <div
-                className="network-solar-satellite-sphere"
+                className="network-solar-center-sphere"
                 aria-hidden
               />
-              <node.Icon className="network-solar-satellite-icon" aria-hidden />
-              <span className="network-solar-satellite-label">
-                {node.label}
-              </span>
+              <p className="network-solar-center-label">
+                YOUR
+                <br />
+                MAIN PAGE
+              </p>
             </div>
-          </div>
-        ))}
-      </div>
+          </foreignObject>
+        </g>
+      </svg>
     </div>
   );
 }
