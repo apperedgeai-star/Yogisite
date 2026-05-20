@@ -16,7 +16,7 @@ export default function Programs() {
         </h2>
 
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
-          <article className="program-card program-card--glass flex flex-col overflow-hidden rounded-sm p-8 md:p-10">
+          <article className="program-card glass-card flex flex-col overflow-hidden p-8 md:p-10">
             <ProgramCardMedia />
             <span className="program-badge-pulse type-label mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-red-400/50 bg-red-950/40 px-4 py-1.5 text-red-300">
               <span
@@ -60,7 +60,7 @@ export default function Programs() {
             </MagneticButton>
           </article>
 
-          <article className="program-card program-card--outline flex flex-col overflow-hidden rounded-sm border border-[var(--b1)] bg-[var(--glass)] p-8 backdrop-blur-[16px] md:p-10">
+          <article className="program-card glass-card flex flex-col overflow-hidden p-8 md:p-10">
             <ProgramCardMedia />
             <span className="program-badge-gradient mb-6 inline-flex w-fit rounded-full">
               <span className="type-label relative z-[1] rounded-full bg-[var(--void)] px-4 py-1.5">

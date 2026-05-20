@@ -12,11 +12,11 @@ export function ServiceImageBlock({
   src,
   alt,
   overlayLabel,
-  objectPosition = "center center",
+  objectPosition = "center 30%",
   priority = false,
 }: ServiceImageBlockProps) {
   return (
-    <div className="service-image-block">
+    <div className="service-image-container service-image-block">
       <CoverImage
         src={src}
         alt={alt}

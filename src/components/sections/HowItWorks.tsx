@@ -172,7 +172,7 @@ export default function HowItWorks() {
 
                 <div
                   className={cn(
-                    "pl-2 transition-opacity duration-500",
+                    "glass-card p-5 md:p-6 transition-opacity duration-500",
                     i <= activeThrough ? "opacity-100" : "opacity-40"
                   )}
                 >
@@ -180,9 +180,7 @@ export default function HowItWorks() {
 
                   <h3 className="type-subhead">{step.title}</h3>
 
-                  <p className="type-body mt-3">
-                    {step.body}
-                  </p>
+                  <p className="type-body mt-3">{step.body}</p>
 
                   {"link" in step && step.link && (
                     <a

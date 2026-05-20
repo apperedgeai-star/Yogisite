@@ -25,9 +25,9 @@ export function ClientCard({
           alt={imageAlt ?? clientName}
           sizes="(max-width: 768px) 100vw, 33vw"
           imageClassName="client-card__image"
-          filter="brightness(0.7)"
         />
       </div>
+      <div className="client-card__overlay" aria-hidden />
       <div className="client-card__scrim" aria-hidden />
       <div className="client-card__content">
         <p className="client-card__client">{clientName}</p>

@@ -80,7 +80,10 @@ export function AccordionCard({
   }, [open]);
 
   return (
-    <div ref={itemRef} className={cn("faq-item", open && "faq-item--open")}>
+    <div
+      ref={itemRef}
+      className={cn("faq-item glass-card", open && "faq-item--open glass-card-gold")}
+    >
       <button
         type="button"
         className="tap-target hoverable flex w-full cursor-pointer items-start justify-between gap-6 text-left"

@@ -1,9 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ASSETS } from "@/lib/assets";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { prefersReducedMotion } from "@/lib/utils";
 import { SITE } from "@/lib/site";
@@ -82,40 +80,15 @@ export default function Hero({ ready = false }: HeroProps) {
         transition={{ duration: reduced ? 0 : 1.2 }}
       />
 
+      <div className="hero-grain pointer-events-none absolute inset-0 z-[2]" aria-hidden />
       <motion.div
-        className="pointer-events-none absolute inset-0 z-[2] overflow-hidden"
-        aria-hidden
-        initial={false}
-        animate={{ opacity: show ? 1 : 0 }}
-        transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 0.1 }}
-      >
-        <div className="relative h-full w-full overflow-hidden">
-          <Image
-            src={ASSETS.heroAmbient}
-            alt=""
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-        </div>
-        <motion.div
-          className="hero-image-scrim absolute inset-0"
-          initial={false}
-          animate={{ opacity: show ? 1 : 0 }}
-          transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 0.2 }}
-        />
-      </motion.div>
-
-      <div className="hero-grain pointer-events-none absolute inset-0 z-[3]" aria-hidden />
-      <motion.div
-        className="hero-glow pointer-events-none absolute inset-0 z-[4]"
+        className="hero-glow pointer-events-none absolute inset-0 z-[3]"
         aria-hidden
         initial={false}
         animate={{ opacity: show ? 1 : 0 }}
         transition={{ duration: reduced ? 0 : 1.6, delay: reduced ? 0 : 0.3 }}
       />
-      <div className="hero-vignette pointer-events-none absolute inset-0 z-[5]" aria-hidden />
+      <div className="hero-vignette pointer-events-none absolute inset-0 z-[4]" aria-hidden />
 
       <motion.div
         className="relative z-10 w-full max-w-3xl md:max-w-4xl"
