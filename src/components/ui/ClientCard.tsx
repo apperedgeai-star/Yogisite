@@ -1,4 +1,4 @@
-import { CoverImage } from "@/components/ui/CoverImage";
+import Image from "next/image";
 
 export type ClientCardProps = {
   imageSrc: string;
@@ -19,14 +19,13 @@ export function ClientCard({
 }: ClientCardProps) {
   return (
     <article className="client-card">
-      <div className="absolute inset-0 overflow-hidden">
-        <CoverImage
-          src={imageSrc}
-          alt={imageAlt ?? clientName}
-          sizes="(max-width: 768px) 100vw, 33vw"
-          imageClassName="client-card__image"
-        />
-      </div>
+      <Image
+        src={imageSrc}
+        alt={imageAlt ?? clientName}
+        fill
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className="client-card__image object-cover"
+      />
       <div className="client-card__overlay" aria-hidden />
       <div className="client-card__scrim" aria-hidden />
       <div className="client-card__content">

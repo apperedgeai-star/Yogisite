@@ -151,8 +151,8 @@ function JourneyTimeline() {
 
 function DragonsHeadTab() {
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <div className="lg:col-span-2">
+    <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+      <div className="shrink-0 lg:col-span-2">
         <ServiceImageBlock
           src={ASSETS.services.dragon}
           alt="Dragon's Head — personal branding and distribution system"
@@ -268,7 +268,7 @@ function DragonsHeadTab() {
 
 function JupiterNodeTab() {
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 items-start gap-4">
       <ServiceImageBlock
         src={ASSETS.services.jupiter}
         alt="Jupiter Node — result-driven campaign system"

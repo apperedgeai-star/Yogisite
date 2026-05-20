@@ -1,4 +1,4 @@
-import { CoverImage } from "@/components/ui/CoverImage";
+import Image from "next/image";
 
 type ServiceImageBlockProps = {
   src: string;
@@ -16,17 +16,19 @@ export function ServiceImageBlock({
   priority = false,
 }: ServiceImageBlockProps) {
   return (
-    <div className="service-image-container service-image-block">
-      <CoverImage
+    <div className="service-image-container">
+      <Image
         src={src}
         alt={alt}
+        fill
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={priority}
-        objectPosition={objectPosition}
+        className="object-cover"
+        style={{ objectPosition }}
       />
-      <div className="service-image-block__scrim" aria-hidden />
+      <div className="service-image-container__scrim" aria-hidden />
       {overlayLabel ? (
-        <p className="service-image-block__label">{overlayLabel}</p>
+        <p className="service-image-container__label">{overlayLabel}</p>
       ) : null}
     </div>
   );
