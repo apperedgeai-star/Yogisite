@@ -29,6 +29,8 @@ export function StatCounter({
   const animated = useRef(false);
 
   useEffect(() => {
+    let cancel: (() => void) | undefined;
+
     const run = () => {
       if (animated.current) return;
       animated.current = true;
@@ -38,7 +40,7 @@ export function StatCounter({
         return;
       }
 
-      const cancel = animateNumber({
+      cancel = animateNumber({
         to: value,
         durationMs: 2000,
         onUpdate: (n) => {
@@ -48,24 +50,18 @@ export function StatCounter({
           );
         },
       });
-
-      return cancel;
     };
 
     if (inView) {
-      return run();
+      run();
+      return () => cancel?.();
     }
 
-    const fallback = window.setTimeout(() => {
-      if (!animated.current && ref.current) {
-        const rect = ref.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          run();
-        }
-      }
-    }, 400);
-
-    return () => window.clearTimeout(fallback);
+    const fallback = window.setTimeout(run, 1200);
+    return () => {
+      window.clearTimeout(fallback);
+      cancel?.();
+    };
   }, [inView, value, prefix, suffix, format]);
 
   return (

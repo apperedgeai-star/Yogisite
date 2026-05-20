@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ASSETS } from "@/lib/assets";
 
 const DIVIDER = (
@@ -28,14 +27,18 @@ type MarqueeProps = {
 function MarqueeLogo({ src, alt }: { src: string; alt: string }) {
   return (
     <span className="marquee-logo-slot mx-4 inline-flex shrink-0 items-center">
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element -- fixed dimensions; webp logos */}
+      <img
         src={src}
         alt={alt}
         width={120}
-        height={28}
+        height={24}
         className="marquee-logo-img"
-        style={{ width: "auto", height: 24 }}
         loading="lazy"
+        decoding="async"
+        onError={(e) => {
+          (e.target as HTMLImageElement).style.display = "none";
+        }}
       />
     </span>
   );

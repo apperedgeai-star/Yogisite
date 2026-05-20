@@ -25,7 +25,7 @@ export const ASSETS = {
   clients: {
     vision11: "/images/clients/vision11.png",
     starbucks: "/images/clients/starbucks.png",
-    rapido: "/images/clients/rapido.png",
+    rapido: "/images/clients/rapido.webp",
   },
   services: {
     dragon: "/dragon.webp",
