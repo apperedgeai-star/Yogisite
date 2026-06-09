@@ -40,6 +40,9 @@ const config: Config = {
         "accent-alt": "var(--gold-200)",
       },
       fontFamily: {
+        display: ["var(--font-display)", '"Playfair Display"', "Georgia", "serif"],
+        sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
+        stats: ["var(--font-stats)", '"Space Grotesk"', "system-ui", "sans-serif"],
         editorial: ['"Editorial"', '"Cormorant Garamond"', "serif"],
         satoshi: ['"Satoshi"', "system-ui", "sans-serif"],
       },

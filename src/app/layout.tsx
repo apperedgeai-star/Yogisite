@@ -1,7 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { LenisProvider } from "@/providers/LenisProvider";
-import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
+import { Playfair_Display, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-stats",
+  display: "swap",
+});
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -12,7 +29,7 @@ const siteUrl =
 export const metadata: Metadata = {
   title: "Yogii Kumar — We Make Founders Famous | Recun Marketing 18",
   description:
-    "Personal Branding & Distribution Agency. 50M+ Views. 50K Followers Guaranteed. Surat, India.",
+    "Personal Branding & Distribution Agency. 125M+ Views. 50K Followers Guaranteed. Surat, India.",
   keywords: [
     "personal branding",
     "content distribution",
@@ -23,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Yogii Kumar — We Make Founders Famous",
     description:
-      "50M+ Views Delivered. 50K Followers Guaranteed. The authority system for founders.",
+      "125M+ Views Delivered. 50K Followers Guaranteed. The authority system for founders.",
     type: "website",
     url: siteUrl,
     images: [{ url: "/images/og-image.jpg", width: 1200, height: 630 }],
@@ -33,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Yogii Kumar — We Make Founders Famous",
     description:
-      "50M+ Views Delivered. 50K Followers Guaranteed. The authority system for founders.",
+      "125M+ Views Delivered. 50K Followers Guaranteed. The authority system for founders.",
     images: ["/images/og-image.jpg"],
   },
   icons: {
@@ -42,7 +59,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#030303",
+  themeColor: "#080808",
 };
 
 export default function RootLayout({
@@ -51,27 +68,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="preload"
-          href="/fonts/CormorantGaramond.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/Satoshi-Variable.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body className="bg-void font-satoshi text-primary antialiased">
-        <ScrollInitProvider>
-          <LenisProvider>{children}</LenisProvider>
-        </ScrollInitProvider>
+    <html
+      lang="en"
+      className={`${playfair.variable} ${inter.variable} ${spaceGrotesk.variable}`}
+    >
+      <body className="bg-[var(--bg-primary)] font-sans text-[var(--text-primary)] antialiased">
+        {children}
       </body>
     </html>
   );
