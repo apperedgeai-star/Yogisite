@@ -21,6 +21,7 @@
 # local / source (assets live in public/)
 yodi new/
 .cursor/
+.tools/
 
 # duplicate assets at repo root
 /dragon.webp
