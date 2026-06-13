@@ -9,7 +9,7 @@ type LazyVideoProps = {
   src: string;
   className?: string;
   alt?: string;
-  /** Load and play immediately (hero, featured reel) */
+  /** Load and play immediately (featured reel) */
   eager?: boolean;
   /** Pause when scrolled off-screen — keeps marquee columns at 60fps */
   pauseWhenHidden?: boolean;
@@ -31,8 +31,10 @@ export function LazyVideo({
 
     const loadAndPlay = () => {
       if (!loadedRef.current) {
-        el.src = src;
-        el.load();
+        if (!eager) {
+          el.src = src;
+          el.load();
+        }
         loadedRef.current = true;
       }
       void el.play().catch(() => {});
@@ -43,6 +45,7 @@ export function LazyVideo({
     };
 
     if (eager) {
+      loadedRef.current = true;
       loadAndPlay();
       return;
     }
@@ -79,6 +82,7 @@ export function LazyVideo({
   return (
     <video
       ref={videoRef}
+      {...(eager ? { src } : {})}
       className={cn(
         "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden]",
         className
@@ -89,7 +93,7 @@ export function LazyVideo({
       playsInline
       disablePictureInPicture
       disableRemotePlayback
-      preload={eager ? "auto" : "none"}
+      preload={eager ? "auto" : "metadata"}
     />
   );
 }

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
 import { LenisProvider } from "@/providers/LenisProvider";
-import { PRELOAD_VIDEOS } from "@/lib/videos";
+import { HERO_VIDEO } from "@/lib/videos";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -54,9 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {PRELOAD_VIDEOS.map((href) => (
-          <link key={href} rel="preload" href={href} as="video" type="video/mp4" />
-        ))}
+        <link rel="preload" href={HERO_VIDEO} as="video" type="video/mp4" />
       </head>
       <body className="bg-void font-sans text-primary antialiased">
         <ScrollInitProvider>

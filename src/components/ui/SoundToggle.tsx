@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { audioEngine } from "@/lib/audio";
+import { heroVideoEngine } from "@/lib/hero-video";
 import { cn } from "@/lib/utils";
 
 const BAR_DURATIONS = [0.6, 0.8, 0.5, 0.9, 0.7] as const;
@@ -52,15 +52,15 @@ function SoundBars({ playing, compact }: { playing: boolean; compact?: boolean }
 }
 
 export default function SoundToggle({ variant = "dock" }: SoundToggleProps) {
-  const [playing, setPlaying] = useState(false);
+  const [audible, setAudible] = useState(false);
   const inline = variant === "inline";
 
-  useEffect(() => audioEngine.subscribe(setPlaying), []);
+  useEffect(() => heroVideoEngine.subscribe(setAudible), []);
 
   return (
     <button
       type="button"
-      onClick={() => void audioEngine.toggle()}
+      onClick={() => void heroVideoEngine.toggle()}
       className={cn(
         "hoverable flex items-center gap-2.5 transition-colors",
         inline
@@ -71,10 +71,10 @@ export default function SoundToggle({ variant = "dock" }: SoundToggleProps) {
               "hover:border-[var(--b-gold)]",
             ]
       )}
-      aria-label={playing ? "Mute ambient sound" : "Play ambient sound"}
-      aria-pressed={playing}
+      aria-label={audible ? "Mute hero video" : "Unmute hero video"}
+      aria-pressed={audible}
     >
-      <SoundBars playing={playing} compact={inline} />
+      <SoundBars playing={audible} compact={inline} />
       <span
         className="font-satoshi uppercase"
         style={{

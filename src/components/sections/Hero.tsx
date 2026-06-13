@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { prefersReducedMotion } from "@/lib/utils";
 import { SITE } from "@/lib/site";
-import { LazyVideo } from "@/components/ui/LazyVideo";
-import { HERO_VIDEO } from "@/lib/videos";
+import { HeroVideo } from "@/components/ui/HeroVideo";
 import { SiteGrid } from "@/components/layout/Section";
 
 const HEADLINE_LINES = ["We make", "founders", "famous."];
@@ -49,12 +48,7 @@ export default function Hero({ ready = true }: HeroProps) {
   return (
     <section ref={heroRef} id="hero" className="hero-section relative z-content border-0">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-        <LazyVideo
-          src={HERO_VIDEO}
-          eager
-          pauseWhenHidden={false}
-          className="h-full w-full object-cover opacity-[0.2] md:opacity-[0.26]"
-        />
+        <HeroVideo className="opacity-[0.22] md:opacity-[0.28]" />
         <div className="hero-media-glow absolute inset-0" />
         <div className="hero-vignette absolute inset-0" />
       </div>
