@@ -24,7 +24,7 @@
   --container-narrow: 48rem;
   --container-prose: 40rem;
   --section-x: clamp(1.25rem, 6vw, 5rem);
-  --section-y: clamp(5rem, 12vw, 10rem);
+  --section-y: clamp(4.5rem, 10vw, 8rem);
 
   /* ── BACKGROUNDS ── */
   --void: #080808;
@@ -294,18 +294,7 @@ body::before {
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 80% 50% at 15% 25%,
-      rgba(212, 168, 67, 0.06) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 60% 45% at 85% 75%,
-      rgba(212, 168, 67, 0.04) 0%,
-      transparent 50%
-    ),
-    var(--void);
+  background: var(--void);
 }
 
 @keyframes marquee-proof-scroll {
@@ -1377,11 +1366,56 @@ html.custom-cursor * {
 }
 
 .glass-card-gold {
-  background: rgba(212, 168, 67, 0.04);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--card);
   border: 1px solid rgba(212, 168, 67, 0.18);
-  border-radius: 8px;
+  border-radius: 4px;
+}
+
+/* Clean surface cards — editorial, not glassmorphism */
+.surface-card {
+  background: var(--card);
+  border: 1px solid var(--b1);
+  border-radius: 4px;
+  transition: border-color 0.25s ease;
+}
+
+.surface-card:hover {
+  border-color: var(--b-gold);
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  font-family: "Satoshi", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g300);
+  border: 1px solid var(--b-gold);
+  border-radius: 999px;
+  background: rgba(212, 168, 67, 0.06);
+}
+
+.tag-pill--alert {
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(127, 29, 29, 0.25);
+}
+
+.stats-grid .stat-cell {
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.section-head .type-section {
+  max-width: 16ch;
+}
+
+@media (min-width: 768px) {
+  .section-head .type-section {
+    max-width: none;
+  }
 }
 
 .nav-link::after {
@@ -1422,18 +1456,7 @@ html.custom-cursor * {
 }
 
 .hero-bg-fallback {
-  background:
-    radial-gradient(
-      ellipse 80% 60% at 10% 40%,
-      rgba(212, 168, 67, 0.07) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 85% 70%,
-      rgba(212, 168, 67, 0.04) 0%,
-      transparent 50%
-    ),
-    #030303;
+  display: none;
 }
 
 .hero-grain {

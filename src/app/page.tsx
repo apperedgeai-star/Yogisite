@@ -9,7 +9,6 @@ import Mechanism from "@/components/sections/Mechanism";
 import Services from "@/components/sections/Services";
 import RecunAI from "@/components/sections/RecunAI";
 import ProofOfWork from "@/components/sections/ProofOfWork";
-import Testimonials from "@/components/sections/Testimonials";
 import RealConversations from "@/components/sections/RealConversations";
 import About from "@/components/sections/About";
 import Programs from "@/components/sections/Programs";
@@ -31,7 +30,6 @@ export default function HomePage() {
           <Services />
           <RecunAI />
           <ProofOfWork />
-          <Testimonials />
           <RealConversations />
           <About />
           <Programs />

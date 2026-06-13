@@ -1,30 +1,22 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import { isMobileViewport } from "@/lib/utils";
-import { StatCounter } from "@/components/ui/StatCounter";
+import { useRef } from "react";
 import { useGsapScope } from "@/hooks/useGsapScope";
+import { StatCounter } from "@/components/ui/StatCounter";
 import { cn, prefersReducedMotion } from "@/lib/utils";
-
-const FloatingDiamond = dynamic(
-  () =>
-    import("@/components/canvas/FloatingDiamond").then((m) => m.FloatingDiamond),
-  { ssr: false }
-);
 
 const STATS = [
   {
     value: 125,
-    label: "Views Delivered and counting…",
+    label: "Views delivered",
     format: (n: number) => `${n}M+`,
   },
-  { value: 3, suffix: "+", label: "National Brands" },
-  { value: 10, suffix: "+", label: "A-List Creators" },
+  { value: 3, suffix: "+", label: "National brands" },
+  { value: 10, suffix: "+", label: "A-list creators" },
   {
     value: 2000,
     prefix: "$",
-    label: "or $1000 w/o distribution",
+    label: "From / 4 weeks",
     format: (n: number) => `$${n.toLocaleString()}`,
   },
 ] as const;
@@ -37,16 +29,8 @@ const STATEMENT_WARM = [
 ];
 
 export default function Problem() {
-  const [showDiamond, setShowDiamond] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const statementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const sync = () => setShowDiamond(!isMobileViewport());
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
-  }, []);
   const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const punchlineRef = useRef<HTMLSpanElement>(null);
 
@@ -59,19 +43,19 @@ export default function Problem() {
       ].filter(Boolean) as HTMLElement[];
 
       if (prefersReducedMotion()) {
-        gsap.set(lines, { clearProps: "all", opacity: 1, y: 0, rotateX: 0 });
+        gsap.set(lines, { clearProps: "all", opacity: 1, y: 0 });
         return;
       }
 
       gsap.from(lines, {
-        y: 24,
+        y: 20,
         opacity: 0,
-        duration: 0.65,
-        stagger: 0.12,
+        duration: 0.55,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: statementRef.current,
-          start: "top 78%",
+          start: "top 80%",
           once: true,
         },
       });
@@ -83,20 +67,18 @@ export default function Problem() {
     <section
       ref={sectionRef}
       id="problem"
-      className="section-surface section-surface--problem section-padding relative z-content overflow-hidden"
+      className="section-surface section-surface--problem section-padding relative z-content"
     >
-      {showDiamond && <FloatingDiamond />}
-
-      <div className="relative z-content mx-auto max-w-7xl">
-        <div className="grid grid-cols-2 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl">
+        <div className="stats-grid grid grid-cols-2 lg:grid-cols-4">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
               className={cn(
-                i >= 2 && "border-t border-[var(--b1)]",
-                (i === 1 || i === 3) && "border-l border-[var(--b1)]",
-                i > 0 && "md:border-l md:border-t-0",
-                i === 0 && "md:border-0"
+                "stat-cell",
+                i % 2 === 1 && "border-l border-[var(--b1)]",
+                i >= 2 && "border-t border-[var(--b1)] lg:border-t-0",
+                i > 0 && "lg:border-l lg:border-t-0"
               )}
             >
               <StatCounter
@@ -115,10 +97,10 @@ export default function Problem() {
 
         <div
           ref={statementRef}
-          className="mx-auto mt-20 max-w-4xl text-center md:mt-28"
+          className="mx-auto mt-16 max-w-3xl text-center md:mt-24"
         >
           {STATEMENT_WARM.map((line, i) => (
-            <div key={line} className="overflow-hidden py-1">
+            <div key={line} className="overflow-hidden py-0.5">
               <span
                 ref={(el) => {
                   lineRefs.current[i] = el;
@@ -130,11 +112,10 @@ export default function Problem() {
             </div>
           ))}
 
-          <div className="overflow-hidden py-1">
+          <div className="overflow-hidden py-0.5">
             <span
               ref={punchlineRef}
               className="type-section block italic text-gold-300 opacity-0"
-              style={{ transformOrigin: "bottom center" }}
             >
               you are invisible.
             </span>

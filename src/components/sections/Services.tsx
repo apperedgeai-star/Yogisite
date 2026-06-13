@@ -8,8 +8,8 @@ import {
   type ReactNode,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ASSETS } from "@/lib/assets";
 import {
   DRAGON_DELIVERABLES,
@@ -54,13 +54,7 @@ function BentoCell({
   children: ReactNode;
 }) {
   return (
-    <div
-      className={cn(
-        "card-padding relative overflow-hidden rounded-sm border bg-[var(--surface)]",
-        className
-      )}
-      style={{ borderColor: "var(--b1)", ...style }}
-    >
+    <div className={cn("surface-card card-padding", className)} style={style}>
       {children}
     </div>
   );
@@ -155,10 +149,10 @@ function DragonsHeadTab() {
         <p className="type-body mt-2">or $1,000 / 4 weeks without distribution</p>
         <p className="type-caption mt-4">6-month contract · $100 token confirms spot (adjusted against month one)</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <MagneticButton href={SITE.booking} className="!bg-[var(--g300)] !text-[#030303]">
+          <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-primary hoverable tap-target inline-flex w-full sm:w-auto">
             Secure Your Spot →
-          </MagneticButton>
-          <p className="type-caption">We work with only 5 founders at a time. Quality over volume.</p>
+          </a>
+          <p className="type-caption">Only 5 founders at a time. Quality over volume.</p>
         </div>
       </BentoCell>
     </div>
@@ -199,9 +193,10 @@ function JupiterNodeTab() {
           </ul>
         </BentoCell>
         <div className="space-y-4">
-          <BentoCell className="border-[var(--b-gold)]" style={{ background: "var(--glass)" }}>
+          <BentoCell className="border-[var(--b-gold)]">
             <p className="type-label mb-3">Important</p>
             <p className="type-body">{JUPITER_IMPORTANT}</p>
+            <p className="type-caption mt-4 border-t border-[var(--b1)] pt-4">{JUPITER_VIEWS_NOTE}</p>
           </BentoCell>
           <BentoCell>
             <p className="type-label mb-3">Ad Creatives Bonus</p>
@@ -222,14 +217,9 @@ function JupiterNodeTab() {
         <p className="type-caption mt-2">
           If we do not hit 5M combined views, we keep going at zero cost until we do.
         </p>
-        <MagneticButton href={SITE.booking} variant="ghost" className="mt-6">
+        <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-secondary hoverable tap-target mt-6 inline-flex">
           Book Discovery Call →
-        </MagneticButton>
-      </BentoCell>
-
-      <BentoCell>
-        <p className="type-label mb-3">Note on 5M Views Guarantee</p>
-        <p className="type-body">{JUPITER_VIEWS_NOTE}</p>
+        </a>
       </BentoCell>
     </div>
   );
@@ -240,10 +230,11 @@ export default function Services() {
 
   return (
     <section id="services" className="section-surface section-surface--services section-padding relative z-content">
-      <header className="section-intro mx-auto mb-10 max-w-7xl md:mb-12">
-        <p className="type-label mb-4">Services</p>
-        <h2 className="type-section whitespace-pre-line">{"Two systems.\nOne goal."}</h2>
-      </header>
+      <SectionHeader
+        label="Services"
+        title={<>Two systems.<br className="hidden sm:block" /> One goal.</>}
+        className="section-intro mx-auto mb-10 max-w-7xl md:mb-12"
+      />
 
       <div className="mx-auto max-w-7xl">
         <div

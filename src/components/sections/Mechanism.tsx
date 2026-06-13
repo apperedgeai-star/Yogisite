@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { NetworkDiagram } from "@/components/ui/NetworkDiagram";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MECHANISM_ITEMS } from "@/lib/content";
 import { prefersReducedMotion } from "@/lib/utils";
 
@@ -39,12 +40,16 @@ export default function Mechanism() {
       className="section-surface section-surface--mechanism section-padding relative z-content pb-24 md:pb-0"
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-[22vh] lg:z-sticky lg:self-start">
-          <p className="type-label mb-4">What we do</p>
-          <h2 className="type-section text-primary">
-            <span className="block">22 touchpoints.</span>
-            <span className="block text-gold-300">One authority.</span>
-          </h2>
+        <div className="lg:sticky lg:top-28 lg:z-sticky lg:self-start">
+          <SectionHeader
+            label="What we do"
+            title={
+              <>
+                <span className="block">22 touchpoints.</span>
+                <span className="block text-gold-300">One authority.</span>
+              </>
+            }
+          />
           <ul className="mt-8 space-y-4">
             {MECHANISM_ITEMS.map((item) => (
               <li key={item} className="mechanism-item">

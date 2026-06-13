@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { AccordionCard } from "@/components/ui/AccordionCard";
 import { FAQ_ITEMS } from "@/lib/content";
 
@@ -10,8 +11,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="section-surface section-surface--faq section-padding relative z-content">
       <div className="mx-auto max-w-3xl">
-        <p className="type-label mb-4">FAQ</p>
-        <h2 className="type-section mb-10 md:mb-14">Straight answers.</h2>
+        <SectionHeader label="FAQ" title="Straight answers." className="mb-10 md:mb-14" />
         <div>
           {FAQ_ITEMS.map((item, index) => (
             <AccordionCard
