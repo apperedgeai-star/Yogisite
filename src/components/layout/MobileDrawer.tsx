@@ -4,12 +4,13 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { loadGsap } from "@/lib/gsap-loader";
 import { revertGsapScope } from "@/lib/gsap-scope";
-import { SITE } from "@/lib/site";
+import { SITE, whatsappUrl } from "@/lib/site";
+import SoundToggle from "@/components/ui/SoundToggle";
 
 const links = [
-  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -65,7 +66,8 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       exit={{ x: "100%" }}
       transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
     >
-      <div className="flex items-center justify-end px-5 py-6">
+      <div className="flex items-center justify-between px-5 py-6">
+        <SoundToggle variant="inline" />
         <button
           type="button"
           onClick={onClose}
@@ -109,16 +111,38 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       >
         <div className="flex flex-col gap-4">
           <a
-            href={`tel:${SITE.phoneTel}`}
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
             className="tap-target hoverable text-base transition-colors hover:text-gold-300"
+          >
+            WhatsApp — {SITE.whatsapp}
+          </a>
+          <a
+            href={`tel:${SITE.phoneTel}`}
+            className="tap-target hoverable transition-colors hover:text-gold-300"
           >
             {SITE.phone}
           </a>
           <a
-            href={`mailto:${SITE.email}`}
+            href={`mailto:${SITE.emails.yogii}`}
             className="tap-target hoverable transition-colors hover:text-gold-300"
           >
-            {SITE.email}
+            {SITE.emails.yogii}
+          </a>
+          <a
+            href={`mailto:${SITE.emails.sales}`}
+            className="tap-target hoverable transition-colors hover:text-gold-300"
+          >
+            {SITE.emails.sales}
+          </a>
+          <a
+            href={SITE.seeOurWork}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tap-target hoverable transition-colors hover:text-gold-300"
+          >
+            See Our Work →
           </a>
           <a
             href={SITE.instagram}

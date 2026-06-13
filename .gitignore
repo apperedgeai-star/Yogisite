@@ -29,6 +29,14 @@ yodi new/
 /rapido.webp
 /starbucks.png
 /vision11.png
+/*.mp4
+/homepage.MOV
+*.zip
+*.docx
+/Main Videos*/
+/Sub Videos*/
+/screenshots/
+/scripts/compress-output.txt
 
 # debug
 npm-debug.log*

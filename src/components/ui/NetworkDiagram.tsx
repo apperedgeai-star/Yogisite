@@ -1,13 +1,16 @@
 "use client";
 
 import type { CSSProperties, ComponentType } from "react";
+import Image from "next/image";
 import {
   FaInstagram,
   FaYoutube,
   FaLinkedin,
+  FaFacebook,
   FaPodcast,
 } from "react-icons/fa";
 import { FaXTwitter, FaThreads } from "react-icons/fa6";
+import { ASSETS } from "@/lib/assets";
 
 const CX = 450;
 const CY = 250;
@@ -187,8 +190,16 @@ export function NetworkDiagram() {
       role="img"
       aria-label="Animated distribution network: your main page connected to nine platform channels"
     >
+      <Image
+        src={ASSETS.networkShowcase}
+        alt=""
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        className="object-cover opacity-[0.12]"
+        aria-hidden
+      />
       <svg
-        className="network-solar-svg"
+        className="network-solar-svg relative z-[1]"
         viewBox={`0 0 ${VB_W} ${VB_H}`}
         preserveAspectRatio="xMidYMid meet"
         aria-hidden
@@ -265,6 +276,12 @@ export function NetworkDiagram() {
                 <br />
                 MAIN PAGE
               </p>
+              <div className="network-solar-center-socials" aria-hidden>
+                <FaInstagram className="network-solar-center-social" />
+                <FaFacebook className="network-solar-center-social" />
+                <FaYoutube className="network-solar-center-social" />
+                <FaLinkedin className="network-solar-center-social" />
+              </div>
             </div>
           </foreignObject>
         </g>

@@ -9,37 +9,59 @@ type LazyVideoProps = {
   src: string;
   className?: string;
   alt?: string;
+  /** Load and play immediately (hero, featured reel) */
   eager?: boolean;
+  /** Pause when scrolled off-screen — keeps marquee columns at 60fps */
+  pauseWhenHidden?: boolean;
 };
 
-export function LazyVideo({ src, className, alt = "", eager = false }: LazyVideoProps) {
+export function LazyVideo({
+  src,
+  className,
+  alt = "",
+  eager = false,
+  pauseWhenHidden = !eager,
+}: LazyVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const loadedRef = useRef(false);
 
   useEffect(() => {
     const el = videoRef.current;
     if (!el || isGif(src)) return;
 
-    if (eager) {
-      el.src = src;
+    const loadAndPlay = () => {
+      if (!loadedRef.current) {
+        el.src = src;
+        el.load();
+        loadedRef.current = true;
+      }
       void el.play().catch(() => {});
+    };
+
+    const pause = () => {
+      if (!el.paused) el.pause();
+    };
+
+    if (eager) {
+      loadAndPlay();
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
-        if (!el.getAttribute("src")) {
-          el.src = src;
-          void el.play().catch(() => {});
+        if (entry.isIntersecting) {
+          loadAndPlay();
+          if (!pauseWhenHidden) observer.disconnect();
+        } else if (pauseWhenHidden) {
+          pause();
         }
-        observer.disconnect();
       },
-      { rootMargin: "200px" }
+      { rootMargin: "120px", threshold: 0.08 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [src, eager]);
+  }, [src, eager, pauseWhenHidden]);
 
   if (isGif(src)) {
     return (
@@ -57,12 +79,17 @@ export function LazyVideo({ src, className, alt = "", eager = false }: LazyVideo
   return (
     <video
       ref={videoRef}
-      className={cn("h-full w-full object-cover", className)}
+      className={cn(
+        "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden]",
+        className
+      )}
       muted
       autoPlay
       loop
       playsInline
-      preload="none"
+      disablePictureInPicture
+      disableRemotePlayback
+      preload={eager ? "auto" : "none"}
     />
   );
 }

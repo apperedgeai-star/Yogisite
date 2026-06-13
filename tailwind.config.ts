@@ -11,6 +11,7 @@ const config: Config = {
       md: "768px",
       lg: "1024px",
       xl: "1280px",
+      "2xl": "1440px",
     },
     extend: {
       colors: {
@@ -29,7 +30,7 @@ const config: Config = {
         secondary: "var(--text-secondary)",
         muted: "var(--text-muted)",
         ghost: "var(--text-ghost)",
-        /* legacy */
+        /* legacy aliases */
         black: "var(--bg-void)",
         "off-black": "var(--bg-deep)",
         graphite: "var(--bg-surface)",
@@ -40,9 +41,9 @@ const config: Config = {
         "accent-alt": "var(--gold-200)",
       },
       fontFamily: {
-        display: ["var(--font-display)", '"Playfair Display"', "Georgia", "serif"],
-        sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
-        stats: ["var(--font-stats)", '"Space Grotesk"', "system-ui", "sans-serif"],
+        display: ['"Editorial"', '"Cormorant Garamond"', "Georgia", "serif"],
+        sans: ['"Satoshi"', "system-ui", "sans-serif"],
+        stats: ['"Satoshi"', "system-ui", "sans-serif"],
         editorial: ['"Editorial"', '"Cormorant Garamond"', "serif"],
         satoshi: ['"Satoshi"', "system-ui", "sans-serif"],
       },
@@ -57,6 +58,23 @@ const config: Config = {
         "4xl": "var(--text-4xl)",
         hero: "var(--text-hero)",
         giant: "var(--text-giant)",
+      },
+      spacing: {
+        "section-x": "var(--section-x)",
+        "section-y": "var(--section-y)",
+        "grid-gap": "var(--grid-gap)",
+      },
+      maxWidth: {
+        site: "var(--container-max)",
+        narrow: "var(--container-narrow)",
+        prose: "var(--container-prose)",
+      },
+      gridTemplateColumns: {
+        site: "repeat(var(--grid-columns), minmax(0, 1fr))",
+        "site-auto": "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
+      },
+      gap: {
+        site: "var(--grid-gap)",
       },
       zIndex: {
         canvas: "-1",

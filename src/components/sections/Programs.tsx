@@ -2,6 +2,7 @@
 
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ProgramCardMedia } from "@/components/ui/ProgramCardMedia";
+import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
 
 export default function Programs() {
@@ -17,7 +18,7 @@ export default function Programs() {
 
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
           <article className="program-card glass-card flex flex-col overflow-hidden p-8 md:p-10">
-            <ProgramCardMedia />
+            <ProgramCardMedia src={ASSETS.programs.recunAI} />
             <span className="program-badge-pulse type-label mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-red-400/50 bg-red-950/40 px-4 py-1.5 text-red-300">
               <span
                 className="h-1.5 w-1.5 shrink-0 rounded-full bg-red-400"
@@ -29,7 +30,7 @@ export default function Programs() {
             <h3 className="type-subhead">Recun Content & AI</h3>
 
             <p className="type-body mt-4">
-              3-month in-office program · Surat · Max 10 Students
+              Learn AI tools, content creation, social media marketing, and how to build a career in this space — from the inside of a real working agency.
             </p>
 
             <p className="type-caption mt-6" style={{ color: "var(--t2)" }}>
@@ -53,7 +54,7 @@ export default function Programs() {
             </div>
 
             <MagneticButton
-              href={`mailto:${SITE.email}?subject=Recun%20Content%20%26%20AI%20Program`}
+              href={`mailto:${SITE.emails.yogii}?subject=Recun%20Content%20%26%20AI%20Program`}
               className="mt-8 !rounded-full !bg-[var(--g300)] !text-[#030303] hover:!bg-[var(--g200)]"
             >
               Apply Now →
@@ -61,7 +62,7 @@ export default function Programs() {
           </article>
 
           <article className="program-card glass-card flex flex-col overflow-hidden p-8 md:p-10">
-            <ProgramCardMedia />
+            <ProgramCardMedia src={ASSETS.programs.contentSeCrore} />
             <span className="program-badge-gradient mb-6 inline-flex w-fit rounded-full">
               <span className="type-label relative z-[1] rounded-full bg-[var(--void)] px-4 py-1.5">
                 Coming Soon
@@ -71,7 +72,7 @@ export default function Programs() {
             <h3 className="type-subhead">Content Se Crore</h3>
 
             <p className="type-body mt-4">
-              4-month premium program. Followers → Customers → Sellable Product.
+              A premium 4-month program where followers turn into customers. You will get the complete blueprint to build a sellable product or service — and a one-man-army system to grow and monetise it.
             </p>
 
             <p className="price-number mt-8 border-t border-[var(--b1)] pt-8 text-xl text-[var(--g300)]">
@@ -79,7 +80,7 @@ export default function Programs() {
             </p>
 
             <MagneticButton
-              href={`mailto:${SITE.email}?subject=Content%20Se%20Crore%20Waitlist`}
+              href={`mailto:${SITE.emails.sales}?subject=Content%20Se%20Crore%20Waitlist`}
               variant="ghost"
               className="mt-8"
             >

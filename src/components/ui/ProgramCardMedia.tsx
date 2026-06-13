@@ -7,7 +7,7 @@ type ProgramCardMediaProps = {
 
 /** Atmospheric strip — top of program cards */
 export function ProgramCardMedia({
-  src = ASSETS.programAtmosphere,
+  src = ASSETS.heroAmbient,
 }: ProgramCardMediaProps) {
   return (
     <div className="program-card-media">

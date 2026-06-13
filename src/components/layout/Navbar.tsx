@@ -2,19 +2,23 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { loadGsap } from "@/lib/gsap-loader";
 import { revertGsapScope } from "@/lib/gsap-scope";
+import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
 import { useLenis } from "@/providers/LenisProvider";
 import MobileDrawer from "./MobileDrawer";
 import SoundToggle from "@/components/ui/SoundToggle";
 
 const navLinks = [
-  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
+
+const SERVICE_TAGS = ["Personal Branding", "Business Branding", "Tech & AI"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -92,18 +96,30 @@ export default function Navbar() {
           transition: "all 0.4s ease",
         }}
       >
-        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-4 md:px-12 md:py-5">
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-3 px-5 py-3.5 md:grid-cols-[1fr_auto_1fr] md:gap-4 md:px-12 md:py-5">
           <a
             href="#"
-            className="hoverable interactive flex items-center gap-3 justify-self-start"
+            className="hoverable interactive flex min-w-0 items-center gap-2.5 justify-self-start sm:gap-3"
           >
-            <span className="type-nav-brand">YK</span>
-            <span
-              className="type-label hidden lg:inline"
-              style={{ color: "var(--t3)" }}
-            >
-              Recun Marketing 18
-            </span>
+            <Image
+              src={ASSETS.logo}
+              alt="Yogii Kumar"
+              width={36}
+              height={36}
+              className="h-9 w-9 shrink-0 object-contain"
+              priority
+            />
+            <div className="min-w-0">
+              <span className="type-nav-brand block truncate text-[13px] sm:text-base">
+                Yogii Kumar
+              </span>
+              <span
+                className="type-caption hidden lg:block"
+                style={{ color: "var(--t4)", fontSize: "10px", letterSpacing: "0.08em" }}
+              >
+                {SERVICE_TAGS.join(" · ")}
+              </span>
+            </div>
           </a>
 
           <nav className="hidden items-center justify-center gap-8 lg:flex">

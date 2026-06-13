@@ -15,17 +15,17 @@ const FloatingDiamond = dynamic(
 
 const STATS = [
   {
-    value: 50,
-    label: "Views Delivered",
+    value: 125,
+    label: "Views Delivered and counting…",
     format: (n: number) => `${n}M+`,
   },
   { value: 3, suffix: "+", label: "National Brands" },
   { value: 10, suffix: "+", label: "A-List Creators" },
   {
-    value: 2,
-    prefix: "₹",
-    suffix: "L",
-    label: "vs ₹4-6L Market Rate",
+    value: 2000,
+    prefix: "$",
+    label: "or $1000 w/o distribution",
+    format: (n: number) => `$${n.toLocaleString()}`,
   },
 ] as const;
 
@@ -102,7 +102,7 @@ export default function Problem() {
               <StatCounter
                 value={stat.value}
                 label={stat.label}
-                {...("format" in stat
+                {...("format" in stat && stat.format
                   ? { format: stat.format }
                   : {
                       suffix: "suffix" in stat ? stat.suffix : undefined,

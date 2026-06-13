@@ -7,6 +7,8 @@ import { prefersReducedMotion } from "@/lib/utils";
 import { SITE } from "@/lib/site";
 import { SCROLL_SCRUB_MIN } from "@/lib/gsap-config";
 import { useGsapReady } from "@/providers/LenisProvider";
+import { LazyVideo } from "@/components/ui/LazyVideo";
+import { HERO_VIDEO } from "@/lib/videos";
 
 const HEADLINE_LINES = ["We make", "founders", "famous."];
 const SUB_LINES = [
@@ -15,7 +17,7 @@ const SUB_LINES = [
   "The gap is distribution. We close it.",
 ];
 const PROOF_LINE =
-  "Vision11 · Starbucks · Rapido · 50M+ views delivered";
+  "125M+ Views Delivered and counting… · Vision11 · Starbucks · Rapido";
 
 const REVEAL_Y = 24;
 const REVEAL_DURATION = 0.65;
@@ -72,6 +74,15 @@ export default function Hero({ ready = false }: HeroProps) {
 
   return (
     <section ref={heroRef} id="hero" className="hero-section">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+        <LazyVideo
+          src={HERO_VIDEO}
+          eager
+          pauseWhenHidden={false}
+          className="h-full w-full object-cover opacity-[0.22] md:opacity-[0.28]"
+        />
+      </div>
+
       <motion.div
         className="hero-bg-fallback pointer-events-none absolute inset-0 z-[1]"
         aria-hidden
@@ -94,7 +105,9 @@ export default function Hero({ ready = false }: HeroProps) {
         className="relative z-10 w-full max-w-3xl md:max-w-4xl"
         {...fade(0)}
       >
-        <p className="hero-eyebrow mb-6">Personal Branding & Distribution</p>
+        <p className="hero-eyebrow mb-6">
+          Personal · Business Branding &amp; Distribution Agency
+        </p>
 
         <h1 ref={headlineRef} className="hero-headline">
           {HEADLINE_LINES.map((line, i) => (
@@ -140,10 +153,12 @@ export default function Hero({ ready = false }: HeroProps) {
             Claim Your Spot →
           </a>
           <a
-            href="#how-it-works"
+            href={SITE.seeOurWork}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hero-cta-secondary hoverable tap-target min-h-[44px] w-full cursor-pointer sm:w-auto"
           >
-            Watch How It Works
+            See Our Work
           </a>
         </motion.div>
 
@@ -154,25 +169,11 @@ export default function Hero({ ready = false }: HeroProps) {
         />
 
         <motion.p
-          className="hero-proof mt-6 md:mt-8"
+          className="hero-proof hero-proof--bright mt-6 md:mt-8"
           {...fade(STAGGER * 5 + 0.04)}
         >
           {PROOF_LINE}
         </motion.p>
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-5 z-10 flex flex-col items-start gap-2 md:left-[clamp(8vw,10vw,12vw)] md:bottom-10"
-        initial={false}
-        animate={{ opacity: show ? 1 : 0 }}
-        transition={{
-          duration: reduced ? 0 : REVEAL_DURATION,
-          delay: reduced ? 0 : animate ? STAGGER * 6 : 0,
-          ease: REVEAL_EASE,
-        }}
-      >
-        <span className="hero-scroll-label">Scroll</span>
-        <span className="hero-scroll-line" aria-hidden />
       </motion.div>
     </section>
   );

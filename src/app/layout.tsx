@@ -1,24 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-stats",
-  display: "swap",
-});
+import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
+import { LenisProvider } from "@/providers/LenisProvider";
+import { PRELOAD_VIDEOS } from "@/lib/videos";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -68,12 +52,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${inter.variable} ${spaceGrotesk.variable}`}
-    >
-      <body className="bg-[var(--bg-primary)] font-sans text-[var(--text-primary)] antialiased">
-        {children}
+    <html lang="en">
+      <head>
+        {PRELOAD_VIDEOS.map((href) => (
+          <link key={href} rel="preload" href={href} as="video" type="video/mp4" />
+        ))}
+      </head>
+      <body className="bg-void font-sans text-primary antialiased">
+        <ScrollInitProvider>
+          <LenisProvider>{children}</LenisProvider>
+        </ScrollInitProvider>
       </body>
     </html>
   );
