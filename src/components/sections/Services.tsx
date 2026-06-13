@@ -10,6 +10,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Section } from "@/components/layout/Section";
 import { ASSETS } from "@/lib/assets";
 import {
   DRAGON_DELIVERABLES,
@@ -108,12 +109,10 @@ function JourneyTimeline() {
 
 function DragonsHeadTab() {
   return (
-    <div className="grid grid-cols-1 items-start gap-4">
-      <ServiceImageBlock
-        src={ASSETS.services.dragon}
-        alt="Dragon's Head"
-        overlayLabel="Personal Branding System"
-      />
+    <div className="services-panel-grid">
+      <div className="services-panel-grid__wide">
+        <ServiceImageBlock src={ASSETS.services.dragon} alt="Dragon's Head" overlayLabel="Personal Branding System" />
+      </div>
       <BentoCell>
         <div className="flex flex-wrap gap-3">
           <span className="badge-gold">Most Popular</span>
@@ -161,8 +160,10 @@ function DragonsHeadTab() {
 
 function JupiterNodeTab() {
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <ServiceImageBlock src={ASSETS.services.jupiter} alt="Jupiter Node" overlayLabel="Campaign System" />
+    <div className="services-panel-grid">
+      <div className="services-panel-grid__wide">
+        <ServiceImageBlock src={ASSETS.services.jupiter} alt="Jupiter Node" overlayLabel="Campaign System" />
+      </div>
       <BentoCell>
         <h3 className="type-subhead">Jupiter Node</h3>
         <p className="type-body mt-2">Business Branding & Content Production Campaigns</p>
@@ -170,7 +171,7 @@ function JupiterNodeTab() {
         <p className="type-caption mt-3">50 pieces, 5 million views, done.</p>
       </BentoCell>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="services-panel-grid__wide grid gap-[var(--grid-gap)] sm:grid-cols-2 lg:grid-cols-4">
         {JUPITER_METRICS.map((m) => (
           <BentoCell key={m.label}>
             <p className="metric-number text-[var(--f-xl)]">{m.value}</p>
@@ -229,16 +230,24 @@ export default function Services() {
   const [activeTab, setActiveTab] = useState<TabId>("dragon");
 
   return (
-    <section id="services" className="section-surface section-surface--services section-padding relative z-content">
-      <SectionHeader
-        label="Services"
-        title={<>Two systems.<br className="hidden sm:block" /> One goal.</>}
-        className="section-intro mx-auto mb-10 max-w-7xl md:mb-12"
-      />
+    <Section id="services" tone="elevated" innerClassName="!px-0">
+      <div className="site-container">
+        <SectionHeader
+          label="Services"
+          title={
+            <>
+              Two systems.
+              <br />
+              One goal.
+            </>
+          }
+          className="mb-10 md:mb-12"
+        />
+      </div>
 
-      <div className="mx-auto max-w-7xl">
+      <div className="site-container">
         <div
-          className="services-tab-bar sticky z-[45] -mx-5 border-b bg-[rgba(10,10,10,0.92)] px-5 backdrop-blur-md md:-mx-12 md:px-12"
+          className="services-tab-bar sticky z-[45] border-y bg-[var(--void)]/95 backdrop-blur-md"
           style={{ top: "calc(env(safe-area-inset-top, 0px) + 4.25rem)", borderColor: "var(--b1)" }}
         >
           <div role="tablist" className="grid grid-cols-2">
@@ -260,7 +269,7 @@ export default function Services() {
           </div>
         </div>
 
-        <div className="pt-8">
+        <div className="pt-8 md:pt-10">
           <AnimatePresence mode="wait">
             <motion.div key={activeTab} {...TAB_MOTION}>
               {activeTab === "dragon" ? <DragonsHeadTab /> : <JupiterNodeTab />}
@@ -268,6 +277,6 @@ export default function Services() {
           </AnimatePresence>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

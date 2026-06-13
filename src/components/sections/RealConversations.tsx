@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Col, Section, SiteGrid } from "@/components/layout/Section";
 import { CONVERSATIONS } from "@/lib/content";
 import { prefersReducedMotion } from "@/lib/utils";
 
@@ -10,26 +11,26 @@ export default function RealConversations() {
   const reduced = prefersReducedMotion();
 
   return (
-    <section id="conversations" className="section-surface section-padding relative z-content">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          label="Behind the work"
-          title="Real conversations. Real collaboration."
-          description="Strategy sessions and in-person meetups with India's top creators — this is where the distribution system gets built."
-          className="mb-10 md:mb-14"
-        />
+    <Section id="conversations" tone="base">
+      <SiteGrid>
+        <Col span={12} spanLg={8}>
+          <SectionHeader
+            label="Behind the work"
+            title="Real conversations. Real collaboration."
+            description="Strategy sessions and in-person meetups with India's top creators — where the distribution system gets built."
+          />
+        </Col>
 
-        <div className="conversations-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {CONVERSATIONS.map((c, i) => (
+        {CONVERSATIONS.map((c, i) => (
+          <Col key={c.name} span={12} spanMd={6} spanLg={3}>
             <motion.article
-              key={c.name}
               initial={reduced ? false : { opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: (i % 8) * 0.04 }}
-              className="surface-card overflow-hidden"
+              className="surface-card h-full overflow-hidden"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--deep)]">
+              <div className="conv-card__media relative">
                 <Image
                   src={c.image}
                   alt={`${c.name} — ${c.session}`}
@@ -43,12 +44,12 @@ export default function RealConversations() {
                 {c.stat !== "—" && (
                   <p className="problem-stat-number mt-1 text-xl text-gold-300">{c.stat}</p>
                 )}
-                <p className="type-caption mt-1">{c.session}</p>
+                <p className="type-caption mt-1.5 leading-snug">{c.session}</p>
               </div>
             </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
+          </Col>
+        ))}
+      </SiteGrid>
+    </Section>
   );
 }

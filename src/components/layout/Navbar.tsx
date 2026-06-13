@@ -96,7 +96,7 @@ export default function Navbar() {
           transition: "all 0.4s ease",
         }}
       >
-        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-3 px-5 py-3.5 md:grid-cols-[1fr_auto_1fr] md:gap-4 md:px-12 md:py-5">
+        <div className="navbar-inner grid grid-cols-[1fr_auto] items-center gap-3 py-3.5 md:grid-cols-[1fr_auto_1fr] md:gap-4 md:py-5">
           <a
             href="#"
             className="hoverable interactive flex min-w-0 items-center gap-2.5 justify-self-start sm:gap-3"

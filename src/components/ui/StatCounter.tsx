@@ -90,7 +90,7 @@ export function StatCounter({
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center px-4 py-6 text-center md:items-start md:px-8 md:py-0 md:text-left"
+      className="flex flex-col items-center py-2 text-center lg:items-start lg:py-0 lg:text-left"
     >
       <p className="problem-stat-number">{display}</p>
       <p className="problem-stat-label">{label}</p>

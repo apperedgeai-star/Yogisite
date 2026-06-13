@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ASSETS } from "@/lib/assets";
 import { FOUNDER_BIO } from "@/lib/content";
 import { SITE } from "@/lib/site";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Col, Section, SiteGrid } from "@/components/layout/Section";
 
 export default function About() {
   const portraitRef = useRef<HTMLDivElement>(null);
@@ -13,7 +15,7 @@ export default function About() {
     target: portraitRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-2%", "2%"]);
   const [parallax, setParallax] = useState(false);
 
   useEffect(() => {
@@ -25,16 +27,17 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="section-surface section-surface--about section-padding relative z-content overflow-hidden">
-      <div className="relative z-[1] mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] lg:items-start lg:gap-16">
-        <div className="order-2 lg:order-1 lg:pr-6">
-          <p className="about-founder-label">The Founder</p>
-          <p className="type-caption mt-2 text-gold-300">Former COO &amp; CMO</p>
-          <h2 className="about-founder-headline mt-6">Execution over everything.</h2>
+    <Section id="about" tone="deep">
+      <SiteGrid className="items-start">
+        <Col span={12} spanLg={6} className="order-2 lg:order-1">
+          <SectionHeader label="The founder" title="Execution over everything." />
+          <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 space-y-5 border-t border-[var(--b1)] pt-8">
             {FOUNDER_BIO.map((para) => (
-              <p key={para.slice(0, 40)} className="about-body">{para}</p>
+              <p key={para.slice(0, 40)} className="about-body max-w-prose">
+                {para}
+              </p>
             ))}
           </div>
 
@@ -46,27 +49,30 @@ export default function About() {
           >
             Follow on Instagram →
           </a>
-        </div>
+        </Col>
 
-        <motion.div ref={portraitRef} className="relative order-1 lg:order-2 lg:sticky lg:top-28">
-          <div className="about-portrait">
-            <motion.div className="about-portrait__parallax absolute inset-0 overflow-hidden" style={{ y: parallax ? imageY : 0 }}>
-              <div className="relative h-full w-full overflow-hidden">
+        <Col span={12} spanLg={6} className="order-1 lg:order-2">
+          <motion.div ref={portraitRef} className="lg:sticky lg:top-28">
+            <div className="about-portrait surface-card overflow-hidden">
+              <motion.div
+                className="about-portrait__parallax absolute inset-0 overflow-hidden"
+                style={{ y: parallax ? imageY : 0 }}
+              >
                 <Image
                   src={ASSETS.portrait}
                   alt="Yogii Kumar — Founder"
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 45vw"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
                   className="object-cover"
                   style={{ objectPosition: "center top" }}
                 />
-              </div>
-            </motion.div>
-            <div className="about-portrait__fade" aria-hidden />
-          </div>
-        </motion.div>
-      </div>
-    </section>
+              </motion.div>
+              <div className="about-portrait__fade" aria-hidden />
+            </div>
+          </motion.div>
+        </Col>
+      </SiteGrid>
+    </Section>
   );
 }
