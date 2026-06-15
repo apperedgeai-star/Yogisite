@@ -6,14 +6,6 @@ import { LazyVideo } from "@/components/ui/LazyVideo";
 import { mainVideos, leftVideos, rightVideos } from "@/lib/videos";
 import { prefersReducedMotion } from "@/lib/utils";
 
-function VideoCard({ src }: { src: string }) {
-  return (
-    <div className="relative aspect-[9/16] w-full shrink-0 overflow-hidden rounded-sm border border-[var(--b1)] [contain:strict]">
-      <LazyVideo src={src} pauseWhenHidden />
-    </div>
-  );
-}
-
 function ScrollColumn({ videos, direction }: { videos: string[]; direction: "up" | "down" }) {
   const doubled = [...videos, ...videos];
   return (
@@ -24,7 +16,12 @@ function ScrollColumn({ videos, direction }: { videos: string[]; direction: "up"
         } hover:[animation-play-state:paused]`}
       >
         {doubled.map((src, i) => (
-          <VideoCard key={`${src}-${i}`} src={src} />
+          <div
+            key={`${src}-${i}`}
+            className="relative aspect-[9/16] w-full shrink-0 overflow-hidden rounded-lg border border-[var(--b1)] opacity-80 transition-opacity duration-300 hover:opacity-100"
+          >
+            <LazyVideo src={src} pauseWhenHidden />
+          </div>
         ))}
       </div>
     </div>
@@ -61,13 +58,10 @@ function CenterReel({ videos }: { videos: string[] }) {
   }, [index, reduced]);
 
   return (
-    <div className="relative w-full max-w-[420px]">
+    <div className="reel-center-wrap mx-auto w-full max-w-[380px]">
       <p className="type-label mb-3 text-center">Featured Work</p>
-      <div
-        className="relative aspect-[9/16] overflow-hidden rounded-sm border border-[var(--b-gold)] p-[2px]"
-        style={{ boxShadow: "var(--shadow-glow)" }}
-      >
-        <div className="relative h-full w-full overflow-hidden bg-void">
+      <div className="reel-center-card relative aspect-[9/16] overflow-hidden rounded-2xl border border-[var(--g300)] p-[2px] shadow-[var(--shadow-glow)]">
+        <div className="relative h-full w-full overflow-hidden rounded-[14px] bg-void">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -91,14 +85,14 @@ function CenterReel({ videos }: { videos: string[] }) {
 
 export default function ReelShowcaseDesktop() {
   return (
-    <div className="relative hidden h-[min(100svh,920px)] overflow-hidden lg:block">
-      <div className="absolute left-[4%] top-0 h-full w-[22vw] max-w-[280px]">
+    <div className="reel-desktop-showcase relative hidden min-h-[720px] overflow-hidden py-16 lg:block">
+      <div className="absolute left-[5%] top-0 h-full w-[min(22vw,260px)] scale-95 opacity-80 transition-transform duration-300 hover:scale-[0.97] hover:opacity-100">
         <ScrollColumn videos={leftVideos} direction="up" />
       </div>
-      <div className="absolute left-1/2 top-1/2 w-[min(30vw,420px)] -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute left-1/2 top-1/2 w-[min(30vw,380px)] -translate-x-1/2 -translate-y-1/2">
         <CenterReel videos={mainVideos} />
       </div>
-      <div className="absolute right-[4%] top-0 h-full w-[22vw] max-w-[280px]">
+      <div className="absolute right-[5%] top-0 h-full w-[min(22vw,260px)] scale-95 opacity-80 transition-transform duration-300 hover:scale-[0.97] hover:opacity-100">
         <ScrollColumn videos={rightVideos} direction="down" />
       </div>
     </div>

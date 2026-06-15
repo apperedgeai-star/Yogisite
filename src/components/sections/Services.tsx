@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Section } from "@/components/layout/Section";
@@ -165,7 +166,17 @@ function JupiterNodeTab() {
         <ServiceImageBlock src={ASSETS.services.jupiter} alt="Jupiter Node" overlayLabel="Campaign System" />
       </div>
       <BentoCell>
-        <h3 className="type-subhead">Jupiter Node</h3>
+        <div className="jupiter-planet-wrap">
+          <Image
+            src={ASSETS.services.jupiter}
+            alt=""
+            width={120}
+            height={120}
+            className="jupiter-planet-img"
+            aria-hidden
+          />
+        </div>
+        <h3 className="type-subhead mt-4">Jupiter Node</h3>
         <p className="type-body mt-2">Business Branding & Content Production Campaigns</p>
         <p className="type-body mt-4">{JUPITER_INTRO}</p>
         <p className="type-caption mt-3">50 pieces, 5 million views, done.</p>

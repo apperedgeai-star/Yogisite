@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { loadGsap } from "@/lib/gsap-loader";
 import { revertGsapScope } from "@/lib/gsap-scope";
 import { SITE, whatsappUrl } from "@/lib/site";
-import SoundToggle from "@/components/ui/SoundToggle";
 
 const links = [
   { label: "Services", href: "#services" },
@@ -66,8 +65,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       exit={{ x: "100%" }}
       transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
     >
-      <div className="flex items-center justify-between px-5 py-6">
-        <SoundToggle variant="inline" />
+      <div className="flex items-center justify-end px-5 py-6">
         <button
           type="button"
           onClick={onClose}

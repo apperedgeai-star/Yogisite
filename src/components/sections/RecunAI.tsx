@@ -9,15 +9,15 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 function AICard({ card }: { card: (typeof RECUN_AI_CARDS)[number] }) {
   return (
-    <article className="surface-card flex h-full flex-col">
-      <div className="relative aspect-video overflow-hidden bg-[var(--void)]">
+    <article className="surface-card service-reel-card flex h-full flex-col overflow-hidden">
+      <div className="service-reel-card__video relative aspect-[9/16] bg-[var(--void)]">
         <LazyVideo src={card.video} pauseWhenHidden />
       </div>
-      <div className="flex flex-1 flex-col p-6 md:p-7">
+      <div className="flex flex-1 flex-col p-5 md:p-6">
         <p className="type-label">{card.label}</p>
-        <h3 className="type-subhead mt-2 text-xl">{card.title}</h3>
-        <p className="type-body mt-3 flex-1">{card.desc}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <h3 className="type-subhead mt-2 text-lg">{card.title}</h3>
+        <p className="type-body mt-2 flex-1 text-sm">{card.desc}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
           {card.tags.map((tag) => (
             <span key={tag} className="tag-pill">
               {tag}
@@ -50,11 +50,13 @@ export default function RecunAI() {
           </motion.div>
         </Col>
 
-        {RECUN_AI_CARDS.map((card) => (
-          <Col key={card.label} span={12} spanMd={6} spanLg={4}>
-            <AICard card={card} />
-          </Col>
-        ))}
+        <Col span={12}>
+          <div className="service-reels-grid">
+            {RECUN_AI_CARDS.map((card) => (
+              <AICard key={card.label} card={card} />
+            ))}
+          </div>
+        </Col>
       </SiteGrid>
     </Section>
   );

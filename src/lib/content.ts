@@ -145,6 +145,17 @@ export const RECUN_AI_CARDS = [
   },
 ] as const;
 
+export const FOUNDER_FACTS = [
+  { label: "Experience", short: "9+ Years", full: "Operated across marketing-tech, e-commerce, fundraising, operations, and branding for 9+ years." },
+  { label: "Former Roles", short: "COO & CMO", full: "Served as Chief Operating Officer and Chief Marketing Officer across multiple high-growth startups in India." },
+  { label: "Fundraising", short: "₹2CR+ Raised", full: "Successfully raised over ₹2 Crore in funding across multiple ventures." },
+  { label: "Apnaadz.media", short: "Content Marketing-Tech", full: "Built a content marketing-tech platform helping business/agency owners and MSMEs grow through automated digital systems." },
+  { label: "Scalelot", short: "Rose in days", full: "At Scalelot Technologies, rose in days — a leap driven by trust in ability to execute." },
+  { label: "Master's Union", short: "35% Scholarship", full: "Selected by Master's Union, cleared all 3 interview rounds, received highest-ever 35% scholarship — declined to go all-in on building." },
+  { label: "Festum Evento", short: "UAE Expansion", full: "Led investor relations, created pitch decks, established UAE-based entity, oversaw tech, brand, and operational expansion." },
+  { label: "Philosophy", short: "Execution > Education", full: "Believes execution teaches more than education. Journey built on doing, learning, and building things that work." },
+] as const;
+
 export const FOUNDER_BIO = [
   `I believe in one simple truth: execution teaches more than education. My journey—from selling first-copy fashion on Instagram during college to leading high-growth startups across India—is built on doing, learning, and building things that work.`,
   `Over the last nine years, I've operated across multiple verticals including marketing-tech, e-commerce, fundraising, operations, and branding. I've served as Chief Operating Officer and Chief Marketing Officer and now founder, and in each of these roles, I didn't just contribute—I executed, built systems, raised funds, hired teams, and turned chaos into clarity.`,

@@ -47,7 +47,7 @@ export default function Problem() {
   );
 
   return (
-    <Section id="problem" tone="deep" ref={sectionRef as never}>
+    <Section id="problem" tone="deep" border className="problem-section" ref={sectionRef as never}>
       <SiteGrid>
         <Col span={12}>
           <div className="stats-band">

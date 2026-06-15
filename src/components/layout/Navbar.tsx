@@ -9,7 +9,6 @@ import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
 import { useLenis } from "@/providers/LenisProvider";
 import MobileDrawer from "./MobileDrawer";
-import SoundToggle from "@/components/ui/SoundToggle";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -162,7 +161,6 @@ export default function Navbar() {
             >
               Book a Call
             </a>
-            <SoundToggle variant="inline" />
           </div>
 
           <button

@@ -17,9 +17,11 @@ export default function ReelShowcase() {
   return (
     <section
       id="reels"
-      className="section-block section-block--border section-block--deep relative overflow-hidden !py-0"
+      className="reels-section section-block section-block--deep relative overflow-hidden"
     >
-      <div className="site-container relative z-20 pb-6 pt-[var(--section-y)] text-center lg:pointer-events-none lg:absolute lg:left-1/2 lg:top-10 lg:-translate-x-1/2 lg:pb-0 lg:pt-0">
+      <div className="stats-reels-divider site-container" aria-hidden />
+
+      <div className="site-container relative z-20 pb-4 pt-10 text-center lg:pointer-events-none lg:absolute lg:left-1/2 lg:top-8 lg:-translate-x-1/2 lg:pb-0 lg:pt-0">
         <SectionHeader
           label="The Work"
           title="Reels that built brands."

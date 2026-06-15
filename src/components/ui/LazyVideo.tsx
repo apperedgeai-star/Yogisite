@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { isGif } from "@/lib/videos";
@@ -9,10 +9,9 @@ type LazyVideoProps = {
   src: string;
   className?: string;
   alt?: string;
-  /** Load and play immediately (featured reel) */
   eager?: boolean;
-  /** Pause when scrolled off-screen — keeps marquee columns at 60fps */
   pauseWhenHidden?: boolean;
+  poster?: string;
 };
 
 export function LazyVideo({
@@ -21,13 +20,21 @@ export function LazyVideo({
   alt = "",
   eager = false,
   pauseWhenHidden = !eager,
+  poster,
 }: LazyVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadedRef = useRef(false);
+  const [ready, setReady] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const el = videoRef.current;
     if (!el || isGif(src)) return;
+
+    const onReady = () => {
+      setLoading(false);
+      setReady(true);
+    };
 
     const loadAndPlay = () => {
       if (!loadedRef.current) {
@@ -44,10 +51,16 @@ export function LazyVideo({
       if (!el.paused) el.pause();
     };
 
+    el.addEventListener("loadeddata", onReady);
+    el.addEventListener("canplay", onReady);
+
     if (eager) {
       loadedRef.current = true;
       loadAndPlay();
-      return;
+      return () => {
+        el.removeEventListener("loadeddata", onReady);
+        el.removeEventListener("canplay", onReady);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -59,18 +72,22 @@ export function LazyVideo({
           pause();
         }
       },
-      { rootMargin: "120px", threshold: 0.08 }
+      { rootMargin: "200px", threshold: 0.01 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      el.removeEventListener("loadeddata", onReady);
+      el.removeEventListener("canplay", onReady);
+    };
   }, [src, eager, pauseWhenHidden]);
 
   if (isGif(src)) {
     return (
       <Image
         src={src}
-        alt={alt}
+        alt={alt || "Video preview"}
         fill
         className={cn("object-cover", className)}
         sizes="(max-width: 1024px) 50vw, 22vw"
@@ -80,20 +97,26 @@ export function LazyVideo({
   }
 
   return (
-    <video
-      ref={videoRef}
-      {...(eager ? { src } : {})}
-      className={cn(
-        "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden]",
-        className
-      )}
-      muted
-      autoPlay
-      loop
-      playsInline
-      disablePictureInPicture
-      disableRemotePlayback
-      preload={eager ? "auto" : "metadata"}
-    />
+    <div className="relative h-full w-full overflow-hidden">
+      {loading && <div className="video-shimmer absolute inset-0 z-[1]" aria-hidden />}
+      <video
+        ref={videoRef}
+        {...(eager ? { src } : {})}
+        poster={poster}
+        className={cn(
+          "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden] will-change-transform",
+          !ready && "opacity-0",
+          ready && "opacity-100 transition-opacity duration-300",
+          className
+        )}
+        muted
+        autoPlay
+        loop
+        playsInline
+        disablePictureInPicture
+        disableRemotePlayback
+        preload={eager ? "auto" : "none"}
+      />
+    </div>
   );
 }

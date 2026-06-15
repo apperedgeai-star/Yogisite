@@ -119,6 +119,16 @@ const SATELLITES: SatelliteConfig[] = [
     orbitDelay: -6,
     lineDelay: 1.6,
   },
+  {
+    id: "facebook",
+    label: "Facebook",
+    angle: 170,
+    radius: 185,
+    Icon: FaFacebook,
+    orbitDuration: 10,
+    orbitDelay: -5.2,
+    lineDelay: 1.3,
+  },
 ];
 
 const AMBIENT_PARTICLES = [
