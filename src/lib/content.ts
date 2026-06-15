@@ -14,7 +14,7 @@ export const TICKER_ITEMS = [
 export const MECHANISM_ITEMS = [
   "4 main accounts + 18 distribution touchpoints",
   "9 fan/niche pages — repurposed content",
-  "$2000 / 28 days (half the market)",
+  "$2000 / 4 weeks (half the market)",
   "50K followers — guaranteed in 6 months",
   "You appear everywhere. You become the authority.",
 ] as const;
@@ -149,8 +149,12 @@ export const FOUNDER_BIO = [
   `I believe in one simple truth: execution teaches more than education. My journey—from selling first-copy fashion on Instagram during college to leading high-growth startups across India—is built on doing, learning, and building things that work.`,
   `Over the last nine years, I've operated across multiple verticals including marketing-tech, e-commerce, fundraising, operations, and branding. I've served as Chief Operating Officer and Chief Marketing Officer and now founder, and in each of these roles, I didn't just contribute—I executed, built systems, raised funds, hired teams, and turned chaos into clarity.`,
   `At Apnaadz.media, I built a content marketing-tech platform helping business/agency owners and MSMEs grow through automated digital systems. At Scalelot Technologies, I rose in days—a leap driven by trust in my ability to get things done. At Festum Evento Pvt Ltd, I led investor relations, created pitch decks, established a UAE-based entity, and oversaw tech, brand, and operational expansion.`,
-  `Recently, I was selected by Master's Union, one of India's most elite B-schools. I cleared all three interview rounds and received their highest-ever scholarship offer of 35%. But after deep reflection, I declined—not because I lacked ambition, but because I wanted to go all-in on building something truly impactful in India's startup space.`,
-  `With my track record in scaling startups, building systems from scratch, managing high-stake growth roles, and successfully raising over ₹2CR in funding, I bring not just experience—but clarity, speed, and result-oriented leadership. I don't just talk about growth. I engineer it.`,
+  `In every venture, I've dealt with both success and failure—but the result has been constant growth. These experiences have given me a 360-degree view of what it takes to scale a business in the real world.`,
+  `Recently, I was selected by Master's Union, one of India's most elite B-schools—known for its industry-led model, startup ecosystem, and Global Immersion Program. Led by entrepreneur and innovator Pratham Mittal, Master's Union is redefining how business education meets real-world execution. I cleared all three interview rounds and received their highest-ever scholarship offer of 35%. But after deep reflection, I made one of the hardest decisions of my life—I declined the admission.`,
+  `Not because I lacked ambition, but because I wanted to go all-in on my next venture and focus on building something truly impactful in India's startup space. That decision wasn't about stepping away from education—it was about stepping into action.`,
+  `Today, I bring to the table not just years of experience, but the strategic vision and operational firepower to scale a brand and profile like yours with my strategic partnership armed with execution, systems, and the hunger to make your brand/business or your profile the next big thing in India's content ecosystem.`,
+  `With my track record in scaling startups (two of them failed), building systems from scratch, managing high-stake growth roles, and successfully raising over ₹2CR in funding, I bring not just experience—but clarity, speed, and result-oriented leadership. I don't just talk about growth. I engineer it.`,
+  `From content systems and ad funnels to onboarding strategies and investor documentation, I've done it all—and done it under pressure. My network and expertise across content & media, writing & PR, narration, AI-Tech, creators, founders, angel investors, and ecosystem enablers gives us a clear edge in preparing for your next career or business strategy.`,
 ] as const;
 
 export const FAQ_ITEMS = [
@@ -187,3 +191,8 @@ export const FOOTER_SERVICES = [
   "Tech & AI",
   "Coaching & Consulting",
 ] as const;
+
+export const PROGRAM_DESCRIPTIONS = {
+  recunAI: "Learn AI tools, content creation, social media marketing, and how to build a career in this space — from the inside of a real working agency.",
+  contentSeCrore: "A premium 4-month program where followers turn into customers. You will get the complete blueprint to build a sellable product or service — and a one-man-army system to grow and monetise it",
+} as const;
