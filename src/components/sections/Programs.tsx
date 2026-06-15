@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
 import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
+import { PROGRAM_DESCRIPTIONS } from "@/lib/content";
 
 export default function Programs() {
   return (
@@ -21,7 +22,7 @@ export default function Programs() {
               <span className="tag-pill tag-pill--alert mb-4 w-fit">Launching June 2026</span>
               <h3 className="type-subhead">Recun Content &amp; AI</h3>
               <p className="type-body mt-3 flex-1">
-                AI tools, content creation, and distribution — taught from inside a working agency.
+                {PROGRAM_DESCRIPTIONS.recunAI}
               </p>
               <p className="type-body-strong mt-6">
                 <span className="price-number text-xl">₹59,000</span>
@@ -44,7 +45,7 @@ export default function Programs() {
               <span className="tag-pill mb-4 w-fit">Coming Soon</span>
               <h3 className="type-subhead">Content Se Crore</h3>
               <p className="type-body mt-3 flex-1">
-                Four months to turn followers into customers — product, system, and monetisation blueprint.
+                {PROGRAM_DESCRIPTIONS.contentSeCrore}
               </p>
               <p className="price-number mt-6 text-xl text-gold-300">₹99,000</p>
               <a
