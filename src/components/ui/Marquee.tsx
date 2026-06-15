@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { ASSETS } from "@/lib/assets";
+import Image from "next/image";
 
 const DIVIDER = (
   <span className="marquee-divider shrink-0" aria-hidden />
@@ -25,10 +29,12 @@ type MarqueeProps = {
 };
 
 function MarqueeLogo({ src, alt }: { src: string; alt: string }) {
+  const [hidden, setHidden] = useState(false);
+  if (hidden) return null;
+
   return (
     <span className="marquee-logo-slot mx-4 inline-flex shrink-0 items-center">
-      {/* eslint-disable-next-line @next/next/no-img-element -- fixed dimensions; webp logos */}
-      <img
+      <Image
         src={src}
         alt={alt}
         width={120}
@@ -36,9 +42,7 @@ function MarqueeLogo({ src, alt }: { src: string; alt: string }) {
         className="marquee-logo-img"
         loading="lazy"
         decoding="async"
-        onError={(e) => {
-          (e.target as HTMLImageElement).style.display = "none";
-        }}
+        onError={() => setHidden(true)}
       />
     </span>
   );

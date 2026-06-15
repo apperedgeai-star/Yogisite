@@ -14,7 +14,7 @@ export function ProgramCardMedia({
       <div className="relative h-full w-full overflow-hidden">
         <Image
           src={src}
-          alt=""
+          alt="Program preview"
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           loading="lazy"

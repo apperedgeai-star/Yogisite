@@ -202,7 +202,7 @@ export function NetworkDiagram() {
     >
       <Image
         src={ASSETS.networkShowcase}
-        alt=""
+        alt="Social platform distribution background"
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
         className="object-cover opacity-[0.12]"

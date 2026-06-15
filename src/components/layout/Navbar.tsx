@@ -7,7 +7,6 @@ import { loadGsap } from "@/lib/gsap-loader";
 import { revertGsapScope } from "@/lib/gsap-scope";
 import { ASSETS } from "@/lib/assets";
 import { SITE } from "@/lib/site";
-import { useLenis } from "@/providers/LenisProvider";
 import MobileDrawer from "./MobileDrawer";
 
 const navLinks = [
@@ -22,7 +21,6 @@ const SERVICE_TAGS = ["Personal Branding", "Business Branding", "Tech & AI"];
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const lenis = useLenis();
   const line1 = useRef<HTMLSpanElement>(null);
   const line2 = useRef<HTMLSpanElement>(null);
   const line3 = useRef<HTMLSpanElement>(null);
@@ -33,21 +31,18 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (!lenis) return;
-    const onScroll = (e: { scroll: number }) => updateScrolled(e.scroll);
-    lenis.on("scroll", onScroll);
-    updateScrolled(lenis.scroll);
-    return () => lenis.off("scroll", onScroll);
-  }, [lenis, updateScrolled]);
+    const onScroll = () => updateScrolled(window.scrollY);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [updateScrolled]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    if (menuOpen && lenis) lenis.stop();
-    else if (lenis) lenis.start();
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuOpen, lenis]);
+  }, [menuOpen]);
 
   useEffect(() => {
     const l1 = line1.current;
@@ -58,7 +53,9 @@ export default function Navbar() {
     let ctx: { revert: () => void } | undefined;
     let cancelled = false;
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
+    const navEl = navRef.current;
+
+    loadGsap().then(({ gsap }) => {
       if (cancelled) return;
       ctx = gsap.context(() => {
         if (menuOpen) {
@@ -70,12 +67,11 @@ export default function Navbar() {
           gsap.to(l2, { opacity: 1, duration: 0.25 });
           gsap.to(l3, { y: 0, rotation: 0, duration: 0.4, ease: "power3.inOut" });
         }
-      }, navRef) as { revert: () => void };
+      }, navEl ?? undefined) as { revert: () => void };
     });
 
     return () => {
       cancelled = true;
-      const navEl = navRef.current;
       loadGsap().then(({ ScrollTrigger }) => {
         revertGsapScope(ctx, ScrollTrigger, navEl);
       });

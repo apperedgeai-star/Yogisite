@@ -22,14 +22,15 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   const linksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!open || !linksRef.current) return;
+    const linksEl = linksRef.current;
+    if (!open || !linksEl) return;
 
     let ctx: { revert: () => void } | undefined;
     let scrollTrigger: typeof import("gsap/ScrollTrigger").ScrollTrigger | undefined;
     let cancelled = false;
 
     loadGsap().then(({ gsap, ScrollTrigger: ST }) => {
-      if (cancelled || !linksRef.current) return;
+      if (cancelled) return;
       scrollTrigger = ST;
       ctx = gsap.context(() => {
         gsap.fromTo(
@@ -44,12 +45,11 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             ease: "power3.out",
           }
         );
-      }, linksRef);
+      }, linksEl);
     });
 
     return () => {
       cancelled = true;
-      const linksEl = linksRef.current;
       revertGsapScope(ctx, scrollTrigger, linksEl);
     };
   }, [open]);

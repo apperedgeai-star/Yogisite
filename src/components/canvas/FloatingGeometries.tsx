@@ -21,7 +21,7 @@ function FloatingMesh({
   basePosition,
   parallaxStrength = 0.3,
   rotationSpeed,
-  opacity,
+  opacity: _opacity,
   floatAmplitude = 0,
   getMouse,
 }: FloatingMeshProps) {
@@ -38,7 +38,7 @@ function FloatingMesh({
         toneMapped: false,
         depthWrite: false,
       }),
-    [opacity]
+    []
   );
 
   useEffect(() => {
