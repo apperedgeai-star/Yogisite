@@ -10,7 +10,7 @@ const STATS = [
   { value: 125, label: "Views delivered", format: (n: number) => `${n}M+` },
   { value: 3, suffix: "+", label: "National brands" },
   { value: 10, suffix: "+", label: "A-list creators" },
-  { value: 2000, prefix: "$", label: "From / 4 weeks", format: (n: number) => `$${n.toLocaleString()}` },
+  { value: 2000, prefix: "$", label: "vs $4,000+ Market Rate", format: (n: number) => `$${n.toLocaleString()}` },
 ] as const;
 
 const STATEMENT_WARM = [

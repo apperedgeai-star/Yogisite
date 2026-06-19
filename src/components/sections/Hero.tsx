@@ -1,20 +1,20 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { prefersReducedMotion } from "@/lib/utils";
 import { SITE } from "@/lib/site";
 import { HeroVideoCard } from "@/components/ui/HeroVideoCard";
 import { Col, SiteGrid } from "@/components/layout/Section";
+import { animateNumber } from "@/lib/animate-number";
 
-const HEADLINE_LINES = ["We make", "founders", "famous."];
+const HEADLINE_WORDS = ["We", "make", "founders", "famous."];
 const SUB_LINES = [
   "Your competitor is less skilled.",
   "But they're more visible.",
-  "We close the distribution gap.",
+  "The gap is distribution. We close it.",
 ];
-const PROOF_LINE = "125M+ views · Vision11 · Starbucks · Rapido";
 
 type HeroProps = {
   ready?: boolean;
@@ -24,7 +24,21 @@ export default function Hero({ ready = true }: HeroProps) {
   const reduced = prefersReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [views, setViews] = useState(reduced ? 125 : 0);
   const show = ready || reduced;
+
+  useEffect(() => {
+    if (reduced) {
+      setViews(125);
+      return;
+    }
+
+    return animateNumber({
+      to: 125,
+      durationMs: 2200,
+      onUpdate: (value) => setViews(Math.round(value)),
+    });
+  }, [reduced]);
 
   useGsapScope(
     heroRef,
@@ -55,15 +69,22 @@ export default function Hero({ ready = true }: HeroProps) {
               animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: reduced ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="hero-eyebrow mb-5 md:mb-6">
-                Personal · Business Branding &amp; Distribution
+              <p className="hero-eyebrow mb-5 md:mb-6" style={{ willChange: "transform" }}>
+                {SITE.tagline}
               </p>
 
               <h1 ref={headlineRef} className="hero-headline">
-                {HEADLINE_LINES.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
+                {HEADLINE_WORDS.map((word, index) => (
+                  <motion.span
+                    key={word}
+                    className="mr-[0.18em] inline-block"
+                    initial={reduced ? false : { opacity: 0, y: 40 }}
+                    animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                    transition={{ duration: reduced ? 0 : 0.65, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ willChange: "transform" }}
+                  >
+                    {word}
+                  </motion.span>
                 ))}
               </h1>
 
@@ -76,25 +97,33 @@ export default function Hero({ ready = true }: HeroProps) {
               </div>
 
               <div className="mt-before-cta flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a
+                <motion.a
                   href={SITE.booking}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hero-cta-primary hoverable tap-target w-full sm:w-auto"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{ willChange: "transform" }}
                 >
-                  Book a Call →
-                </a>
-                <a
-                  href={SITE.seeOurWork}
+                  See Our Work
+                </motion.a>
+                <motion.a
+                  href={SITE.booking}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hero-cta-secondary hoverable tap-target w-full sm:w-auto"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{ willChange: "transform" }}
                 >
-                  See Our Work
-                </a>
+                  Claim Your Spot →
+                </motion.a>
               </div>
 
-              <p className="hero-proof hero-proof--bright mt-8 md:mt-10">{PROOF_LINE}</p>
+              <p className="hero-proof hero-proof--bright mt-8 md:mt-10" style={{ willChange: "transform" }}>
+                {views}M+ Views Delivered and counting….
+              </p>
             </motion.div>
           </Col>
 

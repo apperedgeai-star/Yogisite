@@ -86,7 +86,9 @@ function DragonsHeadTab() {
           <h3 className="type-subhead">Dragon&apos;s Head</h3>
           <p className="type-body mt-3">Personal Branding & Content Distribution System</p>
         </header>
-        <p className="type-body mt-6 max-w-3xl whitespace-pre-line">{DRAGON_WHY}</p>
+        <p className="type-body mt-6 max-w-3xl">
+          Founder authority engine built around content, distribution, and a 50K follower guarantee.
+        </p>
         </ServiceCell>
       </Col>
 
@@ -122,9 +124,16 @@ function DragonsHeadTab() {
           <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-primary hoverable tap-target inline-flex w-full sm:w-auto">
             Secure Your Spot →
           </a>
-          <p className="type-caption">Only 5 founders at a time. Quality over volume.</p>
+          <p className="type-caption">We work with only 5 founders at a time. Quality over volume.</p>
         </div>
       </ServiceCell>
+      </Col>
+
+      <Col span={12}>
+        <ServiceCell className="border-l-2 border-l-[var(--g300)]">
+          <h3 className="font-editorial text-3xl text-primary">WHY DRAGON&apos;S HEAD?</h3>
+          <div className="type-body mt-4 max-w-4xl space-y-4 whitespace-pre-line">{DRAGON_WHY}</div>
+        </ServiceCell>
       </Col>
     </SiteGrid>
   );
@@ -151,7 +160,6 @@ function JupiterNodeTab() {
         <h3 className="type-subhead mt-4">Jupiter Node</h3>
         <p className="type-body mt-2">Business Branding & Content Production Campaigns</p>
         <p className="type-body mt-4">{JUPITER_INTRO}</p>
-        <p className="type-caption mt-3">50 pieces, 5 million views, done.</p>
       </ServiceCell>
       </Col>
 
@@ -173,7 +181,7 @@ function JupiterNodeTab() {
           <ul className="type-body space-y-2.5">
             {JUPITER_INCLUDED.map((item) => (
               <li key={item} className="flex gap-2">
-                <span className="text-gold-300" aria-hidden>•</span>
+                <span className="text-gold-300" aria-hidden>✓</span>
                 {item}
               </li>
             ))}
@@ -192,8 +200,8 @@ function JupiterNodeTab() {
             <p className="type-body">{JUPITER_AD_CREATIVES}</p>
           </ServiceCell>
           <ServiceCell>
-            <p className="type-label mb-3">Note on 5M Views Guarantee</p>
-            <p className="type-caption">{JUPITER_VIEWS_NOTE}</p>
+            <p className="type-label mb-3">NOTE ON 5M VIEWS GUARANTEE</p>
+            <p className="type-caption whitespace-pre-line">{JUPITER_VIEWS_NOTE}</p>
           </ServiceCell>
         </div>
       </Col>
@@ -208,6 +216,7 @@ function JupiterNodeTab() {
       <Col span={12} spanLg={7}>
       <ServiceCell className="service-price-cell">
         <span className="badge-gold">5 Million Views or We Continue Free</span>
+        <span className="badge-gold ml-2">5M Views Guaranteed</span>
         <p className="price-number mt-4 text-[clamp(2rem,4vw,3rem)]">Custom Pricing · Min. ₹4,00,000</p>
         <p className="type-body mt-4 font-medium text-gold-300">5 Million Views — Guaranteed</p>
         <p className="type-caption mt-2">

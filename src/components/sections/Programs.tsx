@@ -43,10 +43,12 @@ export default function Programs() {
                 <span className="type-caption ml-2 font-normal">with internship</span>
               </p>
               <a
-                href={`mailto:${SITE.emails.yogii}?subject=Recun%20Content%20%26%20AI%20Program`}
+                href={SITE.booking}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"
               >
-                Apply Now →
+                Learn More
               </a>
             </div>
           </article>
@@ -61,10 +63,12 @@ export default function Programs() {
               <p className="type-body mt-3 flex-1">{PROGRAM_DESCRIPTIONS.contentSeCrore}</p>
               <p className="price-number mt-6 text-xl text-gold-300">₹99,000</p>
               <a
-                href={`mailto:${SITE.emails.sales}?subject=Content%20Se%20Crore%20Waitlist`}
+                href={SITE.booking}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero-cta-secondary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"
               >
-                Join Waitlist
+                Learn More
               </a>
             </div>
           </article>

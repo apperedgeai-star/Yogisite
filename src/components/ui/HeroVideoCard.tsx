@@ -72,7 +72,7 @@ export function HeroVideoCard({ className }: HeroVideoCardProps) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster={ASSETS.heroAmbient}
         disablePictureInPicture
         disableRemotePlayback

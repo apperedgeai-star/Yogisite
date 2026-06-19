@@ -16,8 +16,6 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const SERVICE_TAGS = ["Personal Branding", "Business Branding", "Tech & AI"];
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -84,9 +82,9 @@ export default function Navbar() {
         ref={navRef}
         className="navbar-safe fixed left-0 right-0 top-0 z-header"
         style={{
-          background: scrolled ? "rgba(6, 6, 6, 0.9)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          background: scrolled ? "rgba(0, 0, 0, 0.8)" : "transparent",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
           borderBottom: scrolled ? "1px solid var(--b1)" : "1px solid transparent",
           transition: "all 0.4s ease",
         }}
@@ -112,7 +110,7 @@ export default function Navbar() {
                 className="type-caption hidden lg:block"
                 style={{ color: "var(--t4)", fontSize: "10px", letterSpacing: "0.08em" }}
               >
-                {SERVICE_TAGS.join(" · ")}
+                {SITE.tagline}
               </span>
             </div>
           </a>
