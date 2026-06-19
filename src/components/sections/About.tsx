@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { FaInstagram } from "react-icons/fa";
 import { ASSETS } from "@/lib/assets";
-import { FOUNDER_BIO, FOUNDER_FACTS } from "@/lib/content";
+import { FOUNDER_FACTS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
@@ -58,13 +57,11 @@ export default function About() {
           <SectionHeader label="The founder" title="Execution over everything." />
           <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
 
-          <div className="mt-6 max-w-prose space-y-4">
-            {FOUNDER_BIO.map((paragraph) => (
-              <p key={paragraph} className="founder-bio-text type-body">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <p className="founder-bio-text type-body mt-6 max-w-prose">
+            I believe in one simple truth: execution teaches more than education. From selling
+            first-copy fashion on Instagram to leading high-growth startups — I engineer growth,
+            not just talk about it.
+          </p>
 
           <div className="fact-cards-grid mt-6">
             {FOUNDER_FACTS.map((fact) => (
@@ -72,25 +69,14 @@ export default function About() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={SITE.booking}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-cta-primary hoverable tap-target inline-flex"
-            >
-              Book a Discovery Call
-            </a>
-            <a
-              href={SITE.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-cta-secondary hoverable tap-target inline-flex items-center gap-2"
-            >
-              <FaInstagram aria-hidden />
-              Follow on Instagram
-            </a>
-          </div>
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-cta-primary hoverable tap-target mt-8 inline-flex"
+          >
+            Follow on Instagram →
+          </a>
         </Col>
 
         <Col span={12} spanLg={6} className="order-1 lg:order-2">

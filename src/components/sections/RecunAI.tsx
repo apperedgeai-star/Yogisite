@@ -9,12 +9,7 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 function AICard({ card }: { card: (typeof RECUN_AI_CARDS)[number] }) {
   return (
-    <motion.article
-      className="surface-card service-reel-card flex h-full flex-col overflow-hidden"
-      whileHover={{ y: -6, boxShadow: "0 18px 48px rgba(0,0,0,0.35)" }}
-      transition={{ duration: 0.25 }}
-      style={{ willChange: "transform" }}
-    >
+    <article className="surface-card service-reel-card flex h-full flex-col overflow-hidden">
       <div className="service-reel-card__video relative aspect-[9/16] bg-[var(--void)]">
         <LazyVideo src={card.video} pauseWhenHidden />
       </div>
@@ -30,7 +25,7 @@ function AICard({ card }: { card: (typeof RECUN_AI_CARDS)[number] }) {
           ))}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -57,25 +52,10 @@ export default function RecunAI() {
 
         <Col span={12}>
           <div className="service-reels-grid">
-            {RECUN_AI_CARDS.map((card, index) => (
-              <motion.div
-                key={card.label}
-                initial={reduced ? false : { opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                style={{ willChange: "transform" }}
-              >
-                <AICard card={card} />
-              </motion.div>
+            {RECUN_AI_CARDS.map((card) => (
+              <AICard key={card.label} card={card} />
             ))}
           </div>
-        </Col>
-
-        <Col span={12}>
-          <p className="type-body-strong text-gold-300">
-            AI Clone content is already live inside Dragon&apos;s Head — powering founders who can&apos;t shoot daily.
-          </p>
         </Col>
       </SiteGrid>
     </Section>

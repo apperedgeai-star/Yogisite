@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
 import { LenisProvider } from "@/providers/LenisProvider";
+import { HERO_VIDEO } from "@/lib/videos";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -10,9 +11,9 @@ const siteUrl =
     : "https://yogi-tawny.vercel.app");
 
 export const metadata: Metadata = {
-  title: "Yogii Kumar — We Make Founders Famous",
+  title: "Yogii Kumar — We Make Founders Famous | Recun Marketing 18",
   description:
-    "Personal - Business Branding & Distribution Agency. 125M+ Views. 50K Followers Guaranteed. Surat, India.",
+    "Personal Branding & Distribution Agency. 125M+ Views. 50K Followers Guaranteed. Surat, India.",
   keywords: [
     "personal branding",
     "content distribution",
@@ -55,6 +56,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href={HERO_VIDEO} as="video" type="video/mp4" />
+      </head>
       <body className="bg-void font-sans text-primary antialiased">
         <ScrollInitProvider>
           <LenisProvider>{children}</LenisProvider>

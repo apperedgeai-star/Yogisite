@@ -1,8 +1,5 @@
 /** Canonical contact + links — do not hardcode elsewhere. */
 export const SITE = {
-  companyName: "Yogii Kumar",
-  companyLegal: "Recun Marketing 18 Pvt Ltd",
-  tagline: "Personal - Business Branding & Distribution Agency",
   phone: "+91 7069028412",
   phoneTel: "+917069028412",
   whatsapp: "+91 7069028412",
@@ -15,13 +12,13 @@ export const SITE = {
     sales: "sales@therecunmedia.in",
     yogii: "yogii@therecunmedia.in",
   },
-  booking: "https://tally.so/r/kdr62j",
+  booking: "https://topmate.io/techieyogi/2139181",
   seeOurWork: "https://tally.so/r/kdr62j",
-  tallyRecunAI: "https://tally.so/r/kdr62j",
-  tallyContentSeCrore: "https://tally.so/r/kdr62j",
-  instagram: "https://instagram.com/yogiikumar",
-  instagramHandle: "@yogiikumar",
-  gold: "#C9A84C",
+  tallyRecunAI: "https://tally.so/r/J9okeY",
+  tallyContentSeCrore: "https://tally.so/r/b5z4Y2",
+  instagram: "https://instagram.com/iamthatyogii",
+  instagramHandle: "@iamthatyogii",
+  gold: "#D4A843",
 } as const;
 
 export function whatsappUrl(message?: string) {

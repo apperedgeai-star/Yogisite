@@ -55,7 +55,7 @@ export default function Founder() {
           </p>
           <h2 className="mt-3 font-display text-5xl text-[var(--text-primary)]">Yogii Kumar</h2>
           <p className="mt-2 font-sans text-sm text-[var(--text-muted)]">
-            Former COO &amp; CMO · Founder, Yogii Kumar
+            Former COO &amp; CMO · Founder, Recun Marketing 18
           </p>
 
           <div className="mt-8 space-y-4 font-sans text-base leading-relaxed text-[var(--text-muted)]">

@@ -135,6 +135,14 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             {SITE.emails.sales}
           </a>
           <a
+            href={SITE.seeOurWork}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tap-target hoverable transition-colors hover:text-gold-300"
+          >
+            See Our Work →
+          </a>
+          <a
             href={SITE.instagram}
             target="_blank"
             rel="noopener noreferrer"
@@ -148,7 +156,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             rel="noopener noreferrer"
             className="tap-target hoverable font-medium text-gold-300 transition-colors"
           >
-            Book a Call →
+            Book a call →
           </a>
         </div>
       </div>

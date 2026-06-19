@@ -74,7 +74,7 @@ export function HeroVideo({ className }: HeroVideoProps) {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       poster={ASSETS.heroAmbient}
       disablePictureInPicture
       disableRemotePlayback

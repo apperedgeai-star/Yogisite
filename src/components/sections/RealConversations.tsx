@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { ADDITIONAL_COLLABORATORS, CONVERSATIONS } from "@/lib/content";
+import { CONVERSATIONS } from "@/lib/content";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const cardVariants = {
@@ -60,7 +60,7 @@ export default function RealConversations() {
         </Col>
 
         {rest.map((c, i) => (
-          <Col key={`${c.name}-${c.session}-${i}`} span={6} spanMd={4} spanLg={3}>
+          <Col key={c.name} span={6} spanMd={4} spanLg={3}>
             <motion.article
               custom={i + 1}
               initial={reduced ? false : "hidden"}
@@ -86,19 +86,6 @@ export default function RealConversations() {
             </motion.article>
           </Col>
         ))}
-
-        <Col span={12}>
-          <div className="surface-card border-l-2 border-l-[var(--g300)] p-5 md:p-6">
-            <p className="type-label mb-4">Also collaborated with:</p>
-            <div className="flex flex-wrap gap-2">
-              {ADDITIONAL_COLLABORATORS.map((name) => (
-                <span key={name} className="tag-pill">
-                  {name}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Col>
       </SiteGrid>
     </Section>
   );
