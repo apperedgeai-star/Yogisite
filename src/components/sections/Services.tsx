@@ -215,7 +215,7 @@ function JupiterNodeTab() {
         <p className="type-caption mt-2">
           If we do not hit 5M combined views, we keep going at zero cost until we do.
         </p>
-        <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-secondary hoverable tap-target mt-6 inline-flex">
+        <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto">
           Book Discovery Call →
         </a>
       </ServiceCell>

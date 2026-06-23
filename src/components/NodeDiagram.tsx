@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const SIZE = 560;
 const CENTER = SIZE / 2;
 
 const PLATFORM_NODES = [
-  { id: "instagram", label: "Instagram", angle: 270, r: 112, Icon: FaInstagram },
-  { id: "facebook", label: "Facebook", angle: 0, r: 112, Icon: FaFacebook },
-  { id: "youtube", label: "YouTube", angle: 90, r: 112, Icon: FaYoutube },
-  { id: "linkedin", label: "LinkedIn", angle: 180, r: 112, Icon: FaLinkedin },
+  { id: "instagram", label: "Instagram", symbol: "IG", angle: 270, r: 112 },
+  { id: "facebook", label: "Facebook", symbol: "FB", angle: 0, r: 112 },
+  { id: "youtube", label: "YouTube", symbol: "YT", angle: 90, r: 112 },
+  { id: "linkedin", label: "LinkedIn", symbol: "IN", angle: 180, r: 112 },
 ] as const;
 
 const OUTER_NODES = [
@@ -115,11 +114,13 @@ export default function NodeDiagram() {
           />
         ))}
 
-        {platformNodes.map(({ Icon, ...node }) => (
+        {platformNodes.map((node) => (
           <g key={node.id} transform={`translate(${node.x} ${node.y})`} className="diagram-node">
-            <circle r={30} className="diagram-platform-bg" />
-            <Icon className="diagram-platform-icon" x={-10} y={-10} />
-            <text y={48} textAnchor="middle" className="diagram-label">
+            <circle r={34} className="diagram-platform-bg" />
+            <text y={5} textAnchor="middle" className="diagram-platform-symbol">
+              {node.symbol}
+            </text>
+            <text y={54} textAnchor="middle" className="diagram-label">
               {node.label}
             </text>
           </g>
@@ -142,12 +143,12 @@ export default function NodeDiagram() {
         ))}
 
         <g transform={`translate(${CENTER} ${CENTER})`} className="diagram-center diagram-node will-animate">
-          <circle r={44} fill="url(#diagramGold)" />
-          <circle r={54} className="diagram-center-ring" />
-          <text y={-5} textAnchor="middle" className="diagram-center-text">
+          <circle r={54} fill="url(#diagramGold)" />
+          <circle r={68} className="diagram-center-ring" />
+          <text y={-7} textAnchor="middle" className="diagram-center-text">
             YOUR
           </text>
-          <text y={12} textAnchor="middle" className="diagram-center-text">
+          <text y={13} textAnchor="middle" className="diagram-center-text">
             MAIN PAGE
           </text>
         </g>

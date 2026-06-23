@@ -1,22 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { ASSETS } from "@/lib/assets";
+import { LazyVideo } from "@/components/ui/LazyVideo";
 import { SITE } from "@/lib/site";
 import { PROGRAM_DESCRIPTIONS } from "@/lib/content";
+import { RECUN_AI_VIDEOS } from "@/lib/videos";
 
-function CourseMedia({ src, badge, alt }: { src: string; badge: string; alt: string }) {
+function CourseMedia({ src, badge }: { src: string; badge: string }) {
   return (
     <div className="course-image">
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        className="object-cover object-top"
-        sizes="(max-width: 1024px) 100vw, 50vw"
-      />
+      <LazyVideo src={src} className="object-cover" pauseWhenHidden />
       <div className="course-image-overlay" />
       <span className="course-image-badge">{badge}</span>
     </div>
@@ -33,7 +27,7 @@ export default function Programs() {
 
         <Col span={12} spanLg={6}>
           <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={ASSETS.programs.recunAI} badge="AI + CONTENT" alt="Recun Content and AI program preview" />
+            <CourseMedia src={RECUN_AI_VIDEOS.aiWebsite} badge="AI TOOLS · CONTENT · SYSTEMS" />
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill tag-pill--alert mb-4 w-fit">Launching June 2026</span>
               <h3 className="type-subhead">Recun Content &amp; AI</h3>
@@ -56,7 +50,7 @@ export default function Programs() {
 
         <Col span={12} spanLg={6}>
           <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={ASSETS.programs.contentSeCrore} badge="MONETISE" alt="Content Se Crore program preview" />
+            <CourseMedia src={RECUN_AI_VIDEOS.generativeBrand} badge="PRODUCT · SERVICE · MONETISE" />
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill mb-4 w-fit">Coming Soon</span>
               <h3 className="type-subhead">Content Se Crore</h3>

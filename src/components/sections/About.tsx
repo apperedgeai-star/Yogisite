@@ -10,6 +10,13 @@ import { SITE } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
 
+const BIO_SECTIONS = [
+  { title: "Origin", paragraphs: FOUNDER_BIO.slice(0, 2) },
+  { title: "Startup Operating Experience", paragraphs: FOUNDER_BIO.slice(2, 6) },
+  { title: "Master's Union Decision", paragraphs: FOUNDER_BIO.slice(6, 9) },
+  { title: "What I Bring", paragraphs: FOUNDER_BIO.slice(9) },
+] as const;
+
 function FactCard({
   label,
   short,
@@ -52,21 +59,53 @@ function FactCard({
 }
 
 export default function About() {
+  const [openBio, setOpenBio] = useState(0);
+
   return (
     <Section id="about" tone="deep" className="founder-section">
       <SiteGrid className="founder-layout items-start">
         <Col span={12} spanLg={7} className="order-2 lg:order-1">
           <div className="founder-copy-panel">
             <SectionHeader label="The founder" title="Execution over everything." />
-          <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
+            <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
 
-          <div className="founder-bio-text mt-6 space-y-4">
-            {FOUNDER_BIO.map((paragraph) => (
-              <p key={paragraph} className="type-body">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+            <div className="founder-bio-accordion mt-6">
+              {BIO_SECTIONS.map((section, index) => {
+                const open = openBio === index;
+                return (
+                  <article key={section.title} className="founder-bio-panel">
+                    <button
+                      type="button"
+                      className="founder-bio-toggle"
+                      onClick={() => setOpenBio(open ? -1 : index)}
+                      aria-expanded={open}
+                    >
+                      <span>{section.title}</span>
+                      <span aria-hidden>{open ? "Close" : "Read"}</span>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {open && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: "easeOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="founder-bio-text space-y-4">
+                            {section.paragraphs.map((paragraph) => (
+                              <p key={paragraph} className="type-body">
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </article>
+                );
+              })}
+            </div>
           </div>
 
           <div className="fact-cards-grid mt-6">
