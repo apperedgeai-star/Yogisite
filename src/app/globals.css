@@ -1375,6 +1375,181 @@ button:active {
   font-size: 10px;
 }
 
+/* ── Visual repair pass ── */
+.hero-headline {
+  color: #f8f1e6;
+  text-shadow: 0 0 24px rgba(212, 168, 83, 0.08);
+}
+
+.hero-reveal {
+  opacity: 1;
+}
+
+.node-diagram-wrap {
+  min-height: 460px;
+  border: 1px solid rgba(212, 168, 83, 0.24);
+  background:
+    radial-gradient(circle at center, rgba(212, 168, 83, 0.2), transparent 24%),
+    radial-gradient(circle at center, rgba(212, 168, 83, 0.1), transparent 58%),
+    #121212;
+}
+
+.node-diagram-svg {
+  min-height: 460px;
+}
+
+.diagram-node {
+  opacity: 1;
+}
+
+.diagram-line {
+  opacity: 0.46;
+  stroke: rgba(232, 201, 122, 0.52);
+  stroke-width: 1.2;
+}
+
+.diagram-orbit {
+  stroke: rgba(212, 168, 83, 0.24);
+}
+
+.diagram-platform-bg,
+.diagram-outer-bg {
+  fill: #1c1c1c;
+  stroke: rgba(232, 201, 122, 0.72);
+}
+
+.diagram-label {
+  fill: #d8cdbb;
+}
+
+.real-conversations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.8vw, 1.25rem);
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .real-conversations-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.real-conversations-grid .creator-card--featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.creator-card {
+  background: linear-gradient(180deg, #1b1b1b 0%, #111 100%);
+}
+
+.creator-card__media {
+  aspect-ratio: 1 / 1;
+  background: #111;
+}
+
+.creator-card--featured .creator-card__media {
+  aspect-ratio: 16 / 10;
+}
+
+.creator-card__media img {
+  object-position: center 18%;
+}
+
+.creator-card__body {
+  min-height: 112px;
+}
+
+.creator-card--featured .creator-card__body {
+  min-height: 132px;
+}
+
+.creator-badge-grid {
+  gap: 1rem;
+}
+
+.creator-badge-card {
+  min-height: 118px;
+  padding: 1rem;
+}
+
+.creator-badge-photo {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.45);
+  background: rgba(212, 168, 83, 0.1);
+}
+
+.creator-badge-card .type-label {
+  letter-spacing: 0.18em;
+}
+
+.founder-layout {
+  row-gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.founder-copy-panel {
+  border-radius: 18px;
+  border: 1px solid var(--b1);
+  background: rgba(26, 26, 26, 0.72);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.founder-bio-text {
+  max-width: none;
+  columns: 1;
+}
+
+@media (min-width: 1280px) {
+  .founder-bio-text {
+    columns: 2;
+    column-gap: 2rem;
+  }
+
+  .founder-bio-text p {
+    break-inside: avoid;
+  }
+}
+
+.founder-image-container {
+  min-height: 520px;
+}
+
+.founder-info-card {
+  min-height: 92px;
+}
+
+.fact-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 10px;
+  color: var(--t3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.course-image {
+  height: clamp(220px, 30vw, 320px);
+  background: #111;
+}
+
+.course-image-overlay {
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.08) 0%, rgba(10, 10, 10, 0.74) 100%),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(255, 255, 255, 0.035) 8px,
+      rgba(255, 255, 255, 0.035) 9px
+    );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .diagram-node,
   .diagram-line {

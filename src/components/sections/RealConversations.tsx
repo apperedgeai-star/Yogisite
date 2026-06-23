@@ -33,59 +33,61 @@ export default function RealConversations() {
           />
         </Col>
 
-        <Col span={12} spanLg={8} className="creators-grid-featured">
-          <motion.article
-            custom={0}
-            initial={reduced ? false : "hidden"}
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={cardVariants}
-            className="creator-card creator-card--featured"
-          >
-            <div className="creator-card__media relative">
-              <Image
-                src={featured.image}
-                alt={`${featured.name} — ${featured.session}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <div className="creator-card__body">
-              <p className="creator-card__name">{featured.name}</p>
-              <p className="creator-card__metric">{featured.stat}</p>
-              <p className="creator-card__session">{featured.session}</p>
-            </div>
-          </motion.article>
-        </Col>
-
-        {rest.map((c, i) => (
-          <Col key={c.name} span={6} spanMd={4} spanLg={3}>
+        <Col span={12}>
+          <div className="real-conversations-grid">
             <motion.article
-              custom={i + 1}
+              custom={0}
               initial={reduced ? false : "hidden"}
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={cardVariants}
-              className="creator-card"
+              className="creator-card creator-card--featured"
             >
               <div className="creator-card__media relative">
                 <Image
-                  src={c.image}
-                  alt={`${c.name} — ${c.session}`}
+                  src={featured.image}
+                  alt={`${featured.name} — ${featured.session}`}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, 56vw"
+                  priority={false}
                 />
               </div>
               <div className="creator-card__body">
-                <p className="creator-card__name">{c.name}</p>
-                {c.stat !== "—" && <p className="creator-card__metric">{c.stat}</p>}
-                <p className="creator-card__session">{c.session}</p>
+                <p className="creator-card__name">{featured.name}</p>
+                <p className="creator-card__metric">{featured.stat}</p>
+                <p className="creator-card__session">{featured.session}</p>
               </div>
             </motion.article>
-          </Col>
-        ))}
+
+            {rest.map((c, i) => (
+              <motion.article
+                key={c.name}
+                custom={i + 1}
+                initial={reduced ? false : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={cardVariants}
+                className="creator-card"
+              >
+                <div className="creator-card__media relative">
+                  <Image
+                    src={c.image}
+                    alt={`${c.name} — ${c.session}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 24vw"
+                  />
+                </div>
+                <div className="creator-card__body">
+                  <p className="creator-card__name">{c.name}</p>
+                  {c.stat !== "—" && <p className="creator-card__metric">{c.stat}</p>}
+                  <p className="creator-card__session">{c.session}</p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </Col>
 
         <Col span={12} className="mt-4">
           <section className="creator-badge-section">
@@ -109,7 +111,15 @@ export default function RealConversations() {
             <div className="creator-badge-grid">
               {CREATOR_BADGES.map((creator) => (
                 <article key={creator.name} className="creator-badge-card">
-                  <span className="creator-badge-initials">{creator.initials}</span>
+                  <span className="creator-badge-photo">
+                    <Image
+                      src={creator.image}
+                      alt={creator.name}
+                      fill
+                      className="object-cover"
+                      sizes="56px"
+                    />
+                  </span>
                   <div>
                     <p className="type-body-strong text-sm">{creator.name}</p>
                     <p className="type-label mt-1">{creator.followers}</p>

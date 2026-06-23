@@ -125,14 +125,14 @@ export const CONVERSATIONS = [
 ] as const;
 
 export const CREATOR_BADGES = [
-  { initials: "NS", name: "Nawaz Shaikh", followers: "1.6M+", handle: "@thenawazshaikh" },
-  { initials: "RU", name: "Riya Upreti", followers: "999K", handle: "@riyaelify" },
-  { initials: "JD", name: "CA Jay Desai", followers: "400K", handle: "@ca.jaydesai" },
-  { initials: "VP", name: "Viplav Panghal", followers: "190K / 21K YT Subs", handle: "—" },
-  { initials: "KP", name: "Kaushal Pandey", followers: "105K", handle: "@kaushaltalks" },
-  { initials: "HK", name: "Harsh K.", followers: "100K", handle: "@harsh.ai" },
-  { initials: "GR", name: "Gaurav S Rawat", followers: "100K", handle: "@gaurav.shares" },
-  { initials: "TC", name: "Tanya Chaubey", followers: "70K", handle: "@tanyaonbiz" },
+  { initials: "NS", name: "Nawaz Shaikh", followers: "1.6M+", handle: "@thenawazshaikh", image: "/images/creators/nawaz-shaikh.png" },
+  { initials: "RU", name: "Riya Upreti", followers: "999K", handle: "@riyaelify", image: "/images/creators/riya-upreti.png" },
+  { initials: "JD", name: "CA Jay Desai", followers: "400K", handle: "@ca.jaydesai", image: "/images/creators/ca-jay-desai.png" },
+  { initials: "VP", name: "Viplav Panghal", followers: "190K / 21K YT Subs", handle: "—", image: "/images/creators/viplav-panghal.png" },
+  { initials: "KP", name: "Kaushal Pandey", followers: "105K", handle: "@kaushaltalks", image: "/images/creators/kaushal-pandey.png" },
+  { initials: "HK", name: "Harsh K.", followers: "100K", handle: "@harsh.ai", image: "/images/creators/harsh-k.png" },
+  { initials: "GR", name: "Gaurav S Rawat", followers: "100K", handle: "@gaurav.shares", image: "/images/creators/gaurav-rawat.png" },
+  { initials: "TC", name: "Tanya Chaubey", followers: "70K", handle: "@tanyaonbiz", image: "/images/creators/tanya-chaubey.png" },
 ] as const;
 
 export const RECUN_AI_CARDS = [

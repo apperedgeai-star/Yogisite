@@ -24,7 +24,7 @@ function FactCard({
   return (
     <motion.div
       layout
-      className="fact-card"
+      className="fact-card founder-info-card"
       onClick={() => setOpen((o) => !o)}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -32,6 +32,7 @@ function FactCard({
       <div className="fact-card-header">
         <span className="fact-label">{label}</span>
         <span className="fact-short">{short}</span>
+        <span className="fact-hint">{open ? "Close" : "Hover / click"}</span>
       </div>
       <AnimatePresence>
         {open && (
@@ -53,17 +54,19 @@ function FactCard({
 export default function About() {
   return (
     <Section id="about" tone="deep" className="founder-section">
-      <SiteGrid className="items-start">
-        <Col span={12} spanLg={6} className="order-2 lg:order-1">
-          <SectionHeader label="The founder" title="Execution over everything." />
+      <SiteGrid className="founder-layout items-start">
+        <Col span={12} spanLg={7} className="order-2 lg:order-1">
+          <div className="founder-copy-panel">
+            <SectionHeader label="The founder" title="Execution over everything." />
           <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
 
-          <div className="founder-bio-text mt-6 max-w-prose space-y-4">
+          <div className="founder-bio-text mt-6 space-y-4">
             {FOUNDER_BIO.map((paragraph) => (
               <p key={paragraph} className="type-body">
                 {paragraph}
               </p>
             ))}
+          </div>
           </div>
 
           <div className="fact-cards-grid mt-6">
@@ -83,7 +86,7 @@ export default function About() {
           </a>
         </Col>
 
-        <Col span={12} spanLg={6} className="order-1 lg:order-2">
+        <Col span={12} spanLg={5} className="order-1 lg:order-2">
           <div className="founder-image-container surface-card overflow-hidden lg:sticky lg:top-28">
             <Image
               src={ASSETS.portrait}
