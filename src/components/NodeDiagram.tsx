@@ -1,29 +1,32 @@
 "use client";
 
 import { useEffect } from "react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
 
 const SIZE = 560;
 const CENTER = SIZE / 2;
 
 const PLATFORM_NODES = [
-  { id: "instagram", label: "Instagram", symbol: "IG", angle: 270, r: 112 },
-  { id: "facebook", label: "Facebook", symbol: "FB", angle: 0, r: 112 },
-  { id: "youtube", label: "YouTube", symbol: "YT", angle: 90, r: 112 },
-  { id: "linkedin", label: "LinkedIn", symbol: "IN", angle: 180, r: 112 },
+  { id: "instagram", label: "Instagram", short: "IG", Icon: FaInstagram, angle: 270, r: 116 },
+  { id: "facebook", label: "Facebook", short: "FB", Icon: FaFacebookF, angle: 0, r: 116 },
+  { id: "youtube", label: "YouTube", short: "YT", Icon: FaYoutube, angle: 90, r: 116 },
+  { id: "linkedin", label: "LinkedIn", short: "IN", Icon: FaLinkedinIn, angle: 180, r: 116 },
 ] as const;
 
 const OUTER_NODES = [
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `ig-niche-${i + 1}`,
-    label: `IG Niche ${i + 1}`,
-    angle: -90 + i * 20,
-    r: 220,
+    label: `IG ${i + 1}`,
+    group: "IG",
+    angle: 205 + i * 16.25,
+    r: 222,
   })),
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `yt-clips-${i + 1}`,
-    label: `YT Clips ${i + 1}`,
-    angle: 90 + i * 20,
-    r: 220,
+    label: `YT ${i + 1}`,
+    group: "YT",
+    angle: -25 + i * 16.25,
+    r: 222,
   })),
 ] as const;
 
@@ -44,16 +47,16 @@ export default function NodeDiagram() {
     import("animejs").then(({ animate, stagger }) => {
       if (cancelled) return;
 
-      animate(".diagram-center", {
+      animate(".diagram-core", {
         scale: [1, 1.06, 1],
         duration: 2400,
         easing: "easeInOutSine",
         loop: true,
       });
 
-      animate(".diagram-node", {
+      animate(".diagram-html-node", {
         opacity: [0, 1],
-        scale: [0.6, 1],
+        scale: [0.72, 1],
         delay: stagger(80, { from: "center" }),
         duration: 600,
         easing: "easeOutExpo",
@@ -71,7 +74,16 @@ export default function NodeDiagram() {
         });
       });
 
-      animate(".diagram-outer-node", {
+      animate(".diagram-spoke-dot", {
+        opacity: [0.25, 1, 0.25],
+        scale: [0.75, 1.18, 0.75],
+        duration: 2200,
+        easing: "easeInOutSine",
+        loop: true,
+        delay: stagger(95),
+      });
+
+      animate(".diagram-outer-node-html", {
         translateY: [-3, 3],
         duration: 2800,
         easing: "easeInOutSine",
@@ -98,10 +110,19 @@ export default function NodeDiagram() {
             <stop offset="65%" stopColor="#D4A853" />
             <stop offset="100%" stopColor="#8F6E0C" />
           </radialGradient>
+          <filter id="diagramGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
         <circle cx={CENTER} cy={CENTER} r={235} className="diagram-orbit" />
-        <circle cx={CENTER} cy={CENTER} r={112} className="diagram-orbit diagram-orbit--inner" />
+        <circle cx={CENTER} cy={CENTER} r={172} className="diagram-orbit diagram-orbit--middle" />
+        <circle cx={CENTER} cy={CENTER} r={116} className="diagram-orbit diagram-orbit--inner" />
+        <circle cx={CENTER} cy={CENTER} r={46} className="diagram-core-halo" filter="url(#diagramGlow)" />
 
         {[...platformNodes, ...outerNodes].map((node) => (
           <line
@@ -114,36 +135,18 @@ export default function NodeDiagram() {
           />
         ))}
 
-        {platformNodes.map((node) => (
-          <g key={node.id} transform={`translate(${node.x} ${node.y})`} className="diagram-node">
-            <circle r={34} className="diagram-platform-bg" />
-            <text y={5} textAnchor="middle" className="diagram-platform-symbol">
-              {node.symbol}
-            </text>
-            <text y={54} textAnchor="middle" className="diagram-label">
-              {node.label}
-            </text>
-          </g>
-        ))}
-
         {outerNodes.map((node) => (
           <g
             key={node.id}
             transform={`translate(${node.x} ${node.y})`}
-            className="diagram-node diagram-outer-node"
+            className="diagram-spoke-dot"
           >
-            <circle r={21} className="diagram-outer-bg" />
-            <text y={4} textAnchor="middle" className="diagram-outer-text">
-              {node.label.includes("IG") ? "IG" : "YT"}
-            </text>
-            <text y={38} textAnchor="middle" className="diagram-label diagram-label--small">
-              {node.label}
-            </text>
+            <circle r={8} className="diagram-outer-bg" />
           </g>
         ))}
 
-        <g transform={`translate(${CENTER} ${CENTER})`} className="diagram-center diagram-node will-animate">
-          <circle r={54} fill="url(#diagramGold)" />
+        <g transform={`translate(${CENTER} ${CENTER})`} className="diagram-core will-animate">
+          <circle r={56} fill="url(#diagramGold)" />
           <circle r={68} className="diagram-center-ring" />
           <text y={-7} textAnchor="middle" className="diagram-center-text">
             YOUR
@@ -153,6 +156,33 @@ export default function NodeDiagram() {
           </text>
         </g>
       </svg>
+
+      <div className="diagram-html-layer" aria-hidden>
+        {platformNodes.map(({ id, label, short, Icon, x, y }) => (
+          <div
+            key={id}
+            className={`diagram-html-node diagram-platform-node diagram-platform-node--${id}`}
+            style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
+          >
+            <span className="diagram-icon-shell">
+              <Icon aria-hidden />
+            </span>
+            <span className="diagram-node-label">{label}</span>
+            <span className="diagram-node-short">{short}</span>
+          </div>
+        ))}
+
+        {outerNodes.map(({ id, label, group, x, y }) => (
+          <div
+            key={id}
+            className="diagram-html-node diagram-outer-node-html"
+            style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
+          >
+            <span>{group}</span>
+            <small>{label}</small>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

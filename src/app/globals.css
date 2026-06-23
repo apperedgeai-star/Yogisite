@@ -1570,6 +1570,225 @@ button:active {
   letter-spacing: 0.06em;
 }
 
+.node-diagram-wrap {
+  isolation: isolate;
+  min-height: clamp(430px, 48vw, 540px);
+  background:
+    radial-gradient(circle at center, rgba(232, 201, 122, 0.22), transparent 18%),
+    radial-gradient(circle at center, rgba(212, 168, 83, 0.12), transparent 48%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01)),
+    #0d0d0d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.node-diagram-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  z-index: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 168, 83, 0.16);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, black 0 54%, transparent 78%);
+  pointer-events: none;
+}
+
+.node-diagram-svg {
+  position: relative;
+  z-index: 1;
+  min-height: clamp(430px, 48vw, 540px);
+  overflow: visible;
+}
+
+.diagram-html-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.diagram-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 24px rgba(212, 168, 83, 0.34));
+}
+
+.diagram-core-halo {
+  fill: rgba(212, 168, 83, 0.28);
+}
+
+.diagram-line {
+  stroke: rgba(232, 201, 122, 0.42);
+  stroke-width: 1.3;
+}
+
+.diagram-orbit {
+  stroke: rgba(212, 168, 83, 0.28);
+}
+
+.diagram-orbit--middle {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-dasharray: 2 12;
+}
+
+.diagram-spoke-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.diagram-outer-bg {
+  fill: #d4a853;
+  stroke: rgba(255, 245, 210, 0.78);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 10px rgba(212, 168, 83, 0.35));
+}
+
+.diagram-html-node {
+  position: absolute;
+  opacity: 1;
+  translate: -50% -50%;
+  transform: scale(1);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.diagram-platform-node {
+  display: grid;
+  min-width: 106px;
+  justify-items: center;
+  gap: 0.3rem;
+  padding: 0.55rem 0.65rem 0.5rem;
+  border: 1px solid rgba(232, 201, 122, 0.42);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(28, 28, 28, 0.96), rgba(12, 12, 12, 0.92)),
+    #111;
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(212, 168, 83, 0.16);
+}
+
+.diagram-icon-shell {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 999px;
+  color: #0b0b0b;
+  background: linear-gradient(135deg, #f4d98a, #d4a853 62%, #8f6e0c);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.diagram-icon-shell svg {
+  width: 20px;
+  height: 20px;
+}
+
+.diagram-platform-node--youtube .diagram-icon-shell {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3b3b, #b80000);
+}
+
+.diagram-platform-node--instagram .diagram-icon-shell {
+  color: #ffffff;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.diagram-platform-node--facebook .diagram-icon-shell {
+  color: #ffffff;
+  background: linear-gradient(135deg, #4e8cff, #0866ff);
+}
+
+.diagram-platform-node--linkedin .diagram-icon-shell {
+  color: #ffffff;
+  background: linear-gradient(135deg, #2f9fd7, #0a66c2);
+}
+
+.diagram-node-label,
+.diagram-node-short,
+.diagram-outer-node-html {
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  line-height: 1;
+}
+
+.diagram-node-label {
+  color: #f8f1e6;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.diagram-node-short {
+  color: rgba(232, 201, 122, 0.8);
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.diagram-outer-node-html {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(232, 201, 122, 0.36);
+  border-radius: 999px;
+  color: #0b0b0b;
+  background: linear-gradient(135deg, #f2d37d, #d4a853);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.36);
+}
+
+.diagram-outer-node-html span {
+  font-size: 0.64rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.diagram-outer-node-html small {
+  margin-top: -0.3rem;
+  color: rgba(10, 10, 10, 0.72);
+  font-size: 0.46rem;
+  font-weight: 900;
+}
+
+@media (max-width: 767px) {
+  .diagram-platform-node {
+    min-width: 78px;
+    padding: 0.45rem 0.45rem 0.4rem;
+  }
+
+  .diagram-icon-shell {
+    width: 34px;
+    height: 34px;
+  }
+
+  .diagram-icon-shell svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .diagram-node-label {
+    font-size: 0.55rem;
+  }
+
+  .diagram-node-short {
+    font-size: 0.48rem;
+  }
+
+  .diagram-outer-node-html {
+    width: 36px;
+    height: 36px;
+  }
+
+  .diagram-outer-node-html small {
+    display: none;
+  }
+}
+
 .real-conversations-grid {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-auto-rows: minmax(190px, auto);

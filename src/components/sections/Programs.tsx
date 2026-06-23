@@ -60,9 +60,9 @@ export default function Programs() {
                 href={SITE.booking}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta-secondary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"
+                className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"
               >
-                Join Waitlist
+                Join Waitlist →
               </a>
             </div>
           </article>
