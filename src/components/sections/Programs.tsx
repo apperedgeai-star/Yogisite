@@ -27,7 +27,7 @@ export default function Programs() {
 
         <Col span={12} spanLg={6}>
           <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={RECUN_AI_VIDEOS.aiWebsite} badge="AI TOOLS · CONTENT · SYSTEMS" />
+            <CourseMedia src={RECUN_AI_VIDEOS.generativeBrand} badge="AI TOOLS · CONTENT · SYSTEMS" />
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill tag-pill--alert mb-4 w-fit">Launching June 2026</span>
               <h3 className="type-subhead">Recun Content &amp; AI</h3>
@@ -50,7 +50,7 @@ export default function Programs() {
 
         <Col span={12} spanLg={6}>
           <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={RECUN_AI_VIDEOS.generativeBrand} badge="PRODUCT · SERVICE · MONETISE" />
+            <CourseMedia src={RECUN_AI_VIDEOS.aiWebsite} badge="PRODUCT · SERVICE · MONETISE" />
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill mb-4 w-fit">Coming Soon</span>
               <h3 className="type-subhead">Content Se Crore</h3>
