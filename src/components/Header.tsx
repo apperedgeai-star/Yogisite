@@ -54,8 +54,13 @@ export default function Header() {
               height={36}
               priority
             />
-            <span className="font-sans text-sm font-semibold tracking-wide text-[var(--gold)] md:text-base">
-              YOGII KUMAR
+            <span className="flex flex-col leading-none">
+              <span className="font-sans text-sm font-semibold tracking-wide text-[var(--gold)] md:text-base">
+                Yogii Kumar
+              </span>
+              <span className="mt-1 hidden font-sans text-[10px] font-medium tracking-[0.16em] text-[var(--t3)] lg:block">
+                Personal Branding · Business Branding · Tech &amp; AI
+              </span>
             </span>
           </Link>
 
@@ -76,7 +81,7 @@ export default function Header() {
               href={SITE.booking}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full bg-[var(--gold)] px-5 py-2.5 font-sans text-sm font-semibold text-[var(--bg-primary)] transition-all hover:scale-[1.04] hover:bg-[var(--gold-light)] hover:shadow-[0_0_40px_rgba(201,168,76,0.4)] md:inline-flex"
+              className="hidden rounded-full bg-[var(--gold)] px-5 py-2.5 font-sans text-sm font-semibold text-[var(--bg-primary)] transition-colors duration-200 hover:bg-[var(--gold-light)] md:inline-flex"
             >
               Book a Call
             </a>

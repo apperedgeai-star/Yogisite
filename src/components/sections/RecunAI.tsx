@@ -57,6 +57,12 @@ export default function RecunAI() {
             ))}
           </div>
         </Col>
+
+        <Col span={12}>
+          <p className="type-pull mx-auto mt-2 max-w-3xl text-center text-xl">
+            AI Clone content is already live inside Dragon&apos;s Head — powering founders who can&apos;t shoot daily.
+          </p>
+        </Col>
       </SiteGrid>
     </Section>
   );

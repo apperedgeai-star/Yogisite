@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animateNumber } from "@/lib/animate-number";
 import { prefersReducedMotion } from "@/lib/utils";
 
 type StatCounterProps = {
@@ -41,7 +40,6 @@ export function StatCounter({
     const el = ref.current;
     if (!el) return;
 
-    let cancelAnim: (() => void) | undefined;
     let cancelled = false;
 
     const start = () => {
@@ -53,17 +51,20 @@ export function StatCounter({
         return;
       }
 
-      setDisplay(finalDisplay(0, prefix, suffix, format));
-      cancelAnim = animateNumber({
-        to: value,
-        durationMs: 2200,
-        onUpdate: (n) => {
-          const rounded = Math.round(n);
-          setDisplay(finalDisplay(rounded, prefix, suffix, format));
-        },
-        onComplete: () => {
-          setDisplay(finalDisplay(value, prefix, suffix, format));
-        },
+      const counter = { val: 0 };
+      import("animejs").then(({ animate }) => {
+        if (cancelled) return;
+        animate(counter, {
+          val: value,
+          duration: 1800,
+          easing: "easeOutExpo",
+          update: () => {
+            setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
+          },
+          complete: () => {
+            setDisplay(finalDisplay(value, prefix, suffix, format));
+          },
+        });
       });
     };
 
@@ -83,7 +84,6 @@ export function StatCounter({
       cancelled = true;
       observer.disconnect();
       window.clearTimeout(fallback);
-      cancelAnim?.();
     };
   }, [value, prefix, suffix, format]);
 

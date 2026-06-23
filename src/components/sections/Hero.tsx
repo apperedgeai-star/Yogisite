@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useGsapScope } from "@/hooks/useGsapScope";
 import { prefersReducedMotion } from "@/lib/utils";
@@ -14,7 +14,7 @@ const SUB_LINES = [
   "But they're more visible.",
   "We close the distribution gap.",
 ];
-const PROOF_LINE = "125M+ views · Vision11 · Starbucks · Rapido";
+const PROOF_LINE = "125M+ VIEWS · VISION11 · STARBUCKS · RAPIDO";
 
 type HeroProps = {
   ready?: boolean;
@@ -45,6 +45,26 @@ export default function Hero({ ready = true }: HeroProps) {
     [ready]
   );
 
+  useEffect(() => {
+    if (!show || reduced) return;
+
+    let cancelled = false;
+    import("animejs").then(({ createTimeline }) => {
+      if (cancelled) return;
+      const tl = createTimeline();
+      tl
+        .add(".hero-label", { opacity: [0, 1], translateY: [20, 0], duration: 600, ease: "outExpo" })
+        .add(".hero-title", { opacity: [0, 1], translateY: [40, 0], duration: 800, ease: "outExpo" }, "+=0")
+        .add(".hero-subtitle", { opacity: [0, 1], translateY: [20, 0], duration: 600, ease: "outExpo" }, "-=400")
+        .add(".hero-buttons", { opacity: [0, 1], translateY: [20, 0], duration: 500, ease: "outExpo" }, "-=300")
+        .add(".hero-statbar", { opacity: [0, 1], duration: 500, ease: "outExpo" }, "-=200");
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [show, reduced]);
+
   return (
     <section ref={heroRef} id="hero" className="hero-section hero-section--card">
       <div className="site-container relative z-10">
@@ -55,11 +75,11 @@ export default function Hero({ ready = true }: HeroProps) {
               animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: reduced ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="hero-eyebrow mb-5 md:mb-6">
+              <p className="hero-eyebrow hero-label will-animate mb-5 opacity-0 md:mb-6">
                 Personal · Business Branding &amp; Distribution
               </p>
 
-              <h1 ref={headlineRef} className="hero-headline">
+              <h1 ref={headlineRef} className="hero-headline hero-title will-animate opacity-0">
                 {HEADLINE_LINES.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -67,7 +87,7 @@ export default function Hero({ ready = true }: HeroProps) {
                 ))}
               </h1>
 
-              <div className="mt-after-headline max-w-md space-y-1.5">
+              <div className="hero-subtitle will-animate mt-after-headline max-w-md space-y-1.5 opacity-0">
                 {SUB_LINES.map((line) => (
                   <p key={line} className="hero-subtext">
                     {line}
@@ -75,7 +95,7 @@ export default function Hero({ ready = true }: HeroProps) {
                 ))}
               </div>
 
-              <div className="mt-before-cta flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="hero-buttons will-animate mt-before-cta flex flex-col gap-3 opacity-0 sm:flex-row sm:items-center">
                 <a
                   href={SITE.booking}
                   target="_blank"
@@ -94,7 +114,7 @@ export default function Hero({ ready = true }: HeroProps) {
                 </a>
               </div>
 
-              <p className="hero-proof hero-proof--bright mt-8 md:mt-10">{PROOF_LINE}</p>
+              <p className="hero-proof hero-proof--bright hero-statbar will-animate mt-8 opacity-0 md:mt-10">{PROOF_LINE}</p>
             </motion.div>
           </Col>
 

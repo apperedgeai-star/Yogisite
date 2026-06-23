@@ -7,10 +7,10 @@ import { Col, Section, SiteGrid } from "@/components/layout/Section";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const STATS = [
-  { value: 125, label: "Views delivered", format: (n: number) => `${n}M+` },
-  { value: 3, suffix: "+", label: "National brands" },
-  { value: 10, suffix: "+", label: "A-list creators" },
-  { value: 2000, prefix: "$", label: "From / 4 weeks", format: (n: number) => `$${n.toLocaleString()}` },
+  { value: 125, label: "VIEWS DELIVERED", format: (n: number) => `${n}M+` },
+  { value: 3, suffix: "+", label: "NATIONAL BRANDS" },
+  { value: 10, suffix: "+", label: "A-LIST CREATORS" },
+  { value: 2000, prefix: "$", label: "FROM / 4 WEEKS", format: (n: number) => `$${n.toLocaleString()}` },
 ] as const;
 
 const STATEMENT_WARM = [

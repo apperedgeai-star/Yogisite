@@ -1,10 +1,66 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { SITE, whatsappUrl } from "@/lib/site";
 import { FOOTER_SERVICES } from "@/lib/content";
 import { ASSETS } from "@/lib/assets";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
+
+const SLOGANS = [
+  "Stop being invisible online.",
+  "Your competitor is already visible.",
+  "22 channels. One authority.",
+  "Content is not enough. Distribution is.",
+  "125M+ views. Yours next.",
+  "We don't post. We dominate.",
+] as const;
+
+function AnimatedSlogan() {
+  const [index, setIndex] = useState(0);
+  const elRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const el = elRef.current;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!el || reduce) return;
+
+    let interval: ReturnType<typeof setInterval> | undefined;
+    let cancelled = false;
+
+    import("animejs").then(({ animate }) => {
+      if (cancelled) return;
+      interval = setInterval(() => {
+        animate(el, {
+          opacity: [1, 0],
+          translateY: [0, -24],
+          duration: 450,
+          easing: "easeInQuart",
+          complete: () => {
+            setIndex((prev) => (prev + 1) % SLOGANS.length);
+            animate(el, {
+              opacity: [0, 1],
+              translateY: [24, 0],
+              duration: 550,
+              easing: "easeOutExpo",
+            });
+          },
+        });
+      }, 3200);
+    });
+
+    return () => {
+      cancelled = true;
+      if (interval) clearInterval(interval);
+    };
+  }, []);
+
+  return (
+    <h2 ref={elRef} className="type-section will-animate mt-6 max-w-xl" style={{ minHeight: "1.2em" }}>
+      {SLOGANS[index]}
+    </h2>
+  );
+}
 
 export default function Footer() {
   return (
@@ -18,9 +74,9 @@ export default function Footer() {
             height={36}
             className="h-8 w-auto object-contain"
           />
-          <h2 className="type-section mt-6 max-w-sm">Stop being invisible online.</h2>
+          <AnimatedSlogan />
           <p className="type-body mt-4 max-w-md">
-            25-minute discovery call. No pitch deck — a real conversation and a plan built for you on the call.
+            Book a 25-minute discovery call. No pitch deck. No generic proposal. A real conversation about your brand — and a dedicated plan built for you on the call.
           </p>
           <a
             href={SITE.booking}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { CONVERSATIONS } from "@/lib/content";
+import { CONVERSATIONS, CREATOR_BADGES } from "@/lib/content";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const cardVariants = {
@@ -86,6 +86,40 @@ export default function RealConversations() {
             </motion.article>
           </Col>
         ))}
+
+        <Col span={12} className="mt-4">
+          <section className="creator-badge-section">
+            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <span className="tag-pill tag-pill--alert mb-4 w-fit">10+</span>
+                <h3 className="type-subhead">A-List Creator Partnerships</h3>
+                <p className="type-body mt-3 max-w-3xl">
+                  Helped India&apos;s top creators across finance, business, tech, and lifestyle with viral research, scriptwriting, ghostwriting, and content strategy using our Proven Content System.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {["RESEARCH", "SCRIPTING", "GHOSTWRITING", "CONTENT STRATEGY"].map((tag) => (
+                  <span key={tag} className="tag-pill">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="creator-badge-grid">
+              {CREATOR_BADGES.map((creator) => (
+                <article key={creator.name} className="creator-badge-card">
+                  <span className="creator-badge-initials">{creator.initials}</span>
+                  <div>
+                    <p className="type-body-strong text-sm">{creator.name}</p>
+                    <p className="type-label mt-1">{creator.followers}</p>
+                    <p className="type-caption mt-1">{creator.handle}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Col>
       </SiteGrid>
     </Section>
   );

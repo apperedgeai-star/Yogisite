@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { FaInstagram } from "react-icons/fa";
 import { ASSETS } from "@/lib/assets";
-import { FOUNDER_FACTS } from "@/lib/content";
+import { FOUNDER_BIO, FOUNDER_FACTS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
@@ -57,11 +58,13 @@ export default function About() {
           <SectionHeader label="The founder" title="Execution over everything." />
           <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
 
-          <p className="founder-bio-text type-body mt-6 max-w-prose">
-            I believe in one simple truth: execution teaches more than education. From selling
-            first-copy fashion on Instagram to leading high-growth startups — I engineer growth,
-            not just talk about it.
-          </p>
+          <div className="founder-bio-text mt-6 max-w-prose space-y-4">
+            {FOUNDER_BIO.map((paragraph) => (
+              <p key={paragraph} className="type-body">
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
           <div className="fact-cards-grid mt-6">
             {FOUNDER_FACTS.map((fact) => (
@@ -73,9 +76,10 @@ export default function About() {
             href={SITE.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="hero-cta-primary hoverable tap-target mt-8 inline-flex"
+            className="instagram-btn hoverable tap-target mt-8 inline-flex items-center gap-2 rounded-full border border-white px-5 py-3 font-sans text-sm font-semibold text-white transition-colors duration-200"
           >
-            Follow on Instagram →
+            <FaInstagram size={18} />
+            Follow on Instagram
           </a>
         </Col>
 

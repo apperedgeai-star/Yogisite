@@ -16,7 +16,7 @@ import {
   JUPITER_AD_CREATIVES,
   JUPITER_IMPORTANT,
   JUPITER_INCLUDED,
-  JUPITER_INTRO,
+  JUPITER_OPENING,
   JUPITER_METRICS,
   JUPITER_VIEWS_NOTE,
 } from "@/lib/content";
@@ -80,13 +80,14 @@ function DragonsHeadTab() {
         <ServiceCell className="service-hero-cell">
         <div className="flex flex-wrap gap-3">
           <span className="badge-gold">Most Popular</span>
-          <span className="badge-red">5 Founders at a Time</span>
+          <span className="badge-red">5 FOUNDERS AT A TIME</span>
         </div>
         <header className="mt-6 max-w-2xl">
           <h3 className="type-subhead">Dragon&apos;s Head</h3>
           <p className="type-body mt-3">Personal Branding & Content Distribution System</p>
         </header>
-        <p className="type-body mt-6 max-w-3xl whitespace-pre-line">{DRAGON_WHY}</p>
+        <p className="type-label mt-6">Why Dragon&apos;s Head?</p>
+        <p className="type-body mt-3 max-w-3xl whitespace-pre-line">{DRAGON_WHY}</p>
         </ServiceCell>
       </Col>
 
@@ -120,9 +121,9 @@ function DragonsHeadTab() {
         <p className="type-caption mt-4">6-month contract · $100 token confirms spot (adjusted against month one)</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-primary hoverable tap-target inline-flex w-full sm:w-auto">
-            Secure Your Spot →
+            Claim your spot →
           </a>
-          <p className="type-caption">Only 5 founders at a time. Quality over volume.</p>
+          <p className="type-caption">We work with only 5 founders at a time. Quality over volume.</p>
         </div>
       </ServiceCell>
       </Col>
@@ -149,8 +150,9 @@ function JupiterNodeTab() {
           />
         </div>
         <h3 className="type-subhead mt-4">Jupiter Node</h3>
-        <p className="type-body mt-2">Business Branding & Content Production Campaigns</p>
-        <p className="type-body mt-4">{JUPITER_INTRO}</p>
+        <span className="badge-gold">5 MILLION VIEWS OR WE CONTINUE FREE</span>
+        <p className="type-body mt-4">Business Branding & Content Production Campaigns</p>
+        <p className="type-body mt-4">{JUPITER_OPENING}</p>
         <p className="type-caption mt-3">50 pieces, 5 million views, done.</p>
       </ServiceCell>
       </Col>

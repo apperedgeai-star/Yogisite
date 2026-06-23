@@ -12,13 +12,13 @@ export const SITE = {
     sales: "sales@therecunmedia.in",
     yogii: "yogii@therecunmedia.in",
   },
-  booking: "https://topmate.io/techieyogi/2139181",
+  booking: "https://tally.so/r/kdr62j",
   seeOurWork: "https://tally.so/r/kdr62j",
-  tallyRecunAI: "https://tally.so/r/J9okeY",
-  tallyContentSeCrore: "https://tally.so/r/b5z4Y2",
-  instagram: "https://instagram.com/iamthatyogii",
-  instagramHandle: "@iamthatyogii",
-  gold: "#D4A843",
+  tallyRecunAI: "https://tally.so/r/kdr62j",
+  tallyContentSeCrore: "https://tally.so/r/kdr62j",
+  instagram: "https://www.instagram.com/yogiikumar/",
+  instagramHandle: "@yogiikumar",
+  gold: "#D4A853",
 } as const;
 
 export function whatsappUrl(message?: string) {

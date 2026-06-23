@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGsapScope } from "@/hooks/useGsapScope";
-import { NetworkDiagram } from "@/components/ui/NetworkDiagram";
+import NodeDiagram from "@/components/NodeDiagram";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
 import { MECHANISM_ITEMS } from "@/lib/content";
@@ -56,7 +56,7 @@ export default function Mechanism() {
 
         <Col span={12} spanLg={7}>
           <div className="mechanism-panel surface-card p-4 md:p-6">
-            <NetworkDiagram />
+            <NodeDiagram />
           </div>
         </Col>
       </SiteGrid>

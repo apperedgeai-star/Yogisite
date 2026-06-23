@@ -41,9 +41,9 @@ const config: Config = {
         "accent-alt": "var(--gold-200)",
       },
       fontFamily: {
-        display: ['"Editorial"', '"Cormorant Garamond"', "Georgia", "serif"],
-        sans: ['"Satoshi"', "system-ui", "sans-serif"],
-        stats: ['"Satoshi"', "system-ui", "sans-serif"],
+        display: ["var(--font-playfair)", '"Playfair Display"', '"Editorial"', '"Cormorant Garamond"', "Georgia", "serif"],
+        sans: ["var(--font-inter)", '"Inter"', '"Satoshi"', "system-ui", "sans-serif"],
+        stats: ["var(--font-inter)", '"Inter"', '"Satoshi"', "system-ui", "sans-serif"],
         editorial: ['"Editorial"', '"Cormorant Garamond"', "serif"],
         satoshi: ['"Satoshi"', "system-ui", "sans-serif"],
       },

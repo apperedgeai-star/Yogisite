@@ -75,7 +75,10 @@ function CenterReel({ videos }: { videos: string[] }) {
             </motion.div>
           </AnimatePresence>
           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--b1)]">
-            <div className="h-full bg-gold-300" style={{ width: `${progress}%` }} />
+            <div
+              className="h-full origin-left bg-gold-300 will-change-transform"
+              style={{ transform: `scaleX(${progress / 100})` }}
+            />
           </div>
         </div>
       </div>

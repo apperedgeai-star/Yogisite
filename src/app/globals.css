@@ -37,11 +37,17 @@
   --bg-primary: var(--void);
   --bg-secondary: var(--card);
   --bg-tertiary: #1f1f1f;
+  --bg-void: #0a0a0a;
+  --bg-deep: #111111;
+  --bg-surface: #161616;
+  --bg-elevated: #1e1e1e;
+  --bg-card: #161616;
+  --bg-card-hover: #1e1e1e;
 
   /* ── GOLD — warm honey (ENHANCED GLOW) ── */
   --g100: #fff9ed;
   --g200: #f5e6b8;
-  --g300: #d4a843;
+  --g300: #d4a853;
   --g400: #b8921e;
   --g500: #8f6e0c;
   --g-glow: rgba(212, 168, 67, 0.15);
@@ -51,6 +57,13 @@
   --gold: var(--g300);
   --gold-light: var(--g200);
   --gold-dark: var(--g500);
+  --gold-100: #fff9ed;
+  --gold-200: #e8c97a;
+  --gold-300: #d4a853;
+  --gold-400: #c9a227;
+  --gold-500: #8f6e0c;
+  --gold-glow: rgba(212, 168, 83, 0.15);
+  --gold-glow-hard: rgba(212, 168, 83, 0.25);
   --border: rgba(212, 168, 67, 0.15);
 
   /* ── TEXT (REFINED CONTRAST) ── */
@@ -58,6 +71,10 @@
   --t2: #a39d94;
   --t3: #7f7a72;
   --t4: rgba(157, 152, 144, 0.5);
+  --text-primary: #f5f0e8;
+  --text-secondary: #a0978a;
+  --text-muted: #6b6359;
+  --text-ghost: rgba(160, 151, 138, 0.55);
 
   /* ── BORDERS ── */
   --b1: rgba(255, 255, 255, 0.08);
@@ -103,7 +120,7 @@
 
 /* ── UNIVERSAL NUMBER STYLING ── */
 .number, [class*="stat"], [class*="counter"] {
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
@@ -111,7 +128,7 @@
 
 /* ── TYPOGRAPHY CLASSES (MODERNIZED) ── */
 .type-section {
-  font-family: "Editorial", "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-playfair), "Playfair Display", "Editorial", "Cormorant Garamond", Georgia, serif;
   font-size: var(--f-section);
   font-weight: 400;
   line-height: var(--lh-display);
@@ -120,7 +137,7 @@
 }
 
 .type-subhead {
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-size: var(--f-subhead);
   font-weight: 600;
   line-height: 1.35;
@@ -129,7 +146,7 @@
 }
 
 .type-body {
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-size: var(--f-body);
   font-weight: 400;
   line-height: var(--lh-body);
@@ -138,7 +155,7 @@
 }
 
 .type-body-strong {
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-size: var(--f-body);
   font-weight: 600;
   line-height: var(--lh-body);
@@ -147,7 +164,7 @@
 }
 
 .type-label {
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-size: var(--f-label);
   font-weight: 700;
   line-height: var(--lh-label);
@@ -164,7 +181,7 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--t1);
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   width: 100%;
   max-width: 100%;
   -webkit-font-smoothing: antialiased;
@@ -390,7 +407,7 @@ button:active {
   display: inline-flex;
   flex-direction: column;
   gap: 0.65rem;
-  font-family: "Satoshi", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   font-size: var(--f-label);
   font-weight: 600;
   letter-spacing: 0.38em;
@@ -422,7 +439,7 @@ button:active {
 }
 
 .type-pull {
-  font-family: "Editorial", serif;
+  font-family: var(--font-playfair), "Playfair Display", "Editorial", serif;
   font-style: italic;
   color: var(--g300);
 }
@@ -467,7 +484,7 @@ button:active {
 }
 
 .hero-headline {
-  font-family: "Editorial", "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-playfair), "Playfair Display", "Editorial", "Cormorant Garamond", Georgia, serif;
   font-size: clamp(2.5rem, 8vw, 5rem);
   line-height: 0.92;
   letter-spacing: -0.03em;
@@ -1150,6 +1167,220 @@ button:active {
 }
 
 .mechanism-item + .mechanism-item { margin-top: 0.75rem; }
+
+/* ── Prompt completion refinements ── */
+.will-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.problem-section {
+  padding-bottom: 0;
+}
+
+.reels-section {
+  padding-top: 80px;
+}
+
+.case-card {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.case-card__body {
+  display: flex;
+  min-height: 16rem;
+  flex: 1;
+  flex-direction: column;
+}
+
+.case-card .problem-stat-number {
+  margin-top: auto;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.creator-card__media img {
+  object-position: top center;
+}
+
+.creator-card {
+  cursor: pointer;
+}
+
+.creator-card:hover {
+  transform: translateY(-3px);
+}
+
+.creator-badge-section {
+  background: #1a1a1a;
+  border: 1px solid var(--b1);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.creator-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .creator-badge-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.creator-badge-card {
+  display: flex;
+  gap: 0.75rem;
+  min-height: 96px;
+  align-items: center;
+  border-radius: 14px;
+  border: 1px solid var(--b1);
+  background: #111;
+  padding: 0.85rem;
+}
+
+.creator-badge-initials {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(212, 168, 83, 0.16);
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.faq-section {
+  background-color: #fafafa;
+}
+
+.faq-section .section-label {
+  color: #c9a227 !important;
+  font-weight: 700;
+}
+
+.faq-section .type-section,
+.faq-section h2,
+.faq-section .faq-question {
+  color: #0a0a0a !important;
+}
+
+.faq-section .faq-item {
+  border-bottom: 1px solid #e5e5e5;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+.faq-section .faq-answer {
+  color: #3a3a3a;
+}
+
+.instagram-btn:hover {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.node-diagram-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at center, rgba(212, 168, 83, 0.08), transparent 58%),
+    #111;
+}
+
+.node-diagram-svg {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  min-height: 360px;
+}
+
+.diagram-orbit {
+  fill: none;
+  stroke: rgba(212, 168, 83, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 4 10;
+}
+
+.diagram-orbit--inner {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.diagram-line {
+  stroke: rgba(212, 168, 83, 0.35);
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.diagram-node {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.diagram-platform-bg,
+.diagram-outer-bg {
+  fill: #171717;
+  stroke: rgba(212, 168, 83, 0.45);
+}
+
+.diagram-platform-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--gold);
+}
+
+.diagram-label,
+.diagram-outer-text,
+.diagram-center-text {
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
+  fill: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.diagram-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+}
+
+.diagram-label--small {
+  font-size: 9px;
+}
+
+.diagram-outer-text {
+  fill: var(--gold);
+  font-size: 10px;
+}
+
+.diagram-center-ring {
+  fill: none;
+  stroke: rgba(232, 201, 122, 0.45);
+  stroke-width: 1;
+}
+
+.diagram-center-text {
+  fill: #0a0a0a;
+  font-size: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diagram-node,
+  .diagram-line {
+    opacity: 1;
+  }
+}
 
 .footer-stack {
   display: grid;

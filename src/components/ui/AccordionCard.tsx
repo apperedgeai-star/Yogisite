@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { cn, prefersReducedMotion } from "@/lib/utils";
-import { loadGsap } from "@/lib/gsap-loader";
-import type { GsapContextHandle } from "@/lib/gsap-scope";
 
 type AccordionCardProps = {
   question: string;
@@ -35,47 +33,34 @@ export function AccordionCard({
     }
 
     let cancelled = false;
-    let ctx: GsapContextHandle | undefined;
 
-    loadGsap().then(({ gsap }) => {
+    import("animejs").then(({ animate }) => {
       if (cancelled) return;
 
-      ctx = gsap.context(() => {
-        if (open) {
-          gsap.set(body, { height: "auto", opacity: 0 });
-          const h = inner.offsetHeight;
-          gsap.fromTo(
-            body,
-            { height: 0, opacity: 0 },
-            {
-              height: h,
-              opacity: 1,
-              duration: 0.45,
-              ease: "power3.out",
-              onComplete: () => {
-                gsap.set(body, { height: "auto" });
-              },
-            }
-          );
-        } else {
-          const h = body.offsetHeight;
-          gsap.fromTo(
-            body,
-            { height: h, opacity: 1 },
-            {
-              height: 0,
-              opacity: 0,
-              duration: 0.35,
-              ease: "power3.inOut",
-            }
-          );
-        }
-      }, root) as GsapContextHandle;
+      if (open) {
+        body.style.height = "0px";
+        body.style.opacity = "0";
+        animate(body, {
+          height: [0, inner.scrollHeight],
+          opacity: [0, 1],
+          duration: 400,
+          easing: "easeOutQuad",
+          complete: () => {
+            body.style.height = "auto";
+          },
+        });
+      } else {
+        animate(body, {
+          height: [body.offsetHeight, 0],
+          opacity: [1, 0],
+          duration: 320,
+          easing: "easeOutQuad",
+        });
+      }
     });
 
     return () => {
       cancelled = true;
-      ctx?.revert();
     };
   }, [open]);
 

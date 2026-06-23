@@ -10,7 +10,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <Section id="faq" tone="base">
+    <Section id="faq" tone="base" className="faq-section">
       <SiteGrid>
         <Col span={12} spanLg={8} className="lg:col-start-3">
           <SectionHeader label="FAQ" title="Straight answers." className="mb-10 md:mb-12" />

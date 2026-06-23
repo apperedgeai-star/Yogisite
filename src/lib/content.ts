@@ -12,7 +12,7 @@ export const TICKER_ITEMS = [
 ] as const;
 
 export const MECHANISM_ITEMS = [
-  "4 main accounts + 18 distribution touchpoints",
+  "4 main accounts + 18 Distribution touchpoints",
   "9 fan/niche pages — repurposed content",
   "$2000 / 4 weeks (half the market)",
   "50K followers — guaranteed in 6 months",
@@ -54,6 +54,9 @@ export const JUPITER_IMPORTANT = `Service ends once all 50 pieces are live and 5
 export const JUPITER_AD_CREATIVES = `All content is produced to be repurposable as paid ad creatives — ready to run on Meta, YouTube, and Instagram without additional production cost.`;
 
 export const JUPITER_VIEWS_NOTE = `The 5M views guarantee is based on an account starting from scratch or with inconsistent posting history. If your brand already generates 100K+ monthly reach through existing consistent content, the outcome projection will differ — and will be discussed after a full page analysis and narrative review before we commit to a number.`;
+
+export const JUPITER_OPENING =
+  "Jupiter is the largest planet — it commands gravity. This service is for brands and businesses that want a complete content campaign that pulls massive attention. 50 pieces, 5 million views, done.";
 
 export const CLIENT_CASES = [
   {
@@ -121,6 +124,17 @@ export const CONVERSATIONS = [
   { name: "Multi-Session Collab", stat: "—", session: "Creator & Founder Strategy Days", image: ASSETS.conversations.multiSession },
 ] as const;
 
+export const CREATOR_BADGES = [
+  { initials: "NS", name: "Nawaz Shaikh", followers: "1.6M+", handle: "@thenawazshaikh" },
+  { initials: "RU", name: "Riya Upreti", followers: "999K", handle: "@riyaelify" },
+  { initials: "JD", name: "CA Jay Desai", followers: "400K", handle: "@ca.jaydesai" },
+  { initials: "VP", name: "Viplav Panghal", followers: "190K / 21K YT Subs", handle: "—" },
+  { initials: "KP", name: "Kaushal Pandey", followers: "105K", handle: "@kaushaltalks" },
+  { initials: "HK", name: "Harsh K.", followers: "100K", handle: "@harsh.ai" },
+  { initials: "GR", name: "Gaurav S Rawat", followers: "100K", handle: "@gaurav.shares" },
+  { initials: "TC", name: "Tanya Chaubey", followers: "70K", handle: "@tanyaonbiz" },
+] as const;
+
 export const RECUN_AI_CARDS = [
   {
     label: "AI Clone Videos",
@@ -157,15 +171,18 @@ export const FOUNDER_FACTS = [
 ] as const;
 
 export const FOUNDER_BIO = [
-  `I believe in one simple truth: execution teaches more than education. My journey—from selling first-copy fashion on Instagram during college to leading high-growth startups across India—is built on doing, learning, and building things that work.`,
-  `Over the last nine years, I've operated across multiple verticals including marketing-tech, e-commerce, fundraising, operations, and branding. I've served as Chief Operating Officer and Chief Marketing Officer and now founder, and in each of these roles, I didn't just contribute—I executed, built systems, raised funds, hired teams, and turned chaos into clarity.`,
-  `At Apnaadz.media, I built a content marketing-tech platform helping business/agency owners and MSMEs grow through automated digital systems. At Scalelot Technologies, I rose in days—a leap driven by trust in my ability to get things done. At Festum Evento Pvt Ltd, I led investor relations, created pitch decks, established a UAE-based entity, and oversaw tech, brand, and operational expansion.`,
-  `In every venture, I've dealt with both success and failure—but the result has been constant growth. These experiences have given me a 360-degree view of what it takes to scale a business in the real world.`,
-  `Recently, I was selected by Master's Union, one of India's most elite B-schools—known for its industry-led model, startup ecosystem, and Global Immersion Program. Led by entrepreneur and innovator Pratham Mittal, Master's Union is redefining how business education meets real-world execution. I cleared all three interview rounds and received their highest-ever scholarship offer of 35%. But after deep reflection, I made one of the hardest decisions of my life—I declined the admission.`,
-  `Not because I lacked ambition, but because I wanted to go all-in on my next venture and focus on building something truly impactful in India's startup space. That decision wasn't about stepping away from education—it was about stepping into action.`,
-  `Today, I bring to the table not just years of experience, but the strategic vision and operational firepower to scale a brand and profile like yours with my strategic partnership armed with execution, systems, and the hunger to make your brand/business or your profile the next big thing in India's content ecosystem.`,
-  `With my track record in scaling startups (two of them failed), building systems from scratch, managing high-stake growth roles, and successfully raising over ₹2CR in funding, I bring not just experience—but clarity, speed, and result-oriented leadership. I don't just talk about growth. I engineer it.`,
-  `From content systems and ad funnels to onboarding strategies and investor documentation, I've done it all—and done it under pressure. My network and expertise across content & media, writing & PR, narration, AI-Tech, creators, founders, angel investors, and ecosystem enablers gives us a clear edge in preparing for your next career or business strategy.`,
+  `I believe in one simple truth: execution teaches more than education. My journey — from selling first-copy fashion on Instagram during college to leading high-growth startups across India — is built on doing, learning, and building things that work.`,
+  `Over the last nine years, I've operated across multiple verticals including marketing-tech, e-commerce, fundraising, operations, and branding. I've served as Chief Operating Officer and Chief Marketing Officer and now founder, and in each of these roles, I didn't just contribute — I executed, built systems, raised funds, hired teams, and turned chaos into clarity.`,
+  `At Apnaadz.media, I built a content marketing-tech platform helping business/agency owners and MSMEs grow through automated digital systems.`,
+  `At Scalelot Technologies, I rose in days — a leap driven by trust in my ability to get things done.`,
+  `At Festum Evento Pvt Ltd, I led investor relations, created pitch decks, established a UAE-based entity, and oversaw tech, brand, and operational expansion.`,
+  `In every venture, I've dealt with both success and failure — but the result has been constant growth. These experiences have given me a 360-degree view of what it takes to scale a business in the real world.`,
+  `Recently, I was selected by Master's Union, one of India's most elite B-schools — known for its industry-led model, startup ecosystem, and Global Immersion Program. Led by entrepreneur and innovator Pratham Mittal, Master's Union is redefining how business education meets real-world execution. I cleared all three interview rounds and received their highest-ever scholarship offer of 35%. But after deep reflection, I made one of the hardest decisions of my life — I declined the admission.`,
+  `Not because I lacked ambition, but because I wanted to go all-in on my next venture and focus on building something truly impactful in India's startup space.`,
+  `That decision wasn't about stepping away from education — it was about stepping into action. Today, I bring to the table not just years of experience, but the strategic vision and operational firepower to scale a brand and profile like yours.`,
+  `With my track record in scaling startups, building systems from scratch, managing high-stake growth roles, and successfully raising over ₹2CR in funding, I bring not just experience — but clarity, speed, and result-oriented leadership.`,
+  `I don't just talk about growth. I engineer it.`,
+  `My network and expertise across content & media, writing & PR, narration, AI-Tech, creators, founders, angel investors, and ecosystem enablers gives us a clear edge in preparing for your next career or business strategy.`,
 ] as const;
 
 export const FAQ_ITEMS = [
@@ -205,5 +222,5 @@ export const FOOTER_SERVICES = [
 
 export const PROGRAM_DESCRIPTIONS = {
   recunAI: "Learn AI tools, content creation, social media marketing, and how to build a career in this space — from the inside of a real working agency.",
-  contentSeCrore: "A premium 4-month program where followers turn into customers. You will get the complete blueprint to build a sellable product or service — and a one-man-army system to grow and monetise it",
+  contentSeCrore: "A premium 4-month program where followers turn into customers. You will get the complete blueprint to build a sellable product or service — and a one-man-army system to grow and monetise it.",
 } as const;

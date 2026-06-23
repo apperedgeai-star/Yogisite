@@ -98,7 +98,7 @@ export function LazyVideo({
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      {loading && <div className="video-shimmer absolute inset-0 z-[1]" aria-hidden />}
+      {loading && <div className="video-shimmer reel-skeleton absolute inset-0 z-[1]" aria-hidden />}
       <video
         ref={videoRef}
         {...(eager ? { src } : {})}
@@ -115,7 +115,7 @@ export function LazyVideo({
         playsInline
         disablePictureInPicture
         disableRemotePlayback
-        preload={eager ? "auto" : "none"}
+        preload={eager ? "metadata" : "none"}
       />
     </div>
   );

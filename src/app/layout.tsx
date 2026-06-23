@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
 import { LenisProvider } from "@/providers/LenisProvider";
@@ -9,6 +10,18 @@ const siteUrl =
   (process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "https://yogi-tawny.vercel.app");
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Yogii Kumar — We Make Founders Famous | Recun Marketing 18",
@@ -59,7 +72,7 @@ export default function RootLayout({
       <head>
         <link rel="preload" href={HERO_VIDEO} as="video" type="video/mp4" />
       </head>
-      <body className="bg-void font-sans text-primary antialiased">
+      <body className={`${inter.variable} ${playfair.variable} bg-void font-sans text-primary antialiased`}>
         <ScrollInitProvider>
           <LenisProvider>{children}</LenisProvider>
         </ScrollInitProvider>
