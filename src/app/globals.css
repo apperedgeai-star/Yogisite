@@ -1935,6 +1935,18 @@ button:active {
   gap: 2rem;
 }
 
+.footer-slogan {
+  display: block;
+  min-height: clamp(4.5rem, 8vw, 7.5rem);
+  max-width: 11ch;
+  color: #f8f1e6;
+  background: linear-gradient(105deg, #fff7e8 0%, #d4a853 58%, #f8f1e6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 34px rgba(212, 168, 83, 0.12);
+  opacity: 1;
+}
+
 @media (min-width: 1024px) {
   .footer-stack {
     grid-template-columns: 1.25fr 0.75fr 1fr;

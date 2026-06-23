@@ -36,7 +36,7 @@ function AnimatedSlogan() {
           translateY: [0, -24],
           duration: 450,
           easing: "easeInQuart",
-          complete: () => {
+          onComplete: () => {
             setIndex((prev) => (prev + 1) % SLOGANS.length);
             animate(el, {
               opacity: [0, 1],
@@ -56,7 +56,7 @@ function AnimatedSlogan() {
   }, []);
 
   return (
-    <h2 ref={elRef} className="type-section will-animate mt-6 max-w-xl" style={{ minHeight: "1.2em" }}>
+    <h2 ref={elRef} className="footer-slogan type-section will-animate mt-6 max-w-xl" style={{ minHeight: "1.2em" }}>
       {SLOGANS[index]}
     </h2>
   );
