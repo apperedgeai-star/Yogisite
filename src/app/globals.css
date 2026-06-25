@@ -2426,9 +2426,9 @@ button:active {
 .conversation-card[data-quality="low"]::after {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.25) 30%,
-    rgba(0, 0, 0, 0.65) 58%,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.12) 32%,
+    rgba(0, 0, 0, 0.58) 62%,
     rgba(0, 0, 0, 0.92) 82%,
     rgba(0, 0, 0, 0.97) 100%
   ) !important;
@@ -2447,7 +2447,7 @@ button:active {
   height: 100% !important;
   border-radius: 0 !important;
   object-fit: cover !important;
-  object-position: center top !important;
+  object-position: var(--conversation-focal, center top) !important;
   filter: saturate(0.85) brightness(0.9) !important;
   -webkit-filter: saturate(0.85) brightness(0.9) !important;
   clip-path: none !important;
@@ -2456,8 +2456,8 @@ button:active {
 }
 
 .conversation-card[data-quality="low"] .conversation-card__image {
-  filter: saturate(0.6) brightness(0.75) !important;
-  -webkit-filter: saturate(0.6) brightness(0.75) !important;
+  filter: saturate(0.78) brightness(0.92) contrast(1.05) !important;
+  -webkit-filter: saturate(0.78) brightness(0.92) contrast(1.05) !important;
 }
 
 .conversation-card:hover .conversation-card__image {
@@ -2467,8 +2467,8 @@ button:active {
 }
 
 .conversation-card[data-quality="low"]:hover .conversation-card__image {
-  filter: saturate(0.75) brightness(0.78) !important;
-  -webkit-filter: saturate(0.75) brightness(0.78) !important;
+  filter: saturate(0.9) brightness(0.95) contrast(1.05) !important;
+  -webkit-filter: saturate(0.9) brightness(0.95) contrast(1.05) !important;
 }
 
 .conversation-card__fallback {

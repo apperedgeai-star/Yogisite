@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -83,6 +83,7 @@ export default function RealConversations() {
                 variants={cardVariants}
                 className="conversation-card"
                 data-quality={card.quality}
+                style={{ "--conversation-focal": card.focal } as CSSProperties}
               >
                 <div className="conversation-card__image-wrapper">
                   {shouldUseFallback ? (
@@ -98,7 +99,7 @@ export default function RealConversations() {
                       placeholder="empty"
                       style={{
                         objectFit: "cover",
-                        objectPosition: "center top",
+                        objectPosition: card.focal,
                         imageRendering: isNawaz ? "crisp-edges" : "auto",
                       }}
                       onError={() => handleImageError(card.name)}
