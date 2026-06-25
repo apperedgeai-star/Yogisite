@@ -29,22 +29,19 @@ export function StatCounter({
   format,
 }: StatCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const animated = useRef(false);
-  const [display, setDisplay] = useState(() =>
-    prefersReducedMotion()
-      ? finalDisplay(value, prefix, suffix, format)
-      : finalDisplay(0, prefix, suffix, format)
-  );
+  const hasAnimated = useRef(false);
+  const [display, setDisplay] = useState(() => finalDisplay(value, prefix, suffix, format));
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     let cancelled = false;
+    let animation: { cancel?: () => void; pause?: () => void } | undefined;
 
-    const start = () => {
-      if (cancelled || animated.current) return;
-      animated.current = true;
+    const start = async () => {
+      if (cancelled || hasAnimated.current) return;
+      hasAnimated.current = true;
 
       if (prefersReducedMotion()) {
         setDisplay(finalDisplay(value, prefix, suffix, format));
@@ -52,19 +49,21 @@ export function StatCounter({
       }
 
       const counter = { val: 0 };
-      import("animejs").then(({ animate }) => {
-        if (cancelled) return;
-        animate(counter, {
-          val: value,
-          duration: 1800,
-          easing: "easeOutExpo",
-          update: () => {
-            setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
-          },
-          complete: () => {
-            setDisplay(finalDisplay(value, prefix, suffix, format));
-          },
-        });
+      setDisplay(finalDisplay(0, prefix, suffix, format));
+
+      const { animate } = await import("animejs");
+      if (cancelled) return;
+
+      animation = animate(counter, {
+        val: value,
+        duration: 2200,
+        easing: "easeOutExpo",
+        update: () => {
+          setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
+        },
+        complete: () => {
+          setDisplay(finalDisplay(value, prefix, suffix, format));
+        },
       });
     };
 
@@ -72,18 +71,19 @@ export function StatCounter({
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
           start();
+          observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "80px 0px -10% 0px" }
+      { threshold: 0.4 }
     );
 
     observer.observe(el);
-    const fallback = window.setTimeout(start, 700);
 
     return () => {
       cancelled = true;
       observer.disconnect();
-      window.clearTimeout(fallback);
+      animation?.cancel?.();
+      animation?.pause?.();
     };
   }, [value, prefix, suffix, format]);
 

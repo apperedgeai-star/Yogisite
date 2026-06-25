@@ -51,6 +51,8 @@ export default function RealConversations() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 56vw"
                   priority={false}
+                  placeholder="empty"
+                  quality={90}
                 />
               </div>
               <div className="creator-card__body">
@@ -76,7 +78,9 @@ export default function RealConversations() {
                     alt={`${c.name} — ${c.session}`}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 50vw, 24vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                    placeholder="empty"
+                    quality={90}
                   />
                 </div>
                 <div className="creator-card__body">
@@ -120,8 +124,8 @@ export default function RealConversations() {
                       sizes="56px"
                     />
                   </span>
-                  <div>
-                    <p className="type-body-strong text-sm">{creator.name}</p>
+                  <div className="creator-badge-copy">
+                    <p className="creator-badge-name type-body-strong text-sm">{creator.name}</p>
                     <p className="type-label mt-1">{creator.followers}</p>
                     <p className="type-caption mt-1">{creator.handle}</p>
                   </div>

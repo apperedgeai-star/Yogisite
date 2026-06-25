@@ -5,11 +5,7 @@ import { ScrollInitProvider } from "@/providers/ScrollInitProvider";
 import { LenisProvider } from "@/providers/LenisProvider";
 import { HERO_VIDEO } from "@/lib/videos";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "https://yogi-tawny.vercel.app");
+const siteUrl = "https://yogi-tawny.vercel.app";
 
 const inter = Inter({
   subsets: ["latin"],

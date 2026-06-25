@@ -67,7 +67,7 @@ export default function About() {
         <Col span={12} spanLg={7} className="order-2 lg:order-1">
           <div className="founder-copy-panel">
             <SectionHeader label="The founder" title="Execution over everything." />
-            <p className="type-caption -mt-2 text-gold-300">Former COO &amp; CMO</p>
+            <p className="founder-subtitle type-caption text-gold-300">Former COO &amp; CMO</p>
 
             <div className="founder-bio-accordion mt-6">
               {BIO_SECTIONS.map((section, index) => {
@@ -133,7 +133,7 @@ export default function About() {
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className="founder-image object-cover"
-              style={{ objectPosition: "top center" }}
+              style={{ objectFit: "cover", objectPosition: "top center" }}
             />
           </div>
         </Col>

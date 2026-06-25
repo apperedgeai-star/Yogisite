@@ -2,20 +2,8 @@
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { LazyVideo } from "@/components/ui/LazyVideo";
 import { SITE } from "@/lib/site";
 import { PROGRAM_DESCRIPTIONS } from "@/lib/content";
-import { RECUN_AI_VIDEOS } from "@/lib/videos";
-
-function CourseMedia({ src, badge }: { src: string; badge: string }) {
-  return (
-    <div className="course-image">
-      <LazyVideo src={src} className="object-cover" pauseWhenHidden />
-      <div className="course-image-overlay" />
-      <span className="course-image-badge">{badge}</span>
-    </div>
-  );
-}
 
 export default function Programs() {
   return (
@@ -26,10 +14,10 @@ export default function Programs() {
         </Col>
 
         <Col span={12} spanLg={6}>
-          <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={RECUN_AI_VIDEOS.generativeBrand} badge="AI TOOLS · CONTENT · SYSTEMS" />
+          <article className="education-card surface-card flex h-full flex-col overflow-hidden">
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill tag-pill--alert mb-4 w-fit">Launching June 2026</span>
+              <p className="course-card-label mb-4">AI TOOLS · CONTENT · SYSTEMS</p>
               <h3 className="type-subhead">Recun Content &amp; AI</h3>
               <p className="type-body mt-3 flex-1">{PROGRAM_DESCRIPTIONS.recunAI}</p>
               <p className="type-body-strong mt-6">
@@ -49,10 +37,10 @@ export default function Programs() {
         </Col>
 
         <Col span={12} spanLg={6}>
-          <article className="surface-card flex h-full flex-col overflow-hidden">
-            <CourseMedia src={RECUN_AI_VIDEOS.aiWebsite} badge="PRODUCT · SERVICE · MONETISE" />
+          <article className="education-card surface-card flex h-full flex-col overflow-hidden">
             <div className="flex flex-1 flex-col p-6 md:p-8">
               <span className="tag-pill mb-4 w-fit">Coming Soon</span>
+              <p className="course-card-label mb-4">PRODUCT · SERVICE · MONETISE</p>
               <h3 className="type-subhead">Content Se Crore</h3>
               <p className="type-body mt-3 flex-1">{PROGRAM_DESCRIPTIONS.contentSeCrore}</p>
               <p className="price-number mt-6 text-xl text-gold-300">₹99,000</p>

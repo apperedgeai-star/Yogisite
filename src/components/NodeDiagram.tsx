@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
 
 const SIZE = 560;
@@ -39,62 +39,74 @@ function point(angle: number, r: number) {
 }
 
 export default function NodeDiagram() {
+  const diagramRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
     let cancelled = false;
-    import("animejs").then(({ animate, stagger }) => {
-      if (cancelled) return;
+    const root = diagramRef.current;
+    if (!root) return;
 
-      animate(".diagram-core", {
-        scale: [1, 1.06, 1],
-        duration: 2400,
-        easing: "easeInOutSine",
-        loop: true,
-      });
+    const observer = new IntersectionObserver(
+      async ([entry]) => {
+        if (!entry.isIntersecting || cancelled) return;
+        observer.disconnect();
 
-      animate(".diagram-html-node", {
-        opacity: [0, 1],
-        scale: [0.72, 1],
-        delay: stagger(80, { from: "center" }),
-        duration: 600,
-        easing: "easeOutExpo",
-      });
+        const { animate, stagger } = await import("animejs");
+        if (cancelled) return;
 
-      document.querySelectorAll(".diagram-line").forEach((line, index) => {
-        const len = (line as SVGLineElement).getTotalLength?.() ?? 100;
-        animate(line, {
-          strokeDasharray: len,
-          strokeDashoffset: [len, 0],
-          opacity: [0, 0.42],
-          delay: index * 36,
-          duration: 850,
-          easing: "easeOutQuad",
+        const lines = root.querySelectorAll(".diagram-line");
+        const nodes = root.querySelectorAll(".diagram-html-node, .diagram-spoke-dot");
+
+        animate(lines, {
+          opacity: [0, 0.46],
+          duration: 800,
+          easing: "easeOutSine",
         });
-      });
 
-      animate(".diagram-spoke-dot", {
-        opacity: [0.25, 1, 0.25],
-        scale: [0.75, 1.18, 0.75],
-        duration: 2200,
-        easing: "easeInOutSine",
-        loop: true,
-        delay: stagger(95),
-      });
+        animate(nodes, {
+          opacity: [0, 1],
+          scale: [0, 1],
+          delay: stagger(60, { from: "center" }),
+          duration: 500,
+          easing: "easeOutBack",
+        });
 
-      animate(".diagram-outer-node-html", {
-        translateY: [-3, 3],
-        duration: 2800,
-        easing: "easeInOutSine",
-        loop: true,
-        alternate: true,
-        delay: stagger(120),
-      });
-    });
+        animate(root.querySelectorAll(".diagram-core"), {
+          scale: [1, 1.06, 1],
+          duration: 2400,
+          easing: "easeInOutSine",
+          loop: true,
+        });
+
+        animate(root.querySelectorAll(".diagram-spoke-dot"), {
+          opacity: [0.25, 1, 0.25],
+          scale: [0.75, 1.18, 0.75],
+          duration: 2200,
+          easing: "easeInOutSine",
+          loop: true,
+          delay: stagger(95),
+        });
+
+        animate(root.querySelectorAll(".diagram-outer-node-html"), {
+          translateY: [-3, 3],
+          duration: 2800,
+          easing: "easeInOutSine",
+          loop: true,
+          alternate: true,
+          delay: stagger(120),
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(root);
 
     return () => {
       cancelled = true;
+      observer.disconnect();
     };
   }, []);
 
@@ -102,8 +114,8 @@ export default function NodeDiagram() {
   const outerNodes = OUTER_NODES.map((node) => ({ ...node, ...point(node.angle, node.r) }));
 
   return (
-    <div className="node-diagram-wrap" role="img" aria-label="22 touchpoint distribution network diagram">
-      <svg className="node-diagram-svg" viewBox={`0 0 ${SIZE} ${SIZE}`} aria-hidden>
+    <div ref={diagramRef} className="node-diagram-wrap" role="img" aria-label="22 touchpoint distribution network diagram">
+      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} overflow="visible" aria-hidden>
         <defs>
           <radialGradient id="diagramGold" cx="50%" cy="38%" r="65%">
             <stop offset="0%" stopColor="#E8C97A" />

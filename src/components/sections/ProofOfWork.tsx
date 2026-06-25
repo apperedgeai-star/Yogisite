@@ -20,7 +20,7 @@ export default function ProofOfWork() {
           <SectionHeader label="Case Studies" title="Results that can't be faked." />
         </Col>
 
-        {CLIENT_CASES.map((c) => (
+        {CLIENT_CASES.map((c, index) => (
           <Col key={c.id} span={12} spanMd={6} spanLg={4}>
             <article className="surface-card case-card">
               <div className="case-card__media relative">
@@ -30,13 +30,14 @@ export default function ProofOfWork() {
                   fill
                   className="object-contain p-8"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={index === 0}
                 />
               </div>
               <div className="case-card__body">
-                <p className="type-label text-[var(--t3)]">{c.eyebrow}</p>
-                <h3 className="type-body-strong mt-2 text-lg">{c.title}</h3>
+                <p className="case-card__eyebrow">{c.eyebrow}</p>
+                <h3 className="case-card__title">{c.title}</h3>
                 <p className="type-body mt-2 flex-1 text-sm">{c.description}</p>
-                <p className="problem-stat-number mt-5 text-2xl">{c.stat}</p>
+                <p className={c.id === "vision11" ? "case-card__metric" : "case-card__submetric"}>{c.stat}</p>
               </div>
             </article>
           </Col>

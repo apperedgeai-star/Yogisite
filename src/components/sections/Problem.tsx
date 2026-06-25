@@ -8,7 +8,7 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 const STATS = [
   { value: 125, label: "VIEWS DELIVERED", format: (n: number) => `${n}M+` },
-  { value: 3, suffix: "+", label: "NATIONAL BRANDS" },
+  { value: 50, suffix: "+", label: "NATIONAL BRANDS" },
   { value: 10, suffix: "+", label: "A-LIST CREATORS" },
   { value: 2000, prefix: "$", label: "FROM / 4 WEEKS", format: (n: number) => `$${n.toLocaleString()}` },
 ] as const;

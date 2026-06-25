@@ -5,7 +5,6 @@ import {
   type ReactNode,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
@@ -140,16 +139,7 @@ function JupiterNodeTab() {
 
       <Col span={12} spanLg={7}>
       <ServiceCell className="service-hero-cell">
-        <div className="jupiter-planet-wrap">
-          <Image
-            src={ASSETS.services.jupiter}
-            alt="Jupiter planet"
-            width={120}
-            height={120}
-            className="jupiter-planet-img"
-          />
-        </div>
-        <h3 className="type-subhead mt-4">Jupiter Node</h3>
+        <h3 className="type-subhead">Jupiter Node</h3>
         <span className="badge-gold">5 MILLION VIEWS OR WE CONTINUE FREE</span>
         <p className="type-body mt-4">Business Branding & Content Production Campaigns</p>
         <p className="type-body mt-4">{JUPITER_OPENING}</p>
@@ -203,20 +193,20 @@ function JupiterNodeTab() {
       <Col span={12} spanLg={5}>
       <ServiceCell className="border-[var(--b-gold)]">
         <p className="type-label mb-2">Add-On: Influencer Outreach</p>
-        <p className="type-body">15 Creators — <span className="price-number">+₹20,000</span> (or brand handles outreach for free)</p>
+        <p className="type-body">15 Creators — <span className="price-number">+$240</span> (or brand handles outreach for free)</p>
       </ServiceCell>
       </Col>
 
       <Col span={12} spanLg={7}>
       <ServiceCell className="service-price-cell">
         <span className="badge-gold">5 Million Views or We Continue Free</span>
-        <p className="price-number mt-4 text-[clamp(2rem,4vw,3rem)]">Custom Pricing · Min. ₹4,00,000</p>
+        <p className="price-number mt-4 text-[clamp(2rem,4vw,3rem)]">Custom Pricing · Min. $4,800</p>
         <p className="type-body mt-4 font-medium text-gold-300">5 Million Views — Guaranteed</p>
         <p className="type-caption mt-2">
           If we do not hit 5M combined views, we keep going at zero cost until we do.
         </p>
         <a href={SITE.booking} target="_blank" rel="noopener noreferrer" className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto">
-          Book Discovery Call →
+          Book a Discovery Call →
         </a>
       </ServiceCell>
       </Col>

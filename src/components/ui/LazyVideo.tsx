@@ -102,9 +102,9 @@ export function LazyVideo({
       <video
         ref={videoRef}
         {...(eager ? { src } : {})}
-        poster={poster}
+        poster={poster ?? "/images/hero-ambient.jpg"}
         className={cn(
-          "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden] will-change-transform",
+          "h-full w-full object-cover [transform:translateZ(0)] [backface-visibility:hidden]",
           !ready && "opacity-0",
           ready && "opacity-100 transition-opacity duration-300",
           className
@@ -115,7 +115,7 @@ export function LazyVideo({
         playsInline
         disablePictureInPicture
         disableRemotePlayback
-        preload={eager ? "metadata" : "none"}
+        preload="metadata"
       />
     </div>
   );

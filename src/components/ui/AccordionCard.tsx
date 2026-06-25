@@ -71,13 +71,13 @@ export function AccordionCard({
     >
       <button
         type="button"
-        className="tap-target hoverable flex w-full cursor-pointer items-start justify-between gap-6 text-left"
+        className="faq-trigger tap-target hoverable flex w-full cursor-pointer items-start justify-between gap-6 text-left"
         onClick={onToggle}
         aria-expanded={open}
       >
         <span className="faq-question">{question}</span>
         <span
-          className={cn("faq-toggle", open && "faq-toggle--open")}
+          className={cn("faq-icon faq-toggle", open && "faq-toggle--open")}
           aria-hidden
         >
           +

@@ -67,13 +67,16 @@ export default function Footer() {
     <Section id="contact" tone="deep" border className="pb-[max(2rem,env(safe-area-inset-bottom))]">
       <SiteGrid className="footer-stack">
         <Col span={12} spanLg={5}>
-          <Image
-            src={ASSETS.logo}
-            alt="Yogii Kumar"
-            width={120}
-            height={36}
-            className="h-8 w-auto object-contain"
-          />
+          <div className="footer-brand-lockup">
+            <Image
+              src={ASSETS.logo}
+              alt="Recun Marketing 18"
+              width={48}
+              height={48}
+              className="footer-brand-logo object-contain"
+            />
+            <span className="footer-brand-name">Recun Marketing 18</span>
+          </div>
           <AnimatedSlogan />
           <p className="type-body mt-4 max-w-md">
             Book a 25-minute discovery call. No pitch deck. No generic proposal. A real conversation about your brand — and a dedicated plan built for you on the call.

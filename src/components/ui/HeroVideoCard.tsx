@@ -74,6 +74,7 @@ export function HeroVideoCard({ className }: HeroVideoCardProps) {
         playsInline
         preload="auto"
         poster={ASSETS.heroAmbient}
+        style={{ objectFit: "cover", objectPosition: "center top", width: "100%", height: "100%" }}
         disablePictureInPicture
         disableRemotePlayback
       />
