@@ -109,16 +109,82 @@ export const TESTIMONIALS = [
 ] as const;
 
 export const CONVERSATIONS = [
-  { name: "Nawaz Shaikh", stat: "1.6M+", session: "Ghostwriting Session", image: ASSETS.conversations.nawazShaikh },
-  { name: "Riya Upreti", stat: "1M", session: "Ghostwriting Session", image: ASSETS.conversations.riyaUpreti },
-  { name: "Shubhankar Sen Gupta", stat: "35K+", session: "Strategy Session", image: ASSETS.conversations.subhankarSengupta },
-  { name: "Viplav Panghal & Gaurav Rawat", stat: "215K+ & 100K+", session: "Generative AI Sessions and Content Strategy", image: ASSETS.conversations.viplavGaurav },
-  { name: "RJ Dheeraj", stat: "70K+", session: "PR Collab Session", image: ASSETS.conversations.rjDheeraj },
-  { name: "Karthik Naidu", stat: "—", session: "SAAS & Marketing Sessions", image: ASSETS.conversations.karthikNaidu },
-  { name: "Romil Mavani", stat: "—", session: "Mavani Solutions IT Agency · Business Consultancy Session", image: ASSETS.conversations.romilMavani },
-  { name: "Kasim Shaikh", stat: "—", session: "Business Consultancy Session", image: ASSETS.conversations.kasimShaikh },
-  { name: "Dabhi Manthan", stat: "—", session: "Podcast & Content Session", image: ASSETS.conversations.dabhiManthan },
-  { name: "Multi-Session Collab", stat: "—", session: "Creator & Founder Strategy Days", image: ASSETS.conversations.multiSession },
+  {
+    name: "Nawaz Shaikh",
+    stat: "1.6M+",
+    session: "Ghostwriting Session",
+    image: ASSETS.conversations.nawazShaikh,
+    quality: "low",
+    // TODO: Replace with a high-resolution photo of Nawaz Shaikh. Current file is a low-resolution meeting screenshot.
+  },
+  {
+    name: "Riya Upreti",
+    stat: "1M",
+    session: "Ghostwriting Session",
+    image: ASSETS.conversations.riyaUpreti,
+    quality: "low",
+    // TODO: Replace with a clearer, well-lit high-resolution photo of Riya Upreti.
+  },
+  {
+    name: "Shubhankar Sen Gupta",
+    stat: "35K+",
+    session: "Strategy Session",
+    image: ASSETS.conversations.subhankarSengupta,
+    quality: "ok",
+  },
+  {
+    name: "Viplav Panghal & Gaurav Rawat",
+    stat: "215K+ & 100K+",
+    session: "Generative AI Sessions and Content Strategy",
+    image: ASSETS.conversations.viplavGaurav,
+    quality: "ok",
+  },
+  {
+    name: "RJ Dheeraj",
+    stat: "70K+",
+    session: "PR Collab Session",
+    image: ASSETS.conversations.rjDheeraj,
+    quality: "wrong",
+    // TODO: WRONG FILE per v4 audit. Replace with the correct RJ Dheeraj photo; fallback renders until then.
+  },
+  {
+    name: "Karthik Naidu",
+    stat: "—",
+    session: "SAAS & Marketing Sessions",
+    image: ASSETS.conversations.karthikNaidu,
+    quality: "ok",
+  },
+  {
+    name: "Romil Mavani",
+    stat: "—",
+    session: "Mavani Solutions IT Agency · Business Consultancy Session",
+    image: ASSETS.conversations.romilMavani,
+    quality: "ok",
+  },
+  {
+    name: "Kasim Shaikh",
+    stat: "—",
+    session: "Business Consultancy Session",
+    image: ASSETS.conversations.kasimShaikh,
+    quality: "wrong",
+    // TODO: WRONG FILE per v4 audit. Replace with the correct Kasim Shaikh photo; fallback renders until then.
+  },
+  {
+    name: "Dabhi Manthan",
+    stat: "—",
+    session: "Podcast & Content Session",
+    image: ASSETS.conversations.dabhiManthan,
+    quality: "low",
+    // TODO: Replace with a photo where Dabhi Manthan's face is clearly visible.
+  },
+  {
+    name: "Multi-Session Collab",
+    stat: "—",
+    session: "Creator & Founder Strategy Days",
+    image: ASSETS.conversations.multiSession,
+    quality: "low",
+    // TODO: Replace with a proper group/event photo. Current file is a raw meeting screenshot.
+  },
 ] as const;
 
 export const CREATOR_BADGES = [

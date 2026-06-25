@@ -2378,28 +2378,22 @@ button:active {
 
 .real-conversations-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-auto-rows: auto;
   gap: 10px;
   margin-top: 40px;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1279px) {
   .real-conversations-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 767px) {
   .real-conversations-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-  }
-}
-
-@media (max-width: 360px) {
-  .real-conversations-grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -2429,6 +2423,23 @@ button:active {
   pointer-events: none;
 }
 
+.conversation-card[data-quality="low"]::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.25) 30%,
+    rgba(0, 0, 0, 0.65) 58%,
+    rgba(0, 0, 0, 0.92) 82%,
+    rgba(0, 0, 0, 0.97) 100%
+  ) !important;
+}
+
+.conversation-card__image-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
 .conversation-card__image {
   position: absolute !important;
   inset: 0 !important;
@@ -2444,10 +2455,55 @@ button:active {
   transition: transform 0.5s ease, filter 0.5s ease;
 }
 
+.conversation-card[data-quality="low"] .conversation-card__image {
+  filter: saturate(0.6) brightness(0.75) !important;
+  -webkit-filter: saturate(0.6) brightness(0.75) !important;
+}
+
 .conversation-card:hover .conversation-card__image {
   transform: scale(1.04);
   filter: saturate(1) brightness(0.85) !important;
   -webkit-filter: saturate(1) brightness(0.85) !important;
+}
+
+.conversation-card[data-quality="low"]:hover .conversation-card__image {
+  filter: saturate(0.75) brightness(0.78) !important;
+  -webkit-filter: saturate(0.75) brightness(0.78) !important;
+}
+
+.conversation-card__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(200, 168, 122, 0.12), transparent 34%),
+    linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+}
+
+.conversation-card__initials {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(200, 168, 122, 0.4);
+  border-radius: 999px;
+  color: #c8a87a;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.conversation-card__pending {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .conversation-card__text {
