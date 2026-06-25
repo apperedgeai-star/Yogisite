@@ -118,9 +118,6 @@ export const CONVERSATIONS = [
   { name: "Romil Mavani", stat: "—", session: "Mavani Solutions IT Agency · Business Consultancy Session", image: ASSETS.conversations.romilMavani },
   { name: "Kasim Shaikh", stat: "—", session: "Business Consultancy Session", image: ASSETS.conversations.kasimShaikh },
   { name: "Dabhi Manthan", stat: "—", session: "Podcast & Content Session", image: ASSETS.conversations.dabhiManthan },
-  { name: "Yogii Kumar", stat: "125M+ Views", session: "Founder · Strategy & Content Sessions", image: ASSETS.conversations.yogiiProfile },
-  { name: "Recun Studio", stat: "—", session: "In-Studio Content Production", image: ASSETS.conversations.yogiiStudio },
-  { name: "Brand Sessions", stat: "—", session: "Personal Branding Shoots", image: ASSETS.conversations.yogiiYellow },
   { name: "Multi-Session Collab", stat: "—", session: "Creator & Founder Strategy Days", image: ASSETS.conversations.multiSession },
 ] as const;
 

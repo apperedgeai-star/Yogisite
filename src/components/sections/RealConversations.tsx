@@ -56,7 +56,6 @@ export default function RealConversations() {
                   style={{
                     objectFit: "cover",
                     objectPosition: "center top",
-                    filter: "none",
                     imageRendering: isNawaz ? "crisp-edges" : "auto",
                   }}
                 />
@@ -103,8 +102,10 @@ export default function RealConversations() {
                     />
                   </span>
                   <div className="creator-badge-copy">
-                    <p className="creator-badge-name type-body-strong text-sm">{creator.name}</p>
-                    <p className="type-label mt-1">{creator.followers}</p>
+                    <div className="creator-badge-heading">
+                      <p className="creator-badge-name type-body-strong text-sm">{creator.name}</p>
+                      <p className="creator-badge-followers type-label">{creator.followers}</p>
+                    </div>
                     <p className="type-caption mt-1">{creator.handle}</p>
                   </div>
                 </article>

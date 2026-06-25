@@ -40,72 +40,142 @@ function point(angle: number, r: number) {
 
 export default function NodeDiagram() {
   const diagramRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
     let cancelled = false;
+    let pulseTimer: number | undefined;
     const root = diagramRef.current;
     if (!root) return;
 
+    const allNodes = root.querySelectorAll<HTMLElement | SVGElement>(
+      '[data-node="hero-node"], [data-node="main-platform"], [data-node="dist-node"], [data-node="dist-dot"]'
+    );
+    const allLines = root.querySelectorAll<SVGLineElement>('[data-node="connection-line"]');
+    const centerGlow = root.querySelector<SVGCircleElement>('[data-node="center-glow"]');
+
+    allNodes.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "scale(0)";
+      el.style.transformOrigin = "center";
+    });
+
+    allLines.forEach((line) => {
+      const length = line.getTotalLength?.() ?? 200;
+      line.style.opacity = "0";
+      line.style.strokeDasharray = `${length}`;
+      line.style.strokeDashoffset = `${length}`;
+    });
+
+    if (centerGlow) {
+      centerGlow.style.opacity = "0";
+      centerGlow.style.transform = "scale(0.3)";
+      centerGlow.style.transformOrigin = "center";
+    }
+
     const observer = new IntersectionObserver(
       async ([entry]) => {
-        if (!entry.isIntersecting || cancelled) return;
+        if (!entry.isIntersecting || cancelled || hasAnimated.current) return;
+        hasAnimated.current = true;
         observer.disconnect();
 
-        const { animate, stagger } = await import("animejs");
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce) {
+          allNodes.forEach((el) => {
+            el.style.opacity = "1";
+            el.style.transform = "scale(1)";
+          });
+          allLines.forEach((line) => {
+            line.style.opacity = "1";
+            line.style.strokeDashoffset = "0";
+          });
+          if (centerGlow) {
+            centerGlow.style.opacity = "1";
+            centerGlow.style.transform = "scale(1)";
+          }
+          return;
+        }
+
+        const { animate, stagger, createTimeline } = await import("animejs");
         if (cancelled) return;
 
-        const lines = root.querySelectorAll(".diagram-line");
-        const nodes = root.querySelectorAll(".diagram-html-node, .diagram-spoke-dot");
+        const tl = createTimeline();
 
-        animate(lines, {
-          opacity: [0, 0.46],
-          duration: 800,
-          easing: "easeOutSine",
-        });
+        tl
+          .add(centerGlow ? [centerGlow] : [], {
+            opacity: [0, 1],
+            scale: [0.3, 1],
+            duration: 600,
+          }, 0)
+          .add(root.querySelectorAll('[data-node="hero-node"]'), {
+            opacity: [0, 1],
+            scale: [0, 1],
+            duration: 700,
+            easing: "easeOutBack",
+          }, 200)
+          .add(allLines, {
+            strokeDashoffset: 0,
+            opacity: [0, 0.35],
+            duration: 900,
+            delay: stagger(30),
+            easing: "easeInOutSine",
+          }, 400)
+          .add(root.querySelectorAll('[data-node="main-platform"]'), {
+            opacity: [0, 1],
+            scale: [0, 1],
+            duration: 600,
+            delay: stagger(100),
+            easing: "easeOutBack",
+          }, 600)
+          .add(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
+            opacity: [0, 1],
+            scale: [0, 1],
+            duration: 450,
+            delay: stagger(55, { from: "center" }),
+            easing: "easeOutBack",
+          }, 900);
 
-        animate(nodes, {
-          opacity: [0, 1],
-          scale: [0, 1],
-          delay: stagger(60, { from: "center" }),
-          duration: 500,
-          easing: "easeOutBack",
-        });
+        pulseTimer = window.setTimeout(() => {
+          if (cancelled) return;
 
-        animate(root.querySelectorAll(".diagram-core"), {
-          scale: [1, 1.06, 1],
-          duration: 2400,
-          easing: "easeInOutSine",
-          loop: true,
-        });
+          animate(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
+            scale: [1, 1.06],
+            duration: 2200,
+            alternate: true,
+            loop: true,
+            delay: stagger(120, { from: "center" }),
+            easing: "easeInOutSine",
+          });
 
-        animate(root.querySelectorAll(".diagram-spoke-dot"), {
-          opacity: [0.25, 1, 0.25],
-          scale: [0.75, 1.18, 0.75],
-          duration: 2200,
-          easing: "easeInOutSine",
-          loop: true,
-          delay: stagger(95),
-        });
+          animate(allLines, {
+            opacity: [0.2, 0.45],
+            duration: 2800,
+            alternate: true,
+            loop: true,
+            delay: stagger(80),
+            easing: "easeInOutSine",
+          });
 
-        animate(root.querySelectorAll(".diagram-outer-node-html"), {
-          translateY: [-3, 3],
-          duration: 2800,
-          easing: "easeInOutSine",
-          loop: true,
-          alternate: true,
-          delay: stagger(120),
-        });
+          if (centerGlow) {
+            animate(centerGlow, {
+              scale: [1, 1.15],
+              opacity: [0.8, 1],
+              duration: 1800,
+              alternate: true,
+              loop: true,
+              easing: "easeInOutSine",
+            });
+          }
+        }, 2800);
       },
-      { threshold: 0.2 }
+      { threshold: 0.25 }
     );
 
     observer.observe(root);
 
     return () => {
       cancelled = true;
+      if (pulseTimer) window.clearTimeout(pulseTimer);
       observer.disconnect();
     };
   }, []);
@@ -115,7 +185,8 @@ export default function NodeDiagram() {
 
   return (
     <div ref={diagramRef} className="node-diagram-wrap" role="img" aria-label="22 touchpoint distribution network diagram">
-      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} overflow="visible" aria-hidden>
+      <div className="node-diagram-svg-wrapper">
+      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} overflow="visible" style={{ overflow: "visible" }} aria-hidden>
         <defs>
           <radialGradient id="diagramGold" cx="50%" cy="38%" r="65%">
             <stop offset="0%" stopColor="#E8C97A" />
@@ -134,11 +205,12 @@ export default function NodeDiagram() {
         <circle cx={CENTER} cy={CENTER} r={235} className="diagram-orbit" />
         <circle cx={CENTER} cy={CENTER} r={172} className="diagram-orbit diagram-orbit--middle" />
         <circle cx={CENTER} cy={CENTER} r={116} className="diagram-orbit diagram-orbit--inner" />
-        <circle cx={CENTER} cy={CENTER} r={46} className="diagram-core-halo" filter="url(#diagramGlow)" />
+        <circle data-node="center-glow" cx={CENTER} cy={CENTER} r={46} className="diagram-core-halo" filter="url(#diagramGlow)" />
 
         {[...platformNodes, ...outerNodes].map((node) => (
           <line
             key={`line-${node.id}`}
+            data-node="connection-line"
             className="diagram-line will-animate"
             x1={CENTER}
             y1={CENTER}
@@ -150,6 +222,9 @@ export default function NodeDiagram() {
         {outerNodes.map((node) => (
           <g
             key={node.id}
+            data-node="dist-dot"
+            data-type={node.group.toLowerCase()}
+            data-index={node.label.split(" ")[1]}
             transform={`translate(${node.x} ${node.y})`}
             className="diagram-spoke-dot"
           >
@@ -157,7 +232,7 @@ export default function NodeDiagram() {
           </g>
         ))}
 
-        <g transform={`translate(${CENTER} ${CENTER})`} className="diagram-core will-animate">
+        <g data-node="hero-node" transform={`translate(${CENTER} ${CENTER})`} className="diagram-core will-animate">
           <circle r={56} fill="url(#diagramGold)" />
           <circle r={68} className="diagram-center-ring" />
           <text y={-7} textAnchor="middle" className="diagram-center-text">
@@ -173,6 +248,8 @@ export default function NodeDiagram() {
         {platformNodes.map(({ id, label, short, Icon, x, y }) => (
           <div
             key={id}
+            data-node="main-platform"
+            data-platform={id}
             className={`diagram-html-node diagram-platform-node diagram-platform-node--${id}`}
             style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
           >
@@ -187,6 +264,9 @@ export default function NodeDiagram() {
         {outerNodes.map(({ id, label, group, x, y }) => (
           <div
             key={id}
+            data-node="dist-node"
+            data-type={group.toLowerCase()}
+            data-index={label.split(" ")[1]}
             className="diagram-html-node diagram-outer-node-html"
             style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
           >
@@ -194,6 +274,7 @@ export default function NodeDiagram() {
             <small>{label}</small>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );
