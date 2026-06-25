@@ -117,7 +117,12 @@ export default function Hero({ ready = true }: HeroProps) {
                 </a>
               </div>
 
-              <p className="hero-proof hero-proof--bright hero-statbar hero-reveal will-animate mt-8 md:mt-10">{PROOF_LINE}</p>
+              <div className="hero-proof-ticker hero-statbar hero-reveal will-animate mt-8 md:mt-10" aria-label={PROOF_LINE}>
+                <div className="hero-proof-ticker__track" aria-hidden>
+                  <span>{PROOF_LINE}</span>
+                  <span>{PROOF_LINE}</span>
+                </div>
+              </div>
             </motion.div>
           </Col>
 

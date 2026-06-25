@@ -1,16 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import { ASSETS } from "@/lib/assets";
-import { CLIENT_CASES, TESTIMONIALS } from "@/lib/content";
+import { TESTIMONIALS } from "@/lib/content";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
 
-const IMAGE_MAP = {
-  vision11: ASSETS.clients.vision11,
-  starbucks: ASSETS.clients.starbucks,
-  rapido: ASSETS.clients.rapido,
-} as const;
+const CASE_STUDIES = [
+  {
+    brandLabel: "VISION11 × CSK",
+    imageSrc: "/images/clients/vision11.png",
+    title: "IPL 2025 Campaign",
+    description:
+      "End-to-end social media, ad campaigns and full digital distribution across the IPL 2025 season — from match-day content to paid amplification.",
+    metric: "55M+ Views Delivered",
+    subMetric: "IPL 2025 Season",
+  },
+  {
+    brandLabel: "STARBUCKS INDIA",
+    imageSrc: "/images/clients/starbucks.png",
+    title: "South Gujarat Influencer Campaign",
+    description:
+      "Managed the 2024 influencer marketing rollout across Surat, Vadodara and Vapi — delivering global brand standards through regional creator partnerships.",
+    metric: "Surat · Vadodara · Vapi",
+    subMetric: "2024 Regional Campaign",
+  },
+  {
+    brandLabel: "RAPIDO",
+    imageSrc: "/images/clients/rapido.webp",
+    title: "Captain Stories Campaign",
+    description:
+      "Crafted and produced content for Rapido captains — humanising India's #1 bike taxi platform through the real stories of the people behind every ride.",
+    metric: "Documentary Content",
+    subMetric: "Captain Stories Shoot",
+  },
+] as const;
 
 export default function ProofOfWork() {
   return (
@@ -20,28 +43,37 @@ export default function ProofOfWork() {
           <SectionHeader label="Case Studies" title="Results that can't be faked." />
         </Col>
 
-        {CLIENT_CASES.map((c, index) => (
-          <Col key={c.id} span={12} spanMd={6} spanLg={4}>
-            <article className="surface-card case-card">
-              <div className="case-card__media relative">
-                <Image
-                  src={IMAGE_MAP[c.id]}
-                  alt={c.title}
-                  fill
-                  className="object-contain p-8"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  priority={index === 0}
-                />
-              </div>
-              <div className="case-card__body">
-                <p className="case-card__eyebrow">{c.eyebrow}</p>
-                <h3 className="case-card__title">{c.title}</h3>
-                <p className="type-body mt-2 flex-1 text-sm">{c.description}</p>
-                <p className={c.id === "vision11" ? "case-card__metric" : "case-card__submetric"}>{c.stat}</p>
-              </div>
-            </article>
-          </Col>
-        ))}
+        <Col span={12}>
+          <div className="case-studies-grid">
+            {CASE_STUDIES.map((client, index) => (
+              <article key={client.brandLabel} className="case-card">
+                <div className="case-card__image-area">
+                  <Image
+                    src={client.imageSrc}
+                    alt={client.brandLabel}
+                    fill
+                    quality={90}
+                    priority={index === 0}
+                    sizes="(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw"
+                    style={{
+                      objectFit: "contain",
+                      objectPosition: "center",
+                      padding: "24px",
+                    }}
+                  />
+                </div>
+
+                <div className="case-card__content">
+                  <span className="case-card__brand-label">{client.brandLabel}</span>
+                  <h3 className="case-card__title">{client.title}</h3>
+                  <p className="case-card__description">{client.description}</p>
+                  <div className="case-card__metric">{client.metric}</div>
+                  <div className="case-card__sub-metric">{client.subMetric}</div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Col>
 
         <Col span={12} className="mt-4 border-t border-[var(--b1)] pt-12 md:mt-8">
           <p className="section-label mb-8">Industry voices</p>

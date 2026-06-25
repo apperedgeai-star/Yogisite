@@ -19,8 +19,6 @@ const cardVariants = {
 
 export default function RealConversations() {
   const reduced = prefersReducedMotion();
-  const featured = CONVERSATIONS[0];
-  const rest = CONVERSATIONS.slice(1);
 
   return (
     <Section id="conversations" tone="base">
@@ -35,61 +33,41 @@ export default function RealConversations() {
 
         <Col span={12}>
           <div className="real-conversations-grid">
-            <motion.article
-              custom={0}
-              initial={reduced ? false : "hidden"}
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
-              className="creator-card creator-card--featured"
-            >
-              <div className="creator-card__media relative">
-                <Image
-                  src={featured.image}
-                  alt={`${featured.name} — ${featured.session}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 56vw"
-                  priority={false}
-                  placeholder="empty"
-                  quality={90}
-                />
-              </div>
-              <div className="creator-card__body">
-                <p className="creator-card__name">{featured.name}</p>
-                <p className="creator-card__metric">{featured.stat}</p>
-                <p className="creator-card__session">{featured.session}</p>
-              </div>
-            </motion.article>
-
-            {rest.map((c, i) => (
+            {CONVERSATIONS.map((card, i) => {
+              const isNawaz = card.image.endsWith("/nawaz-shaikh.jpg");
+              return (
               <motion.article
-                key={c.name}
-                custom={i + 1}
+                key={card.name}
+                custom={i}
                 initial={reduced ? false : "hidden"}
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={cardVariants}
-                className="creator-card"
+                className="conversation-card"
               >
-                <div className="creator-card__media relative">
-                  <Image
-                    src={c.image}
-                    alt={`${c.name} — ${c.session}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    placeholder="empty"
-                    quality={90}
-                  />
-                </div>
-                <div className="creator-card__body">
-                  <p className="creator-card__name">{c.name}</p>
-                  {c.stat !== "—" && <p className="creator-card__metric">{c.stat}</p>}
-                  <p className="creator-card__session">{c.session}</p>
+                <Image
+                  src={card.image}
+                  alt={`${card.name} — ${card.session}`}
+                  fill
+                  quality={isNawaz ? 85 : 90}
+                  sizes={isNawaz ? "(max-width: 680px) 50vw, 25vw" : "(max-width: 680px) 50vw, (max-width: 1024px) 33vw, 25vw"}
+                  className="conversation-card__image"
+                  placeholder="empty"
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    filter: "none",
+                    imageRendering: isNawaz ? "crisp-edges" : "auto",
+                  }}
+                />
+                <div className="conversation-card__text">
+                  <div className="conversation-card__name">{card.name}</div>
+                  {card.stat !== "—" && <div className="conversation-card__followers">{card.stat}</div>}
+                  <div className="conversation-card__session">{card.session}</div>
                 </div>
               </motion.article>
-            ))}
+              );
+            })}
           </div>
         </Col>
 
