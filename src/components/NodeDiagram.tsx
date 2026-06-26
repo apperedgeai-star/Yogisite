@@ -231,7 +231,7 @@ export default function NodeDiagram() {
         {outerNodes.map((node) => (
           <g
             key={node.id}
-            data-node="dist-node"
+            data-node="dist-dot"
             data-type={node.group.toLowerCase()}
             data-index={node.label.split(" ")[1]}
             transform={`translate(${node.x} ${node.y})`}
