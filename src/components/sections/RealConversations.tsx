@@ -1,62 +1,12 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { CONVERSATIONS, CREATOR_BADGES } from "@/lib/content";
-import { prefersReducedMotion } from "@/lib/utils";
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { delay: i * 0.08, duration: 0.5, type: "spring", stiffness: 100 },
-  }),
-};
-
-if (process.env.NODE_ENV === "development") {
-  console.group("CONVERSATIONS GRID - Images Needing Replacement");
-  console.warn("REPLACE: RJ Dheeraj -> /public/images/conversations/rj-dheeraj.jpg - flagged wrong in v4");
-  console.warn("REPLACE: Kasim Shaikh -> /public/images/conversations/kasim-shaikh.jpg - flagged wrong in v4");
-  console.warn("IMPROVE: Nawaz Shaikh -> /public/images/conversations/nawaz-shaikh.jpg - low resolution");
-  console.warn("IMPROVE: Riya Upreti -> /public/images/conversations/riya-upreti.jpg - low resolution/dark");
-  console.warn("IMPROVE: Dabhi Manthan -> /public/images/conversations/dabhi-manthan.jpg - poor composition");
-  console.warn("IMPROVE: Multi-Session -> /public/images/conversations/multi-session.jpg - raw meeting screenshot");
-  console.info("OK: Shubhankar Sen Gupta, Viplav+Gaurav, Karthik Naidu, Romil Mavani");
-  console.groupEnd();
-}
-
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-}
-
-function ConversationCardFallback({ name }: { name: string }) {
-  return (
-    <div className="conversation-card__fallback" aria-hidden>
-      <div className="conversation-card__initials">{getInitials(name)}</div>
-      <span className="conversation-card__pending">Photo pending</span>
-    </div>
-  );
-}
+import { CREATOR_BADGES } from "@/lib/content";
+import { ConversationsCarousel } from "./ConversationsCarousel";
 
 export default function RealConversations() {
-  const reduced = prefersReducedMotion();
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
-
-  const handleImageError = (cardName: string) => {
-    setImageErrors((prev) => ({ ...prev, [cardName]: true }));
-  };
-
   return (
     <Section id="conversations" tone="base">
       <SiteGrid>
@@ -69,52 +19,7 @@ export default function RealConversations() {
         </Col>
 
         <Col span={12}>
-          <div className="real-conversations-grid">
-            {CONVERSATIONS.map((card, i) => {
-              const isNawaz = card.image.endsWith("/nawaz-shaikh.jpg");
-              const shouldUseFallback = card.quality === "wrong" || imageErrors[card.name];
-              return (
-              <motion.article
-                key={card.name}
-                custom={i}
-                initial={reduced ? false : "hidden"}
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={cardVariants}
-                className="conversation-card"
-                data-quality={card.quality}
-                style={{ "--conversation-focal": card.focal } as CSSProperties}
-              >
-                <div className="conversation-card__image-wrapper">
-                  {shouldUseFallback ? (
-                    <ConversationCardFallback name={card.name} />
-                  ) : (
-                    <Image
-                      src={card.image}
-                      alt={`${card.name} — ${card.session}`}
-                      fill
-                      quality={isNawaz ? 85 : 90}
-                      sizes="(max-width: 767px) 50vw, (max-width: 1279px) 25vw, 20vw"
-                      className="conversation-card__image"
-                      placeholder="empty"
-                      style={{
-                        objectFit: "cover",
-                        objectPosition: card.focal,
-                        imageRendering: isNawaz ? "crisp-edges" : "auto",
-                      }}
-                      onError={() => handleImageError(card.name)}
-                    />
-                  )}
-                </div>
-                <div className="conversation-card__text">
-                  <div className="conversation-card__name">{card.name}</div>
-                  {card.stat !== "—" && <div className="conversation-card__followers">{card.stat}</div>}
-                  <div className="conversation-card__session">{card.session}</div>
-                </div>
-              </motion.article>
-              );
-            })}
-          </div>
+          <ConversationsCarousel />
         </Col>
 
         <Col span={12} className="mt-4">

@@ -40,13 +40,14 @@ function point(angle: number, r: number) {
 
 export default function NodeDiagram() {
   const diagramRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+  const animationStarted = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
-    let pulseTimer: number | undefined;
+    let loopTimer: number | undefined;
     const root = diagramRef.current;
-    if (!root) return;
+    if (!root || animationStarted.current) return;
+    animationStarted.current = true;
 
     const allNodes = root.querySelectorAll<HTMLElement | SVGElement>(
       '[data-node="hero-node"], [data-node="main-platform"], [data-node="dist-node"], [data-node="dist-dot"]'
@@ -73,110 +74,118 @@ export default function NodeDiagram() {
       centerGlow.style.transformOrigin = "center";
     }
 
-    const observer = new IntersectionObserver(
-      async ([entry]) => {
-        if (!entry.isIntersecting || cancelled || hasAnimated.current) return;
-        hasAnimated.current = true;
-        observer.disconnect();
+    const revealAll = () => {
+      allNodes.forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "scale(1)";
+      });
+      allLines.forEach((line) => {
+        line.style.opacity = "0.35";
+        line.style.strokeDashoffset = "0";
+      });
+      if (centerGlow) {
+        centerGlow.style.opacity = "1";
+        centerGlow.style.transform = "scale(1)";
+      }
+    };
 
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (reduce) {
-          allNodes.forEach((el) => {
-            el.style.opacity = "1";
-            el.style.transform = "scale(1)";
-          });
-          allLines.forEach((line) => {
-            line.style.opacity = "1";
-            line.style.strokeDashoffset = "0";
-          });
-          if (centerGlow) {
-            centerGlow.style.opacity = "1";
-            centerGlow.style.transform = "scale(1)";
-          }
-          return;
-        }
+    const startAnimation = async () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) {
+        revealAll();
+        return;
+      }
 
-        const { animate, stagger, createTimeline } = await import("animejs");
+      const { animate, stagger, createTimeline } = await import("animejs");
+      if (cancelled) return;
+
+      const entrance = createTimeline();
+
+      entrance
+        .add(centerGlow ? [centerGlow] : [], {
+          opacity: [0, 1],
+          scale: [0.2, 1],
+          duration: 500,
+        }, 0)
+        .add(root.querySelectorAll('[data-node="hero-node"]'), {
+          opacity: [0, 1],
+          scale: [0, 1],
+          duration: 600,
+          easing: "easeOutBack",
+        }, 200)
+        .add(allLines, {
+          strokeDashoffset: 0,
+          opacity: [0, 0.3],
+          duration: 700,
+          delay: stagger(20),
+        }, 350)
+        .add(root.querySelectorAll('[data-node="main-platform"]'), {
+          opacity: [0, 1],
+          scale: [0, 1],
+          duration: 500,
+          delay: stagger(80),
+          easing: "easeOutBack",
+        }, 500)
+        .add(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
+          opacity: [0, 1],
+          scale: [0, 1],
+          duration: 400,
+          delay: stagger(40, { from: "center" }),
+          easing: "easeOutBack",
+        }, 750);
+
+      loopTimer = window.setTimeout(() => {
         if (cancelled) return;
 
-        const tl = createTimeline();
+        animate(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
+          scale: [1, 1.12, 1],
+          opacity: [1, 0.7, 1],
+          duration: 3000,
+          delay: stagger(150, { from: "center" }),
+          loop: true,
+          easing: "easeInOutSine",
+        });
 
-        tl
-          .add(centerGlow ? [centerGlow] : [], {
-            opacity: [0, 1],
-            scale: [0.3, 1],
-            duration: 600,
-          }, 0)
-          .add(root.querySelectorAll('[data-node="hero-node"]'), {
-            opacity: [0, 1],
-            scale: [0, 1],
-            duration: 700,
-            easing: "easeOutBack",
-          }, 200)
-          .add(allLines, {
-            strokeDashoffset: 0,
-            opacity: [0, 0.35],
-            duration: 900,
-            delay: stagger(30),
-            easing: "easeInOutSine",
-          }, 400)
-          .add(root.querySelectorAll('[data-node="main-platform"]'), {
-            opacity: [0, 1],
-            scale: [0, 1],
-            duration: 600,
-            delay: stagger(100),
-            easing: "easeOutBack",
-          }, 600)
-          .add(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
-            opacity: [0, 1],
-            scale: [0, 1],
-            duration: 450,
-            delay: stagger(55, { from: "center" }),
-            easing: "easeOutBack",
-          }, 900);
+        animate(allLines, {
+          opacity: [0.15, 0.45, 0.15],
+          duration: 2400,
+          delay: stagger(60),
+          loop: true,
+          easing: "easeInOutSine",
+        });
 
-        pulseTimer = window.setTimeout(() => {
-          if (cancelled) return;
-
-          animate(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
-            scale: [1, 1.06],
-            duration: 2200,
-            alternate: true,
+        if (centerGlow) {
+          animate(centerGlow, {
+            scale: [1, 1.2, 1],
+            opacity: [0.8, 1, 0.8],
+            duration: 2000,
             loop: true,
-            delay: stagger(120, { from: "center" }),
             easing: "easeInOutSine",
           });
+        }
 
-          animate(allLines, {
-            opacity: [0.2, 0.45],
-            duration: 2800,
-            alternate: true,
-            loop: true,
-            delay: stagger(80),
-            easing: "easeInOutSine",
-          });
+        animate(root.querySelectorAll('[data-node="main-platform"]'), {
+          scale: [1, 1.05, 1],
+          duration: 2800,
+          delay: stagger(700),
+          loop: true,
+          easing: "easeInOutSine",
+        });
 
-          if (centerGlow) {
-            animate(centerGlow, {
-              scale: [1, 1.15],
-              opacity: [0.8, 1],
-              duration: 1800,
-              alternate: true,
-              loop: true,
-              easing: "easeInOutSine",
-            });
-          }
-        }, 2800);
-      },
-      { threshold: 0.25 }
-    );
+        animate(root.querySelectorAll('[data-node="hero-node"]'), {
+          opacity: [1, 0.85, 1],
+          duration: 3500,
+          loop: true,
+          easing: "easeInOutSine",
+        });
+      }, 2600);
+    };
 
-    observer.observe(root);
+    startAnimation();
 
     return () => {
       cancelled = true;
-      if (pulseTimer) window.clearTimeout(pulseTimer);
-      observer.disconnect();
+      if (loopTimer) window.clearTimeout(loopTimer);
     };
   }, []);
 
@@ -184,9 +193,9 @@ export default function NodeDiagram() {
   const outerNodes = OUTER_NODES.map((node) => ({ ...node, ...point(node.angle, node.r) }));
 
   return (
-    <div ref={diagramRef} className="node-diagram-wrap" role="img" aria-label="22 touchpoint distribution network diagram">
+    <div ref={diagramRef} className="node-diagram-wrap node-diagram-wrapper" role="img" aria-label="22 touchpoint distribution network diagram">
       <div className="node-diagram-svg-wrapper">
-      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} overflow="visible" style={{ overflow: "visible" }} aria-hidden>
+      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} width="100%" height="auto" overflow="visible" style={{ display: "block", overflow: "visible" }} aria-hidden>
         <defs>
           <radialGradient id="diagramGold" cx="50%" cy="38%" r="65%">
             <stop offset="0%" stopColor="#E8C97A" />
@@ -222,7 +231,7 @@ export default function NodeDiagram() {
         {outerNodes.map((node) => (
           <g
             key={node.id}
-            data-node="dist-dot"
+            data-node="dist-node"
             data-type={node.group.toLowerCase()}
             data-index={node.label.split(" ")[1]}
             transform={`translate(${node.x} ${node.y})`}

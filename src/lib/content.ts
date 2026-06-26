@@ -110,6 +110,7 @@ export const TESTIMONIALS = [
 
 export const CONVERSATIONS = [
   {
+    id: "nawaz",
     name: "Nawaz Shaikh",
     stat: "1.6M+",
     session: "Ghostwriting Session",
@@ -119,6 +120,7 @@ export const CONVERSATIONS = [
     // TODO: Replace with a high-resolution photo of Nawaz Shaikh. Current file is a low-resolution meeting screenshot.
   },
   {
+    id: "riya",
     name: "Riya Upreti",
     stat: "1M",
     session: "Ghostwriting Session",
@@ -128,6 +130,7 @@ export const CONVERSATIONS = [
     // TODO: Replace with a clearer, well-lit high-resolution photo of Riya Upreti.
   },
   {
+    id: "shubhankar",
     name: "Shubhankar Sen Gupta",
     stat: "35K+",
     session: "Strategy Session",
@@ -136,6 +139,7 @@ export const CONVERSATIONS = [
     focal: "52% center",
   },
   {
+    id: "viplav-gaurav",
     name: "Viplav Panghal & Gaurav Rawat",
     stat: "215K+ & 100K+",
     session: "Generative AI Sessions and Content Strategy",
@@ -144,6 +148,7 @@ export const CONVERSATIONS = [
     focal: "44% center",
   },
   {
+    id: "rj-dheeraj",
     name: "RJ Dheeraj",
     stat: "70K+",
     session: "PR Collab Session",
@@ -153,6 +158,7 @@ export const CONVERSATIONS = [
     // TODO: WRONG FILE per v4 audit. Replace with the correct RJ Dheeraj photo; fallback renders until then.
   },
   {
+    id: "karthik",
     name: "Karthik Naidu",
     stat: "—",
     session: "SAAS & Marketing Sessions",
@@ -161,6 +167,16 @@ export const CONVERSATIONS = [
     focal: "50% center",
   },
   {
+    id: "extra-session",
+    name: "Extra Session",
+    stat: "—",
+    session: "Professional Collaboration Session",
+    image: ASSETS.conversations.extraSession,
+    quality: "ok",
+    focal: "center center",
+  },
+  {
+    id: "romil",
     name: "Romil Mavani",
     stat: "—",
     session: "Mavani Solutions IT Agency · Business Consultancy Session",
@@ -169,6 +185,7 @@ export const CONVERSATIONS = [
     focal: "36% center",
   },
   {
+    id: "kasim",
     name: "Kasim Shaikh",
     stat: "—",
     session: "Business Consultancy Session",
@@ -178,6 +195,7 @@ export const CONVERSATIONS = [
     // TODO: WRONG FILE per v4 audit. Replace with the correct Kasim Shaikh photo; fallback renders until then.
   },
   {
+    id: "dabhi",
     name: "Dabhi Manthan",
     stat: "—",
     session: "Podcast & Content Session",
@@ -187,6 +205,7 @@ export const CONVERSATIONS = [
     // TODO: Replace with a photo where Dabhi Manthan's face is clearly visible.
   },
   {
+    id: "multi",
     name: "Multi-Session Collab",
     stat: "—",
     session: "Creator & Founder Strategy Days",

@@ -200,7 +200,7 @@ function JupiterNodeTab() {
       <Col span={12} spanLg={7}>
       <ServiceCell className="service-price-cell">
         <span className="badge-gold">5 Million Views or We Continue Free</span>
-        <p className="price-number mt-4 text-[clamp(2rem,4vw,3rem)]">Custom Pricing · Min. $4,800</p>
+        <p className="price-number mt-4 text-[clamp(2rem,4vw,3rem)]">Custom Pricing · Min. $4,000</p>
         <p className="type-body mt-4 font-medium text-gold-300">5 Million Views — Guaranteed</p>
         <p className="type-caption mt-2">
           If we do not hit 5M combined views, we keep going at zero cost until we do.

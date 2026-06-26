@@ -27,10 +27,11 @@ export const ASSETS = {
   conversations: {
     nawazShaikh: "/images/conversations/nawaz-shaikh.jpg",
     riyaUpreti: "/images/conversations/riya-upreti.jpg",
-    subhankarSengupta: "/images/conversations/subhankar-sengupta.jpg",
+    subhankarSengupta: "/images/conversations/shubhankar-sengupta.jpg",
     viplavGaurav: "/images/conversations/viplav-gaurav.jpg",
     rjDheeraj: "/images/conversations/rj-dheeraj.jpg",
     karthikNaidu: "/images/conversations/karthik-naidu.jpg",
+    extraSession: "/images/conversations/extra-session.jpg",
     romilMavani: "/images/conversations/romil-mavani.jpg",
     kasimShaikh: "/images/conversations/kasim-shaikh.jpg",
     dabhiManthan: "/images/conversations/dabhi-manthan.jpg",

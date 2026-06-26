@@ -5,7 +5,6 @@ const nextConfig = {
     minimumCacheTTL: 31536000,
   },
   compress: true,
-  swcMinify: true,
   async headers() {
     return [
       {
