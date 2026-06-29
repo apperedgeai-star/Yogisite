@@ -44,45 +44,102 @@ export default function NodeDiagram() {
 
   useEffect(() => {
     let cancelled = false;
-    let loopTimer: number | undefined;
+    let orbitalStyle: HTMLStyleElement | undefined;
     const root = diagramRef.current;
     if (!root || animationStarted.current) return;
     animationStarted.current = true;
 
-    const allNodes = root.querySelectorAll<HTMLElement | SVGElement>(
-      '[data-node="hero-node"], [data-node="main-platform"], [data-node="dist-node"], [data-node="dist-dot"]'
-    );
-    const allLines = root.querySelectorAll<SVGLineElement>('[data-node="connection-line"]');
-    const centerGlow = root.querySelector<SVGCircleElement>('[data-node="center-glow"]');
+    orbitalStyle = document.createElement("style");
+    orbitalStyle.textContent = `
+      .ig-orbit-ring,
+      .ig-orbit-label-ring {
+        animation: orbit-cw 28s linear infinite;
+        transform-origin: ${CENTER}px ${CENTER - 116}px;
+        transform-box: view-box;
+      }
 
-    allNodes.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "scale(0)";
-      el.style.transformOrigin = "center";
-    });
+      .yt-orbit-ring,
+      .yt-orbit-label-ring {
+        animation: orbit-ccw 35s linear infinite;
+        transform-origin: ${CENTER}px ${CENTER + 116}px;
+        transform-box: view-box;
+      }
 
-    allLines.forEach((line) => {
-      const length = line.getTotalLength?.() ?? 200;
-      line.style.opacity = "0";
-      line.style.strokeDasharray = `${length}`;
-      line.style.strokeDashoffset = `${length}`;
-    });
+      [data-node="center-glow"] {
+        animation: glow-pulse 2.5s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
 
-    if (centerGlow) {
-      centerGlow.style.opacity = "0";
-      centerGlow.style.transform = "scale(0.3)";
-      centerGlow.style.transformOrigin = "center";
-    }
+      [data-node="main-platform"] {
+        animation: node-breathe 3s ease-in-out infinite;
+      }
+
+      [data-node="connection-line"] {
+        animation: line-pulse 2s ease-in-out infinite;
+      }
+
+      [data-node="hero-node"] {
+        animation: hero-float 4s ease-in-out infinite;
+      }
+
+      @keyframes orbit-cw {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes orbit-ccw {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(-360deg); }
+      }
+
+      @keyframes glow-pulse {
+        0%, 100% { opacity: 0.7; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.18); }
+      }
+
+      @keyframes node-breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+      }
+
+      @keyframes line-pulse {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.5; }
+      }
+
+      @keyframes hero-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ig-orbit-ring,
+        .ig-orbit-label-ring,
+        .yt-orbit-ring,
+        .yt-orbit-label-ring,
+        [data-node="center-glow"],
+        [data-node="main-platform"],
+        [data-node="connection-line"],
+        [data-node="hero-node"] {
+          animation: none !important;
+        }
+      }
+    `;
+    document.head.appendChild(orbitalStyle);
 
     const revealAll = () => {
-      allNodes.forEach((el) => {
+      root.querySelectorAll<HTMLElement | SVGElement>(
+        '[data-node="hero-node"], [data-node="main-platform"], [data-node="dist-node"], [data-node="dist-dot"], .ig-orbit-ring, .yt-orbit-ring, .ig-orbit-label-ring, .yt-orbit-label-ring'
+      ).forEach((el) => {
         el.style.opacity = "1";
         el.style.transform = "scale(1)";
       });
-      allLines.forEach((line) => {
+      root.querySelectorAll<SVGLineElement>('[data-node="connection-line"]').forEach((line) => {
         line.style.opacity = "0.35";
         line.style.strokeDashoffset = "0";
       });
+      const centerGlow = root.querySelector<SVGCircleElement>('[data-node="center-glow"]');
       if (centerGlow) {
         centerGlow.style.opacity = "1";
         centerGlow.style.transform = "scale(1)";
@@ -96,15 +153,35 @@ export default function NodeDiagram() {
         return;
       }
 
-      const { animate, stagger, createTimeline } = await import("animejs");
+      const { stagger, createTimeline } = await import("animejs");
       if (cancelled) return;
+
+      const platforms = root.querySelectorAll('[data-node="main-platform"]');
+      const hero = root.querySelector('[data-node="hero-node"]');
+      const lines = root.querySelectorAll('[data-node="connection-line"]');
+      const igRing = root.querySelector('.ig-orbit-ring');
+      const ytRing = root.querySelector('.yt-orbit-ring');
+      const igLabelRing = root.querySelector('.ig-orbit-label-ring');
+      const ytLabelRing = root.querySelector('.yt-orbit-label-ring');
+      const glow = root.querySelector('[data-node="center-glow"]');
+
+      [...platforms, ...(hero ? [hero] : [])].forEach((el) => {
+        (el as HTMLElement).style.opacity = "0";
+        (el as HTMLElement).style.transform = "scale(0)";
+      });
+      lines.forEach((el) => {
+        (el as HTMLElement).style.opacity = "0";
+      });
+      [igRing, ytRing, igLabelRing, ytLabelRing, glow].forEach((el) => {
+        if (el) (el as HTMLElement).style.opacity = "0";
+      });
 
       const entrance = createTimeline();
 
       entrance
-        .add(centerGlow ? [centerGlow] : [], {
+        .add(glow ? [glow] : [], {
           opacity: [0, 1],
-          scale: [0.2, 1],
+          scale: [0, 1],
           duration: 500,
         }, 0)
         .add(root.querySelectorAll('[data-node="hero-node"]'), {
@@ -113,84 +190,42 @@ export default function NodeDiagram() {
           duration: 600,
           easing: "easeOutBack",
         }, 200)
-        .add(allLines, {
-          strokeDashoffset: 0,
+        .add(lines, {
           opacity: [0, 0.3],
-          duration: 700,
+          duration: 600,
           delay: stagger(20),
         }, 350)
         .add(root.querySelectorAll('[data-node="main-platform"]'), {
           opacity: [0, 1],
           scale: [0, 1],
-          duration: 500,
-          delay: stagger(80),
+          duration: 550,
+          delay: stagger(100),
           easing: "easeOutBack",
-        }, 500)
-        .add(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
+        }, 550)
+        .add('.ig-orbit-ring, .ig-orbit-label-ring', {
           opacity: [0, 1],
-          scale: [0, 1],
-          duration: 400,
-          delay: stagger(40, { from: "center" }),
-          easing: "easeOutBack",
-        }, 750);
-
-      loopTimer = window.setTimeout(() => {
-        if (cancelled) return;
-
-        animate(root.querySelectorAll('[data-node="dist-node"], [data-node="dist-dot"]'), {
-          scale: [1, 1.12, 1],
-          opacity: [1, 0.7, 1],
-          duration: 3000,
-          delay: stagger(150, { from: "center" }),
-          loop: true,
-          easing: "easeInOutSine",
-        });
-
-        animate(allLines, {
-          opacity: [0.15, 0.45, 0.15],
-          duration: 2400,
-          delay: stagger(60),
-          loop: true,
-          easing: "easeInOutSine",
-        });
-
-        if (centerGlow) {
-          animate(centerGlow, {
-            scale: [1, 1.2, 1],
-            opacity: [0.8, 1, 0.8],
-            duration: 2000,
-            loop: true,
-            easing: "easeInOutSine",
-          });
-        }
-
-        animate(root.querySelectorAll('[data-node="main-platform"]'), {
-          scale: [1, 1.05, 1],
-          duration: 2800,
-          delay: stagger(700),
-          loop: true,
-          easing: "easeInOutSine",
-        });
-
-        animate(root.querySelectorAll('[data-node="hero-node"]'), {
-          opacity: [1, 0.85, 1],
-          duration: 3500,
-          loop: true,
-          easing: "easeInOutSine",
-        });
-      }, 2600);
+          duration: 700,
+        }, 800)
+        .add('.yt-orbit-ring, .yt-orbit-label-ring', {
+          opacity: [0, 1],
+          duration: 700,
+        }, 1000);
     };
 
     startAnimation();
 
     return () => {
       cancelled = true;
-      if (loopTimer) window.clearTimeout(loopTimer);
+      if (orbitalStyle && document.head.contains(orbitalStyle)) {
+        document.head.removeChild(orbitalStyle);
+      }
     };
   }, []);
 
   const platformNodes = PLATFORM_NODES.map((node) => ({ ...node, ...point(node.angle, node.r) }));
   const outerNodes = OUTER_NODES.map((node) => ({ ...node, ...point(node.angle, node.r) }));
+  const igOuterNodes = outerNodes.filter((node) => node.group === "IG");
+  const ytOuterNodes = outerNodes.filter((node) => node.group === "YT");
 
   return (
     <div ref={diagramRef} className="node-diagram-wrap node-diagram-wrapper" role="img" aria-label="22 touchpoint distribution network diagram">
@@ -228,18 +263,35 @@ export default function NodeDiagram() {
           />
         ))}
 
-        {outerNodes.map((node) => (
-          <g
-            key={node.id}
-            data-node="dist-dot"
-            data-type={node.group.toLowerCase()}
-            data-index={node.label.split(" ")[1]}
-            transform={`translate(${node.x} ${node.y})`}
-            className="diagram-spoke-dot"
-          >
-            <circle r={8} className="diagram-outer-bg" />
-          </g>
-        ))}
+        <g className="ig-orbit-ring">
+          {igOuterNodes.map((node) => (
+            <g
+              key={node.id}
+              data-node="dist-dot"
+              data-type={node.group.toLowerCase()}
+              data-index={node.label.split(" ")[1]}
+              transform={`translate(${node.x} ${node.y})`}
+              className="diagram-spoke-dot"
+            >
+              <circle r={8} className="diagram-outer-bg" />
+            </g>
+          ))}
+        </g>
+
+        <g className="yt-orbit-ring">
+          {ytOuterNodes.map((node) => (
+            <g
+              key={node.id}
+              data-node="dist-dot"
+              data-type={node.group.toLowerCase()}
+              data-index={node.label.split(" ")[1]}
+              transform={`translate(${node.x} ${node.y})`}
+              className="diagram-spoke-dot"
+            >
+              <circle r={8} className="diagram-outer-bg" />
+            </g>
+          ))}
+        </g>
 
         <g data-node="hero-node" transform={`translate(${CENTER} ${CENTER})`} className="diagram-core will-animate">
           <circle r={56} fill="url(#diagramGold)" />
@@ -270,19 +322,37 @@ export default function NodeDiagram() {
           </div>
         ))}
 
-        {outerNodes.map(({ id, label, group, x, y }) => (
-          <div
-            key={id}
-            data-node="dist-node"
-            data-type={group.toLowerCase()}
-            data-index={label.split(" ")[1]}
-            className="diagram-html-node diagram-outer-node-html"
-            style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
-          >
-            <span>{group}</span>
-            <small>{label}</small>
-          </div>
-        ))}
+        <div className="ig-orbit-label-ring">
+          {igOuterNodes.map(({ id, label, group, x, y }) => (
+            <div
+              key={id}
+              data-node="dist-node"
+              data-type={group.toLowerCase()}
+              data-index={label.split(" ")[1]}
+              className="diagram-html-node diagram-outer-node-html"
+              style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
+            >
+              <span>{group}</span>
+              <small>{label}</small>
+            </div>
+          ))}
+        </div>
+
+        <div className="yt-orbit-label-ring">
+          {ytOuterNodes.map(({ id, label, group, x, y }) => (
+            <div
+              key={id}
+              data-node="dist-node"
+              data-type={group.toLowerCase()}
+              data-index={label.split(" ")[1]}
+              className="diagram-html-node diagram-outer-node-html"
+              style={{ left: `${(x / SIZE) * 100}%`, top: `${(y / SIZE) * 100}%` }}
+            >
+              <span>{group}</span>
+              <small>{label}</small>
+            </div>
+          ))}
+        </div>
       </div>
       </div>
     </div>

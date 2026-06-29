@@ -175,6 +175,8 @@
 
 /* ── BASE STYLES ── */
 html {
+  max-width: 100vw;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
@@ -183,7 +185,8 @@ body {
   color: var(--t1);
   font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
   width: 100%;
-  max-width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -1585,6 +1588,14 @@ button:active {
   pointer-events: none;
 }
 
+.ig-orbit-label-ring,
+.yt-orbit-label-ring {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
 .diagram-core {
   transform-box: fill-box;
   transform-origin: center;
@@ -2308,71 +2319,100 @@ button:active {
 }
 
 .conversations-carousel {
-  position: relative;
   width: 100%;
-  max-width: 960px;
-  margin: 40px auto 0;
+  max-width: 900px;
+  margin: 36px auto 0;
   user-select: none;
 }
 
-.carousel-slide {
+.carousel-main {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-image-area {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
+  flex-shrink: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: 10px 10px 0 0;
   background-color: #0a0a0a;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
-.carousel-image-wrapper {
-  position: absolute;
-  inset: 0;
-}
-
-.carousel-overlay {
+.carousel-image-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.5) 75%,
-    rgba(0, 0, 0, 0.85) 100%
+    transparent 55%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(0, 0, 0, 0.7) 100%
   );
   pointer-events: none;
 }
 
-.carousel-text {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  padding: 20px 24px 24px;
+.carousel-info {
+  padding: 14px 16px 18px;
+  border-radius: 0 0 10px 10px;
+  background: #111111;
 }
 
-.carousel-name {
+.carousel-info__name {
   margin-bottom: 2px;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.2;
 }
 
-.carousel-followers {
-  margin-bottom: 4px;
+.carousel-info__followers {
+  margin-bottom: 3px;
   color: #c8a87a;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   line-height: 1.1;
 }
 
-.carousel-session {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+.carousel-info__session {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.carousel-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #161616, #0d0d0d);
+}
+
+.carousel-fallback__initials {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(200, 168, 122, 0.4);
+  border-radius: 50%;
+  color: #c8a87a;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.carousel-fallback__label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .carousel-arrow {
@@ -2380,17 +2420,17 @@ button:active {
   top: 50%;
   z-index: 3;
   display: flex;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 0 0 2px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   color: #ffffff;
   cursor: pointer;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1;
   transform: translateY(-50%);
   transition: background 0.2s, border-color 0.2s;
@@ -2413,13 +2453,13 @@ button:active {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 7px;
+  margin-top: 14px;
 }
 
 .carousel-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -2434,51 +2474,38 @@ button:active {
 }
 
 .carousel-counter {
-  margin-top: 10px;
+  margin-top: 8px;
   color: rgba(255, 255, 255, 0.3);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   text-align: center;
 }
 
 @media (max-width: 768px) {
-  .conversations-carousel {
-    margin-top: 28px;
-    border-radius: 8px;
-  }
-
-  .carousel-slide {
-    border-radius: 8px;
-  }
-
-  .carousel-name {
-    font-size: 14px;
-  }
-
-  .carousel-followers {
-    font-size: 18px;
-  }
-
-  .carousel-session {
-    font-size: 11px;
-  }
-
   .carousel-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 22px;
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
   }
 
   .carousel-arrow--prev {
-    left: 6px;
+    left: 8px;
   }
 
   .carousel-arrow--next {
-    right: 6px;
+    right: 8px;
   }
 
-  .carousel-text {
-    padding: 16px 16px 18px;
+  .carousel-info {
+    padding: 12px 14px 16px;
+  }
+
+  .carousel-info__name {
+    font-size: 13px;
+  }
+
+  .carousel-info__followers {
+    font-size: 17px;
   }
 }
 
