@@ -152,10 +152,10 @@ export const CONVERSATIONS = [
     name: "RJ Dheeraj",
     stat: "70K+",
     session: "PR Collab Session",
-    image: ASSETS.conversations.rjDheeraj,
-    quality: "wrong",
+    image: ASSETS.conversations.romilMavani,
+    quality: "ok",
     focal: "center center",
-    // TODO: WRONG FILE per v4 audit. Replace with the correct RJ Dheeraj photo; fallback renders until then.
+    // FINAL: romil-mavani.jpg contains RJ Dheeraj's actual photo.
   },
   {
     id: "karthik",
@@ -167,22 +167,13 @@ export const CONVERSATIONS = [
     focal: "50% center",
   },
   {
-    id: "extra-session",
-    name: "Extra Session",
-    stat: "—",
-    session: "Professional Collaboration Session",
-    image: ASSETS.conversations.extraSession,
-    quality: "ok",
-    focal: "center center",
-  },
-  {
     id: "romil",
     name: "Romil Mavani",
     stat: "—",
     session: "Mavani Solutions IT Agency · Business Consultancy Session",
-    image: ASSETS.conversations.romilMavani,
+    image: ASSETS.conversations.extraSession,
     quality: "ok",
-    focal: "36% center",
+    focal: "center center",
   },
   {
     id: "kasim",

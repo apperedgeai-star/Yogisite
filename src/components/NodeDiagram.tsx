@@ -50,67 +50,78 @@ export default function NodeDiagram() {
     animationStarted.current = true;
 
     orbitalStyle = document.createElement("style");
+    orbitalStyle.setAttribute("data-node-anim", "true");
     orbitalStyle.textContent = `
       .ig-orbit-ring,
       .ig-orbit-label-ring {
-        animation: orbit-cw 28s linear infinite;
+        animation: swing-cw 8s ease-in-out infinite;
         transform-origin: ${CENTER}px ${CENTER - 116}px;
-        transform-box: view-box;
+        transform-box: fill-box;
       }
 
       .yt-orbit-ring,
       .yt-orbit-label-ring {
-        animation: orbit-ccw 35s linear infinite;
+        animation: swing-ccw 10s ease-in-out infinite;
         transform-origin: ${CENTER}px ${CENTER + 116}px;
-        transform-box: view-box;
+        transform-box: fill-box;
       }
 
       [data-node="center-glow"] {
-        animation: glow-pulse 2.5s ease-in-out infinite;
+        animation: glow-breathe 2.8s ease-in-out infinite;
         transform-box: fill-box;
         transform-origin: center;
       }
 
       [data-node="main-platform"] {
-        animation: node-breathe 3s ease-in-out infinite;
+        animation: platform-pulse 3.2s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center;
       }
 
       [data-node="connection-line"] {
-        animation: line-pulse 2s ease-in-out infinite;
+        animation: line-flow 2.2s ease-in-out infinite;
       }
 
       [data-node="hero-node"] {
-        animation: hero-float 4s ease-in-out infinite;
+        animation: hero-drift 5s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center;
       }
 
-      @keyframes orbit-cw {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+      @keyframes swing-cw {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(18deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(-18deg); }
+        100% { transform: rotate(0deg); }
       }
 
-      @keyframes orbit-ccw {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(-360deg); }
+      @keyframes swing-ccw {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(-20deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(20deg); }
+        100% { transform: rotate(0deg); }
       }
 
-      @keyframes glow-pulse {
-        0%, 100% { opacity: 0.7; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.18); }
+      @keyframes glow-breathe {
+        0%, 100% { opacity: 0.65; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.22); }
       }
 
-      @keyframes node-breathe {
+      @keyframes platform-pulse {
         0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.06); }
+        50% { transform: scale(1.07); }
       }
 
-      @keyframes line-pulse {
-        0%, 100% { opacity: 0.2; }
-        50% { opacity: 0.5; }
+      @keyframes line-flow {
+        0%, 100% { opacity: 0.18; }
+        50% { opacity: 0.48; }
       }
 
-      @keyframes hero-float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
+      @keyframes hero-drift {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-5px) scale(1.03); }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -216,9 +227,7 @@ export default function NodeDiagram() {
 
     return () => {
       cancelled = true;
-      if (orbitalStyle && document.head.contains(orbitalStyle)) {
-        document.head.removeChild(orbitalStyle);
-      }
+      document.querySelector('[data-node-anim="true"]')?.remove();
     };
   }, []);
 
@@ -228,9 +237,14 @@ export default function NodeDiagram() {
   const ytOuterNodes = outerNodes.filter((node) => node.group === "YT");
 
   return (
-    <div ref={diagramRef} className="node-diagram-wrap node-diagram-wrapper" role="img" aria-label="22 touchpoint distribution network diagram">
+    <div
+      ref={diagramRef}
+      className="node-diagram-wrap node-diagram-wrapper"
+      role="img"
+      aria-label="22 touchpoint distribution network diagram"
+    >
       <div className="node-diagram-svg-wrapper">
-      <svg className="node-diagram-svg" viewBox={`-40 -20 ${SIZE + 80} ${SIZE + 40}`} width="100%" height="auto" overflow="visible" style={{ display: "block", overflow: "visible" }} aria-hidden>
+      <svg className="node-diagram-svg" viewBox={`-120 -100 ${SIZE + 240} ${SIZE + 200}`} width="100%" height="auto" overflow="visible" style={{ display: "block", overflow: "visible" }} aria-hidden>
         <defs>
           <radialGradient id="diagramGold" cx="50%" cy="38%" r="65%">
             <stop offset="0%" stopColor="#E8C97A" />

@@ -21,7 +21,7 @@ export default function ReelShowcase() {
     >
       <div className="stats-reels-divider site-container" aria-hidden />
 
-      <div className="site-container relative z-20 pb-4 pt-10 text-center lg:pointer-events-none lg:absolute lg:left-1/2 lg:top-8 lg:-translate-x-1/2 lg:pb-0 lg:pt-0">
+      <div className="site-container reels-section-head relative z-20 pb-6 pt-6 text-center">
         <SectionHeader
           label="The Work"
           title="Reels that built brands."

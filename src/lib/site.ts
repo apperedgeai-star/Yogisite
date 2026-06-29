@@ -13,7 +13,7 @@ export const SITE = {
     yogii: "yogii@therecunmedia.in",
   },
   booking: "https://tally.so/r/kdr62j",
-  seeOurWork: "https://tally.so/r/kdr62j",
+  seeOurWork: "https://tally.so/r/D4YKPq",
   tallyRecunAI: "https://tally.so/r/kdr62j",
   tallyContentSeCrore: "https://tally.so/r/kdr62j",
   instagram: "https://www.instagram.com/yogiikumar/",

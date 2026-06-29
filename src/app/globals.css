@@ -2550,3 +2550,88 @@ button:active {
     font-size: 18px;
   }
 }
+
+/* Final production tightening pass */
+section,
+.section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.section-block {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.service-cell {
+  padding: 28px 28px 32px;
+}
+
+.faq-section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.faq-section .faq-item {
+  padding: 18px 0;
+}
+
+.founder-layout {
+  row-gap: 36px;
+}
+
+.founder-bio-accordion {
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.founder-bio-toggle {
+  padding: 16px 20px;
+}
+
+.services-tab-bar + div,
+.services-tab-content {
+  padding-top: 32px;
+}
+
+.stats-band,
+.stats-grid {
+  gap: 20px;
+}
+
+.reels-section-head {
+  position: relative;
+  z-index: 2;
+}
+
+.reels-section .section-label,
+.reels-section h2 {
+  position: static;
+}
+
+.node-diagram-wrap,
+.node-diagram-wrapper {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  section,
+  .section,
+  .section-block {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .service-cell {
+    padding: 22px 20px 24px;
+  }
+
+  .faq-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}

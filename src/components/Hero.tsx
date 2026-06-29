@@ -52,7 +52,7 @@ export default function Hero() {
             className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
             <a
-              href={SITE.booking}
+              href={SITE.seeOurWork}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--gold)] px-8 font-sans text-sm font-semibold text-[var(--bg-primary)] transition-all hover:scale-[1.04] hover:bg-[var(--gold-light)] hover:shadow-[0_0_40px_rgba(201,168,76,0.4)]"
