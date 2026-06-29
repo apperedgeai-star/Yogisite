@@ -2635,3 +2635,334 @@ section,
     padding-bottom: 48px;
   }
 }
+
+/* Stable carousel controls + premium node diagram repair */
+.carousel-image-area .carousel-arrow {
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 0 3px;
+  border-color: rgba(232, 201, 122, 0.34);
+  background: rgba(8, 8, 8, 0.72);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #fff8e8;
+  line-height: 1;
+  transform: translate3d(0, -50%, 0) !important;
+  translate: none !important;
+  scale: 1 !important;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+  will-change: auto;
+}
+
+.carousel-image-area .carousel-arrow:hover,
+.carousel-image-area .carousel-arrow:focus-visible,
+.carousel-image-area .carousel-arrow:active {
+  background: rgba(212, 168, 83, 0.22);
+  border-color: rgba(232, 201, 122, 0.7);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(212, 168, 83, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translate3d(0, -50%, 0) !important;
+  translate: none !important;
+  scale: 1 !important;
+}
+
+.carousel-image-area .carousel-arrow:focus-visible {
+  outline: 2px solid rgba(232, 201, 122, 0.88);
+  outline-offset: 3px;
+}
+
+.carousel-image-area .carousel-arrow--prev {
+  left: clamp(10px, 2.2vw, 18px);
+  right: auto;
+}
+
+.carousel-image-area .carousel-arrow--next {
+  right: clamp(10px, 2.2vw, 18px);
+  left: auto;
+}
+
+.carousel-dot {
+  transition: background-color 200ms ease, opacity 200ms ease;
+}
+
+.carousel-dot,
+.carousel-dot:hover,
+.carousel-dot:focus-visible,
+.carousel-dot:active,
+.carousel-dot--active {
+  transform: none !important;
+  scale: 1 !important;
+}
+
+.carousel-dot--active {
+  opacity: 1;
+  background: #c8a87a;
+}
+
+.node-diagram-wrap,
+.node-diagram-wrapper {
+  width: 100%;
+  max-width: 660px;
+  min-height: 0;
+  margin: 0 auto;
+  padding: clamp(10px, 2vw, 16px);
+  overflow: hidden;
+  border: 1px solid rgba(232, 201, 122, 0.24);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(232, 201, 122, 0.14), transparent 30%),
+    radial-gradient(circle at 50% 72%, rgba(212, 168, 83, 0.08), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012)),
+    #0d0d0d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.36);
+}
+
+.node-diagram-wrap::before {
+  inset: 14px;
+  border-radius: 18px;
+  opacity: 0.45;
+  mask-image: radial-gradient(circle at center, black 0 48%, transparent 76%);
+}
+
+.node-diagram-svg-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.node-diagram-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.diagram-panel-bg {
+  fill: rgba(8, 8, 8, 0.42);
+  stroke: rgba(255, 255, 255, 0.055);
+}
+
+.diagram-ambient-ring,
+.diagram-distribution-field {
+  fill: none;
+  stroke: rgba(232, 201, 122, 0.16);
+  stroke-width: 1.1;
+  stroke-dasharray: 3 11;
+}
+
+.diagram-ambient-ring--inner {
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-dasharray: 2 12;
+}
+
+.diagram-distribution-field {
+  stroke: rgba(212, 168, 83, 0.2);
+  stroke-dasharray: 5 13;
+}
+
+.diagram-line {
+  opacity: 1;
+  stroke-linecap: round;
+  transform: none;
+}
+
+.diagram-line--primary {
+  stroke: rgba(232, 201, 122, 0.42);
+  stroke-width: 1.45;
+}
+
+.diagram-line--secondary {
+  stroke: rgba(232, 201, 122, 0.22);
+  stroke-width: 1;
+}
+
+.diagram-core {
+  filter: drop-shadow(0 0 24px rgba(212, 168, 83, 0.28));
+  transform: none;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.diagram-core-halo {
+  fill: rgba(212, 168, 83, 0.24);
+  animation: diagramPulse 4.5s ease-in-out infinite;
+}
+
+.diagram-center-ring {
+  fill: none;
+  stroke: rgba(255, 245, 210, 0.52);
+  stroke-width: 1.2;
+}
+
+.diagram-center-text,
+.diagram-center-subtext,
+.diagram-platform-short,
+.diagram-platform-label,
+.diagram-platform-caption,
+.diagram-touchpoint-group,
+.diagram-touchpoint-count,
+.diagram-total-pill text {
+  font-family: var(--font-inter), "Inter", "Satoshi", system-ui, sans-serif;
+  text-rendering: geometricPrecision;
+}
+
+.diagram-center-text {
+  fill: #090806;
+  font-size: 18px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.diagram-center-subtext {
+  fill: rgba(9, 8, 6, 0.72);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+}
+
+.diagram-platform-card {
+  fill: url(#diagramNodeSurface);
+  stroke: rgba(232, 201, 122, 0.45);
+  stroke-width: 1.15;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.36));
+}
+
+.diagram-platform-badge {
+  fill: url(#diagramGold);
+}
+
+.diagram-platform-short {
+  fill: #090806;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+}
+
+.diagram-platform-label {
+  fill: #fff7e8;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.03em;
+}
+
+.diagram-platform-caption {
+  fill: rgba(232, 201, 122, 0.68);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.diagram-touchpoint-bg {
+  fill: rgba(14, 14, 14, 0.96);
+  stroke: rgba(232, 201, 122, 0.56);
+  stroke-width: 1.1;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.34));
+}
+
+.diagram-touchpoint--ig .diagram-touchpoint-bg {
+  fill: #21130f;
+}
+
+.diagram-touchpoint--yt .diagram-touchpoint-bg {
+  fill: #19100f;
+}
+
+.diagram-touchpoint-group {
+  fill: #f1d58b;
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.diagram-touchpoint-count {
+  fill: rgba(255, 248, 232, 0.64);
+  font-size: 7px;
+  font-weight: 850;
+}
+
+.diagram-total-pill rect {
+  fill: rgba(10, 10, 10, 0.72);
+  stroke: rgba(232, 201, 122, 0.28);
+}
+
+.diagram-total-pill text {
+  fill: rgba(255, 248, 232, 0.72);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+}
+
+@keyframes diagramPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.82;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-image-area .carousel-arrow {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    font-size: 22px;
+  }
+
+  .node-diagram-wrap,
+  .node-diagram-wrapper {
+    max-width: 100%;
+    padding: 8px;
+    border-radius: 18px;
+  }
+
+  .diagram-total-pill text {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .diagram-platform-label {
+    font-size: 11px;
+  }
+
+  .diagram-platform-caption,
+  .diagram-touchpoint-count {
+    display: none;
+  }
+
+  .diagram-touchpoint-group {
+    font-size: 9px;
+  }
+
+  .diagram-total-pill text {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diagram-core-halo {
+    animation: none;
+  }
+}
