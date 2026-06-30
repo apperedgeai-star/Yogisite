@@ -28,13 +28,24 @@ function FactCard({
 }) {
   const [open, setOpen] = useState(false);
 
+  const toggle = () => setOpen((o) => !o);
+
   return (
     <motion.div
       layout
       className="fact-card founder-info-card"
-      onClick={() => setOpen((o) => !o)}
+      onClick={toggle}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggle();
+        }
+      }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      role="button"
+      tabIndex={0}
+      aria-expanded={open}
     >
       <div className="fact-card-header">
         <span className="fact-label">{label}</span>
@@ -133,7 +144,7 @@ export default function About() {
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className="founder-image object-cover"
-              style={{ objectFit: "cover", objectPosition: "top center" }}
+              style={{ objectFit: "cover", objectPosition: "center 18%" }}
             />
           </div>
         </Col>

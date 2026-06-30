@@ -16,8 +16,8 @@ export const SITE = {
   seeOurWork: "#work",
   tallyRecunAI: "https://tally.so/r/D4YpNZ",
   tallyContentSeCrore: "https://tally.so/r/D4YpNZ",
-  instagram: "https://www.instagram.com/yogiikumar/",
-  instagramHandle: "@yogiikumar",
+  instagram: "https://www.instagram.com/imthatyogii",
+  instagramHandle: "@imthatyogii",
   gold: "#D4A853",
 } as const;
 

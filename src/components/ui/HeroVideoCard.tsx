@@ -119,6 +119,7 @@ export function HeroVideoCard({ className }: HeroVideoCardProps) {
               muted
               playsInline
               preload="metadata"
+              poster={ASSETS.heroAmbient}
               aria-hidden
             />
             <span className="hero-video-card__thumb-label">{video.label}</span>

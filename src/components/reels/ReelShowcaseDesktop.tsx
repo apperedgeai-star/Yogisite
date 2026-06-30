@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LazyVideo } from "@/components/ui/LazyVideo";
-import { mainVideos, leftVideos, rightVideos } from "@/lib/videos";
+import { mainVideos, leftVideos, rightVideos, HERO_FEATURED_VIDEOS } from "@/lib/videos";
 import { prefersReducedMotion } from "@/lib/utils";
 
 function ScrollColumn({ videos, direction }: { videos: string[]; direction: "up" | "down" }) {
@@ -33,7 +33,7 @@ function CenterReel({ videos }: { videos: string[] }) {
   const [progress, setProgress] = useState(0);
   const reduced = prefersReducedMotion();
   const duration = 8000;
-  const featured = videos.slice(0, 3);
+  const featured = HERO_FEATURED_VIDEOS.map((video) => video.src);
 
   useEffect(() => {
     if (reduced || videos.length <= 1) return;

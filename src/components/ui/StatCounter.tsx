@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { loadGsap } from "@/lib/gsap-loader";
 import { prefersReducedMotion } from "@/lib/utils";
 
 type StatCounterProps = {
@@ -37,9 +38,9 @@ export function StatCounter({
     if (!el) return;
 
     let cancelled = false;
-    let animation: { cancel?: () => void; pause?: () => void } | undefined;
+    let tween: { kill?: () => void } | undefined;
 
-    const start = async () => {
+    const start = () => {
       if (cancelled || hasAnimated.current) return;
       hasAnimated.current = true;
 
@@ -51,19 +52,19 @@ export function StatCounter({
       const counter = { val: 0 };
       setDisplay(finalDisplay(0, prefix, suffix, format));
 
-      const { animate } = await import("animejs");
-      if (cancelled) return;
-
-      animation = animate(counter, {
-        val: value,
-        duration: 2200,
-        easing: "easeOutExpo",
-        update: () => {
-          setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
-        },
-        complete: () => {
-          setDisplay(finalDisplay(value, prefix, suffix, format));
-        },
+      loadGsap().then(({ gsap }) => {
+        if (cancelled) return;
+        tween = gsap.to(counter, {
+          val: value,
+          duration: 2.2,
+          ease: "expo.out",
+          onUpdate: () => {
+            setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
+          },
+          onComplete: () => {
+            setDisplay(finalDisplay(value, prefix, suffix, format));
+          },
+        });
       });
     };
 
@@ -74,16 +75,20 @@ export function StatCounter({
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
     );
 
     observer.observe(el);
 
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+      start();
+      observer.disconnect();
+    }
+
     return () => {
       cancelled = true;
       observer.disconnect();
-      animation?.cancel?.();
-      animation?.pause?.();
+      tween?.kill?.();
     };
   }, [value, prefix, suffix, format]);
 

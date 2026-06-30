@@ -117,7 +117,6 @@ export const CONVERSATIONS = [
     image: ASSETS.conversations.nawazShaikh,
     quality: "low",
     focal: "24% center",
-    // TODO: Replace with a high-resolution photo of Nawaz Shaikh. Current file is a low-resolution meeting screenshot.
   },
   {
     id: "riya",
@@ -127,7 +126,6 @@ export const CONVERSATIONS = [
     image: ASSETS.conversations.riyaUpreti,
     quality: "low",
     focal: "18% center",
-    // TODO: Replace with a clearer, well-lit high-resolution photo of Riya Upreti.
   },
   {
     id: "shubhankar",
@@ -152,10 +150,9 @@ export const CONVERSATIONS = [
     name: "RJ Dheeraj",
     stat: "70K+",
     session: "PR Collab Session",
-    image: ASSETS.conversations.romilMavani,
+    image: ASSETS.conversations.rjDheeraj,
     quality: "ok",
     focal: "center center",
-    // FINAL: romil-mavani.jpg contains RJ Dheeraj's actual photo.
   },
   {
     id: "karthik",
@@ -171,7 +168,7 @@ export const CONVERSATIONS = [
     name: "Romil Mavani",
     stat: "—",
     session: "Mavani Solutions IT Agency · Business Consultancy Session",
-    image: ASSETS.conversations.extraSession,
+    image: ASSETS.conversations.romilMavani,
     quality: "ok",
     focal: "center center",
   },
@@ -183,7 +180,6 @@ export const CONVERSATIONS = [
     image: ASSETS.conversations.kasimShaikh,
     quality: "wrong",
     focal: "center center",
-    // TODO: WRONG FILE per v4 audit. Replace with the correct Kasim Shaikh photo; fallback renders until then.
   },
   {
     id: "dabhi",
@@ -193,7 +189,6 @@ export const CONVERSATIONS = [
     image: ASSETS.conversations.dabhiManthan,
     quality: "low",
     focal: "18% center",
-    // TODO: Replace with a photo where Dabhi Manthan's face is clearly visible.
   },
   {
     id: "multi",
@@ -203,7 +198,6 @@ export const CONVERSATIONS = [
     image: ASSETS.conversations.multiSession,
     quality: "low",
     focal: "18% 35%",
-    // TODO: Replace with a proper group/event photo. Current file is a raw meeting screenshot.
   },
 ] as const;
 

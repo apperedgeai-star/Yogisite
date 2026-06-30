@@ -91,8 +91,8 @@ export function ConversationsCarousel() {
               priority={current === 0}
               sizes="(max-width: 768px) 100vw, 90vw"
               style={{
-                objectFit: "contain",
-                objectPosition: "center",
+                objectFit: "cover",
+                objectPosition: slide.focal ?? "center center",
                 background: "#0a0a0a",
               }}
               onError={() => handleImageError(slide.id)}

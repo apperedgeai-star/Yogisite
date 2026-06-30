@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { LazyVideo } from "@/components/ui/LazyVideo";
-import { mainVideos, subVideos } from "@/lib/videos";
+import { subVideos, HERO_FEATURED_VIDEOS } from "@/lib/videos";
 import { prefersReducedMotion } from "@/lib/utils";
 
 function SquareThumb({
@@ -84,17 +84,16 @@ function ScrollStrip({
   );
 }
 
-const FEATURED_LABELS: Record<string, string> = {
-  "/videos/hero/homepage.mp4": "Featured",
-  "/videos/main/video-1.mp4": "Nawaz Shaikh",
-  "/videos/main/video-2.mp4": "Riya Upreti",
-};
+const FEATURED_LABELS: Record<string, string> = Object.fromEntries(
+  HERO_FEATURED_VIDEOS.map((video) => [video.src, video.label])
+);
 
 export default function ReelShowcaseMobile() {
+  const featuredSrcs = HERO_FEATURED_VIDEOS.map((video) => video.src);
   const half = Math.ceil(subVideos.length / 2);
-  const row1 = subVideos.slice(0, half);
+  const row1 = [...featuredSrcs, ...subVideos.slice(0, half)];
   const row2 = subVideos.slice(half);
-  const [activeSrc, setActiveSrc] = useState(mainVideos[0]);
+  const [activeSrc, setActiveSrc] = useState<string>(featuredSrcs[0]);
 
   return (
     <div className="reel-mobile-showcase pb-10 pt-4 lg:hidden">
