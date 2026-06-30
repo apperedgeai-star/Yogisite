@@ -2,41 +2,42 @@
 
 import type React from "react";
 
-const WIDTH = 500;
-const HEIGHT = 420;
-const CENTER = { x: 250, y: 205 };
+const WIDTH = 560;
+const HEIGHT = 460;
+const CENTER = { x: 280, y: 210 };
 
 const PLATFORM_NODES = [
-  { id: "instagram", label: "Instagram", short: "IG", x: 250, y: 100 },
-  { id: "facebook", label: "Facebook", short: "FB", x: 108, y: 205 },
-  { id: "linkedin", label: "LinkedIn", short: "IN", x: 392, y: 205 },
-  { id: "youtube", label: "YouTube", short: "YT", x: 250, y: 310 },
+  { id: "instagram", label: "Instagram", short: "IG", x: 280, y: 82 },
+  { id: "facebook", label: "Facebook", short: "FB", x: 124, y: 210 },
+  { id: "linkedin", label: "LinkedIn", short: "IN", x: 436, y: 210 },
+  { id: "youtube", label: "YouTube", short: "YT", x: 280, y: 338 },
 ] as const;
 
+function distributionRow(
+  prefix: "ig" | "yt",
+  hub: "instagram" | "youtube",
+  baseY: number
+) {
+  return Array.from({ length: 9 }, (_, i) => ({
+    id: `${prefix}-touchpoint-${i + 1}`,
+    label: `${prefix === "ig" ? "IG" : "YT"} ${i + 1}`,
+    group: prefix,
+    hub,
+    x: 64 + i * 48,
+    y: baseY,
+  }));
+}
+
 const DISTRIBUTION_NODES = [
-  ...Array.from({ length: 9 }, (_, i) => ({
-    id: `ig-touchpoint-${i + 1}`,
-    label: `IG ${i + 1}`,
-    group: "ig",
-    hub: "instagram",
-    x: 88 + i * 40.5,
-    y: 50 + Math.abs(i - 4) * 4,
-  })),
-  ...Array.from({ length: 9 }, (_, i) => ({
-    id: `yt-touchpoint-${i + 1}`,
-    label: `YT ${i + 1}`,
-    group: "yt",
-    hub: "youtube",
-    x: 88 + i * 40.5,
-    y: 360 - Math.abs(i - 4) * 4,
-  })),
+  ...distributionRow("ig", "instagram", 38),
+  ...distributionRow("yt", "youtube", 382),
 ] as const;
 
 const FLOW_PATHS = [
-  "M250 100 C250 140 250 164 250 205",
-  "M250 310 C250 270 250 246 250 205",
-  "M108 205 C162 205 196 205 250 205",
-  "M392 205 C338 205 304 205 250 205",
+  "M280 82 C280 128 280 168 280 210",
+  "M280 338 C280 292 280 252 280 210",
+  "M124 210 C178 210 224 210 280 210",
+  "M436 210 C382 210 336 210 280 210",
 ] as const;
 
 export default function NodeDiagram() {
@@ -46,7 +47,7 @@ export default function NodeDiagram() {
     <div
       className="node-diagram-wrap node-diagram-wrapper"
       role="img"
-      aria-label="Yogi turns 4 main social accounts into 18 additional distribution touchpoints, creating 22 total touchpoints."
+      aria-label="Four main social accounts feed 18 distribution touchpoints — 22 total channels building one brand authority."
     >
       <div className="node-diagram-svg-wrapper">
         <svg
@@ -79,13 +80,13 @@ export default function NodeDiagram() {
             </filter>
           </defs>
 
-          <rect className="diagram-panel-bg" x="12" y="10" width="476" height="400" rx="26" />
-          <path className="diagram-grid-line" d="M42 205H458" />
-          <path className="diagram-grid-line" d="M250 30V390" />
-          <circle className="diagram-ambient-ring" cx={CENTER.x} cy={CENTER.y} r="132" />
-          <circle className="diagram-ambient-ring diagram-ambient-ring--inner" cx={CENTER.x} cy={CENTER.y} r="74" />
-          <path className="diagram-distribution-field" d="M62 78 C112 30 388 30 438 78" />
-          <path className="diagram-distribution-field" d="M62 342 C112 390 388 390 438 342" />
+          <rect className="diagram-panel-bg" x="16" y="12" width="528" height="436" rx="26" />
+          <path className="diagram-grid-line" d="M48 210H512" />
+          <path className="diagram-grid-line" d="M280 36V424" />
+          <circle className="diagram-ambient-ring" cx={CENTER.x} cy={CENTER.y} r="138" />
+          <circle className="diagram-ambient-ring diagram-ambient-ring--inner" cx={CENTER.x} cy={CENTER.y} r="78" />
+          <path className="diagram-distribution-field" d="M56 70 C116 24 444 24 504 70" />
+          <path className="diagram-distribution-field" d="M56 390 C116 436 444 436 504 390" />
 
           {FLOW_PATHS.map((path, index) => (
             <path
@@ -97,51 +98,53 @@ export default function NodeDiagram() {
 
           {DISTRIBUTION_NODES.map((node) => {
             const hub = hubById[node.hub];
+            const curveY = node.group === "ig" ? 96 : 324;
             return (
               <path
                 key={`dist-line-${node.id}`}
                 className="diagram-line diagram-line--secondary"
-                d={`M${hub.x} ${hub.y} Q${(hub.x + node.x) / 2} ${node.group === "ig" ? 88 : 326} ${node.x} ${node.y}`}
+                d={`M${hub.x} ${hub.y} Q${(hub.x + node.x) / 2} ${curveY} ${node.x} ${node.y}`}
               />
             );
           })}
 
           <g className="diagram-authority-core">
-            <circle cx={CENTER.x} cy={CENTER.y} r="70" className="diagram-core-halo" filter="url(#diagramSoftGlow)" />
-            <circle cx={CENTER.x} cy={CENTER.y} r="52" className="diagram-core-shell" />
-            <circle cx={CENTER.x} cy={CENTER.y} r="41" fill="url(#diagramGold)" />
-            <circle cx={CENTER.x} cy={CENTER.y} r="58" className="diagram-center-ring" />
-            <text x={CENTER.x} y={CENTER.y - 10} textAnchor="middle" className="diagram-center-text">
-              YOGI
+            <circle cx={CENTER.x} cy={CENTER.y} r="68" className="diagram-core-halo" filter="url(#diagramSoftGlow)" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="50" className="diagram-core-shell" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="39" fill="url(#diagramGold)" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="56" className="diagram-center-ring" />
+            <text x={CENTER.x} y={CENTER.y - 2} textAnchor="middle" className="diagram-center-text">
+              BRAND
             </text>
-            <text x={CENTER.x} y={CENTER.y + 10} textAnchor="middle" className="diagram-center-subtext">
-              AUTHORITY
-            </text>
-            <text x={CENTER.x} y={CENTER.y + 29} textAnchor="middle" className="diagram-center-count">
+            <text x={CENTER.x} y={CENTER.y + 16} textAnchor="middle" className="diagram-center-subtext">
               22 TOUCHPOINTS
             </text>
           </g>
 
           {PLATFORM_NODES.map((node) => (
-            <g key={node.id} className={`diagram-platform-svg-node diagram-platform-svg-node--${node.id}`} transform={`translate(${node.x} ${node.y})`}>
-              <rect x="-60" y="-30" width="120" height="60" rx="20" className="diagram-platform-card" filter="url(#diagramTightShadow)" />
-              <circle cx="-36" cy="0" r="19" className="diagram-platform-badge" />
-              <text x="-36" y="5" textAnchor="middle" className="diagram-platform-short">
+            <g
+              key={node.id}
+              className={`diagram-platform-svg-node diagram-platform-svg-node--${node.id}`}
+              transform={`translate(${node.x} ${node.y})`}
+            >
+              <rect x="-54" y="-28" width="108" height="56" rx="18" className="diagram-platform-card" filter="url(#diagramTightShadow)" />
+              <circle cx="-32" cy="0" r="17" className="diagram-platform-badge" />
+              <text x="-32" y="5" textAnchor="middle" className="diagram-platform-short">
                 {node.short}
               </text>
-              <text x="14" y="-4" textAnchor="middle" className="diagram-platform-label">
+              <text x="12" y="-3" textAnchor="middle" className="diagram-platform-label">
                 {node.label}
               </text>
-              <text x="14" y="13" textAnchor="middle" className="diagram-platform-caption">
+              <text x="12" y="12" textAnchor="middle" className="diagram-platform-caption">
                 Main
               </text>
             </g>
           ))}
 
-          <text x="250" y="28" textAnchor="middle" className="diagram-arc-label">
+          <text x="280" y="24" textAnchor="middle" className="diagram-arc-label">
             9 Instagram distribution pages
           </text>
-          <text x="250" y="392" textAnchor="middle" className="diagram-arc-label">
+          <text x="280" y="448" textAnchor="middle" className="diagram-arc-label">
             9 YouTube distribution pages
           </text>
 
@@ -152,17 +155,17 @@ export default function NodeDiagram() {
               style={{ "--touchpoint-delay": `${index * 90}ms` } as React.CSSProperties}
               transform={`translate(${node.x} ${node.y})`}
             >
-              <rect x="-19" y="-12" width="38" height="24" rx="12" className="diagram-touchpoint-bg" />
+              <rect x="-17" y="-11" width="34" height="22" rx="11" className="diagram-touchpoint-bg" />
               <text y="4" textAnchor="middle" className="diagram-touchpoint-label">
                 {node.label}
               </text>
             </g>
           ))}
 
-          <g className="diagram-total-pill" transform="translate(250 258)">
-            <rect x="-150" y="-18" width="300" height="36" rx="18" />
+          <g className="diagram-total-pill" transform="translate(280 292)">
+            <rect x="-138" y="-15" width="276" height="30" rx="15" />
             <text textAnchor="middle" y="4">
-              4 main accounts + 18 distribution touchpoints = 22
+              4 main + 18 distribution = 22
             </text>
           </g>
         </svg>

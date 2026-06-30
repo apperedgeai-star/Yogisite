@@ -189,7 +189,7 @@ export const CONVERSATIONS = [
     id: "dabhi",
     name: "Dabhi Manthan",
     stat: "—",
-    session: "Podcast & Content Session",
+    session: "Sales Automation Session",
     image: ASSETS.conversations.dabhiManthan,
     quality: "low",
     focal: "18% center",

@@ -30,7 +30,7 @@ export function StatCounter({
 }: StatCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
-  const [display, setDisplay] = useState(() => finalDisplay(value, prefix, suffix, format));
+  const [display, setDisplay] = useState(() => finalDisplay(0, prefix, suffix, format));
 
   useEffect(() => {
     const el = ref.current;

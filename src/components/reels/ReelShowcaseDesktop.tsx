@@ -33,6 +33,7 @@ function CenterReel({ videos }: { videos: string[] }) {
   const [progress, setProgress] = useState(0);
   const reduced = prefersReducedMotion();
   const duration = 8000;
+  const featured = videos.slice(0, 3);
 
   useEffect(() => {
     if (reduced || videos.length <= 1) return;
@@ -56,6 +57,11 @@ function CenterReel({ videos }: { videos: string[] }) {
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
   }, [index, reduced]);
+
+  const selectVideo = (videoIndex: number) => {
+    setIndex(videoIndex);
+    setProgress(0);
+  };
 
   return (
     <div className="reel-center-wrap mx-auto w-full max-w-[380px]">
@@ -82,13 +88,28 @@ function CenterReel({ videos }: { videos: string[] }) {
           </div>
         </div>
       </div>
+
+      <div className="mt-3 flex justify-center gap-2">
+        {featured.map((src, videoIndex) => (
+          <button
+            key={src}
+            type="button"
+            className={`reel-square-thumb tap-target ${index === videoIndex ? "reel-square-thumb--active" : ""}`}
+            onClick={() => selectVideo(videoIndex)}
+            aria-label={`Play featured video ${videoIndex + 1}`}
+            aria-pressed={index === videoIndex}
+          >
+            <LazyVideo src={src} pauseWhenHidden poster={undefined} />
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default function ReelShowcaseDesktop() {
   return (
-    <div className="reel-desktop-showcase relative hidden min-h-[720px] overflow-hidden py-16 lg:block">
+    <div className="reel-desktop-showcase relative hidden min-h-[560px] overflow-hidden py-10 lg:block">
       <div className="absolute left-[5%] top-0 h-full w-[min(22vw,260px)] scale-95 opacity-80 transition-transform duration-300 hover:scale-[0.97] hover:opacity-100">
         <ScrollColumn videos={leftVideos} direction="up" />
       </div>

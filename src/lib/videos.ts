@@ -4,6 +4,13 @@
 
 export const HERO_VIDEO = "/videos/hero/homepage.mp4";
 
+/** Hero featured-work carousel — top-of-page video card */
+export const HERO_FEATURED_VIDEOS = [
+  { id: "featured", src: "/videos/hero/homepage.mp4", label: "Featured" },
+  { id: "nawaz", src: "/videos/main/video-1.mp4", label: "Nawaz Shaikh" },
+  { id: "riya", src: "/videos/main/video-2.mp4", label: "Riya Upreti" },
+] as const;
+
 
 
 /** RecunAI section — three AI capability demos */
@@ -43,13 +50,10 @@ export const showcaseVideos = [
 
 
 export const mainVideos = [
-
-  "/videos/main/video-2.mp4",
-
+  "/videos/hero/homepage.mp4",
   "/videos/main/video-1.mp4",
-
+  "/videos/main/video-2.mp4",
   ...showcaseVideos,
-
 ];
 
 

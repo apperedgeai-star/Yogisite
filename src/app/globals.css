@@ -575,6 +575,61 @@ button:active {
   width: 100%;
 }
 
+.hero-video-card-stack {
+  width: 100%;
+  max-width: 420px;
+}
+
+.hero-video-card__thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.hero-video-card__thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  border: 2px solid var(--b1);
+  overflow: hidden;
+  background: var(--deep);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-video-card__thumb--active {
+  border-color: var(--g300);
+  box-shadow: 0 0 0 1px rgba(212, 168, 83, 0.35);
+}
+
+.hero-video-card__thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-video-card__thumb-label {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2px 4px 3px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+  color: #f5f0e6;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
 @media (min-width: 1024px) {
   .hero-video-card-wrap { justify-content: flex-end; }
 }
@@ -624,8 +679,9 @@ button:active {
 }
 
 /* ── STATS + REELS GAP ── */
-.problem-section { padding-bottom: 2.5rem; }
-.reels-section { padding-top: 2.5rem; padding-bottom: 0; }
+.problem-section { padding-bottom: 0; }
+.reels-section { padding-top: 3rem; padding-bottom: 0; }
+.reels-section.section-block { padding-top: 3rem; padding-bottom: 2rem; }
 
 .stats-reels-divider {
   height: 1px;
@@ -692,6 +748,14 @@ button:active {
   border-radius: 8px;
   border: 1px solid var(--b1);
   overflow: hidden;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.reel-square-thumb--active {
+  border-color: var(--g300);
+  box-shadow: 0 0 0 1px rgba(212, 168, 83, 0.35);
 }
 
 .reel-mobile-main__card {
@@ -1187,7 +1251,7 @@ button:active {
 }
 
 .reels-section {
-  padding-top: 80px;
+  padding-top: 3rem;
 }
 
 .case-card {

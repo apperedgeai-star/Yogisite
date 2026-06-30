@@ -105,7 +105,7 @@ export default function Hero({ ready = true }: HeroProps) {
                   rel="noopener noreferrer"
                   className="hero-cta-primary hoverable tap-target w-full sm:w-auto"
                 >
-                  Book a Call →
+                  Book Discovery Call →
                 </a>
                 <a
                   href={SITE.seeOurWork}

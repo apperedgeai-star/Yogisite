@@ -93,7 +93,7 @@ export default function Navbar() {
       >
         <div className="navbar-inner grid grid-cols-[1fr_auto] items-center gap-3 py-3.5 md:grid-cols-[1fr_auto_1fr] md:gap-4 md:py-5">
           <a
-            href="#"
+            href="#hero"
             className="hoverable interactive flex min-w-0 items-center gap-2.5 justify-self-start sm:gap-3"
           >
             <Image

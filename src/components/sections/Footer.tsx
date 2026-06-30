@@ -70,12 +70,12 @@ export default function Footer() {
           <div className="footer-brand-lockup">
             <Image
               src={ASSETS.logo}
-              alt="Recun Marketing 18"
+              alt="The Recun Media"
               width={48}
               height={48}
               className="footer-brand-logo object-contain"
             />
-            <span className="footer-brand-name">Recun Marketing 18</span>
+            <span className="footer-brand-name">The Recun Media</span>
           </div>
           <AnimatedSlogan />
           <p className="type-body mt-4 max-w-md">
