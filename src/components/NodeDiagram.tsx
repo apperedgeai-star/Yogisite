@@ -1,51 +1,45 @@
 "use client";
 
-const WIDTH = 720;
-const HEIGHT = 560;
-const CENTER = { x: WIDTH / 2, y: 280 };
+import type React from "react";
+
+const WIDTH = 500;
+const HEIGHT = 420;
+const CENTER = { x: 250, y: 205 };
 
 const PLATFORM_NODES = [
-  { id: "instagram", label: "Instagram", short: "IG", x: 360, y: 150 },
-  { id: "facebook", label: "Facebook", short: "FB", x: 180, y: 280 },
-  { id: "youtube", label: "YouTube", short: "YT", x: 360, y: 410 },
-  { id: "linkedin", label: "LinkedIn", short: "IN", x: 540, y: 280 },
+  { id: "instagram", label: "Instagram", short: "IG", x: 250, y: 100 },
+  { id: "facebook", label: "Facebook", short: "FB", x: 108, y: 205 },
+  { id: "linkedin", label: "LinkedIn", short: "IN", x: 392, y: 205 },
+  { id: "youtube", label: "YouTube", short: "YT", x: 250, y: 310 },
 ] as const;
 
 const DISTRIBUTION_NODES = [
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `ig-touchpoint-${i + 1}`,
-    label: `${i + 1}`,
-    group: "IG",
+    label: `IG ${i + 1}`,
+    group: "ig",
     hub: "instagram",
-    angle: 210 + i * 15,
-    origin: { x: 360, y: 150 },
-    radius: 136,
+    x: 88 + i * 40.5,
+    y: 50 + Math.abs(i - 4) * 4,
   })),
   ...Array.from({ length: 9 }, (_, i) => ({
     id: `yt-touchpoint-${i + 1}`,
-    label: `${i + 1}`,
-    group: "YT",
+    label: `YT ${i + 1}`,
+    group: "yt",
     hub: "youtube",
-    angle: 30 + i * 15,
-    origin: { x: 360, y: 410 },
-    radius: 136,
+    x: 88 + i * 40.5,
+    y: 360 - Math.abs(i - 4) * 4,
   })),
 ] as const;
 
-function polarPoint(origin: { x: number; y: number }, angle: number, radius: number) {
-  const radians = (angle * Math.PI) / 180;
-  return {
-    x: origin.x + Math.cos(radians) * radius,
-    y: origin.y + Math.sin(radians) * radius,
-  };
-}
+const FLOW_PATHS = [
+  "M250 100 C250 140 250 164 250 205",
+  "M250 310 C250 270 250 246 250 205",
+  "M108 205 C162 205 196 205 250 205",
+  "M392 205 C338 205 304 205 250 205",
+] as const;
 
 export default function NodeDiagram() {
-  const distributionNodes = DISTRIBUTION_NODES.map((node) => ({
-    ...node,
-    ...polarPoint(node.origin, node.angle, node.radius),
-  }));
-
   const hubById = Object.fromEntries(PLATFORM_NODES.map((node) => [node.id, node]));
 
   return (
@@ -60,6 +54,7 @@ export default function NodeDiagram() {
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           width="100%"
           height="auto"
+          preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
         >
           <defs>
@@ -79,82 +74,94 @@ export default function NodeDiagram() {
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            <filter id="diagramTightShadow" x="-25%" y="-25%" width="150%" height="150%">
+              <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#000000" floodOpacity="0.38" />
+            </filter>
           </defs>
 
-          <rect className="diagram-panel-bg" x="20" y="20" width="680" height="520" rx="28" />
-          <circle className="diagram-ambient-ring" cx={CENTER.x} cy={CENTER.y} r="220" />
-          <circle className="diagram-ambient-ring diagram-ambient-ring--inner" cx={CENTER.x} cy={CENTER.y} r="132" />
-          <ellipse className="diagram-distribution-field" cx="360" cy="150" rx="168" ry="104" />
-          <ellipse className="diagram-distribution-field" cx="360" cy="410" rx="168" ry="104" />
+          <rect className="diagram-panel-bg" x="12" y="10" width="476" height="400" rx="26" />
+          <path className="diagram-grid-line" d="M42 205H458" />
+          <path className="diagram-grid-line" d="M250 30V390" />
+          <circle className="diagram-ambient-ring" cx={CENTER.x} cy={CENTER.y} r="132" />
+          <circle className="diagram-ambient-ring diagram-ambient-ring--inner" cx={CENTER.x} cy={CENTER.y} r="74" />
+          <path className="diagram-distribution-field" d="M62 78 C112 30 388 30 438 78" />
+          <path className="diagram-distribution-field" d="M62 342 C112 390 388 390 438 342" />
 
-          {PLATFORM_NODES.map((node) => (
-            <line
-              key={`center-line-${node.id}`}
+          {FLOW_PATHS.map((path, index) => (
+            <path
+              key={`flow-path-${index}`}
               className="diagram-line diagram-line--primary"
-              x1={CENTER.x}
-              y1={CENTER.y}
-              x2={node.x}
-              y2={node.y}
+              d={path}
             />
           ))}
 
-          {distributionNodes.map((node) => {
+          {DISTRIBUTION_NODES.map((node) => {
             const hub = hubById[node.hub];
             return (
-              <line
+              <path
                 key={`dist-line-${node.id}`}
                 className="diagram-line diagram-line--secondary"
-                x1={hub.x}
-                y1={hub.y}
-                x2={node.x}
-                y2={node.y}
+                d={`M${hub.x} ${hub.y} Q${(hub.x + node.x) / 2} ${node.group === "ig" ? 88 : 326} ${node.x} ${node.y}`}
               />
             );
           })}
 
-          <g className="diagram-core" transform={`translate(${CENTER.x} ${CENTER.y})`}>
-            <circle r="70" className="diagram-core-halo" filter="url(#diagramSoftGlow)" />
-            <circle r="54" fill="url(#diagramGold)" />
-            <circle r="64" className="diagram-center-ring" />
-            <text y="-8" textAnchor="middle" className="diagram-center-text">
+          <g className="diagram-authority-core">
+            <circle cx={CENTER.x} cy={CENTER.y} r="70" className="diagram-core-halo" filter="url(#diagramSoftGlow)" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="52" className="diagram-core-shell" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="41" fill="url(#diagramGold)" />
+            <circle cx={CENTER.x} cy={CENTER.y} r="58" className="diagram-center-ring" />
+            <text x={CENTER.x} y={CENTER.y - 10} textAnchor="middle" className="diagram-center-text">
               YOGI
             </text>
-            <text y="13" textAnchor="middle" className="diagram-center-subtext">
+            <text x={CENTER.x} y={CENTER.y + 10} textAnchor="middle" className="diagram-center-subtext">
               AUTHORITY
+            </text>
+            <text x={CENTER.x} y={CENTER.y + 29} textAnchor="middle" className="diagram-center-count">
+              22 TOUCHPOINTS
             </text>
           </g>
 
           {PLATFORM_NODES.map((node) => (
             <g key={node.id} className={`diagram-platform-svg-node diagram-platform-svg-node--${node.id}`} transform={`translate(${node.x} ${node.y})`}>
-              <rect x="-62" y="-34" width="124" height="68" rx="24" className="diagram-platform-card" />
-              <circle cx="-34" cy="0" r="20" className="diagram-platform-badge" />
-              <text x="-34" y="6" textAnchor="middle" className="diagram-platform-short">
+              <rect x="-60" y="-30" width="120" height="60" rx="20" className="diagram-platform-card" filter="url(#diagramTightShadow)" />
+              <circle cx="-36" cy="0" r="19" className="diagram-platform-badge" />
+              <text x="-36" y="5" textAnchor="middle" className="diagram-platform-short">
                 {node.short}
               </text>
-              <text x="4" y="-3" textAnchor="middle" className="diagram-platform-label">
+              <text x="14" y="-4" textAnchor="middle" className="diagram-platform-label">
                 {node.label}
               </text>
-              <text x="4" y="15" textAnchor="middle" className="diagram-platform-caption">
-                Main account
+              <text x="14" y="13" textAnchor="middle" className="diagram-platform-caption">
+                Main
               </text>
             </g>
           ))}
 
-          {distributionNodes.map((node) => (
-            <g key={node.id} className={`diagram-touchpoint diagram-touchpoint--${node.group.toLowerCase()}`} transform={`translate(${node.x} ${node.y})`}>
-              <circle r="17" className="diagram-touchpoint-bg" />
-              <text y="-1" textAnchor="middle" className="diagram-touchpoint-group">
-                {node.group}
-              </text>
-              <text y="11" textAnchor="middle" className="diagram-touchpoint-count">
+          <text x="250" y="28" textAnchor="middle" className="diagram-arc-label">
+            9 Instagram distribution pages
+          </text>
+          <text x="250" y="392" textAnchor="middle" className="diagram-arc-label">
+            9 YouTube distribution pages
+          </text>
+
+          {DISTRIBUTION_NODES.map((node, index) => (
+            <g
+              key={node.id}
+              className={`diagram-touchpoint diagram-touchpoint--${node.group}`}
+              style={{ "--touchpoint-delay": `${index * 90}ms` } as React.CSSProperties}
+              transform={`translate(${node.x} ${node.y})`}
+            >
+              <rect x="-19" y="-12" width="38" height="24" rx="12" className="diagram-touchpoint-bg" />
+              <text y="4" textAnchor="middle" className="diagram-touchpoint-label">
                 {node.label}
               </text>
             </g>
           ))}
 
-          <g className="diagram-total-pill" transform="translate(360 516)">
-            <rect x="-170" y="-19" width="340" height="38" rx="19" />
-            <text textAnchor="middle" y="5">
+          <g className="diagram-total-pill" transform="translate(250 258)">
+            <rect x="-150" y="-18" width="300" height="36" rx="18" />
+            <text textAnchor="middle" y="4">
               4 main accounts + 18 distribution touchpoints = 22
             </text>
           </g>

@@ -109,8 +109,6 @@ export default function Hero({ ready = true }: HeroProps) {
                 </a>
                 <a
                   href={SITE.seeOurWork}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="hero-cta-secondary hoverable tap-target w-full sm:w-auto"
                 >
                   See Our Work

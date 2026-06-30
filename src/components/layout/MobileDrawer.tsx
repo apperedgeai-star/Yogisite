@@ -136,8 +136,6 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
           </a>
           <a
             href={SITE.seeOurWork}
-            target="_blank"
-            rel="noopener noreferrer"
             className="tap-target hoverable transition-colors hover:text-gold-300"
           >
             See Our Work →

@@ -122,7 +122,7 @@ export default function Footer() {
             <a href={`mailto:${SITE.emails.yogii}`} className="type-body hoverable block">
               {SITE.emails.yogii}
             </a>
-            <a href={SITE.seeOurWork} target="_blank" rel="noopener noreferrer" className="type-body hoverable block">
+            <a href={SITE.seeOurWork} className="type-body hoverable block">
               See Our Work →
             </a>
           </div>
