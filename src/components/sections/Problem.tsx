@@ -35,12 +35,12 @@ export default function Problem() {
         return;
       }
       gsap.from(lines, {
-        y: 18,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.09,
+        y: 12,
+        opacity: 0.35,
+        duration: 0.5,
+        stagger: 0.07,
         ease: "power3.out",
-        scrollTrigger: { trigger: statementRef.current, start: "top 82%", once: true },
+        scrollTrigger: { trigger: statementRef.current, start: "top 88%", once: true },
       });
     },
     []
@@ -69,21 +69,21 @@ export default function Problem() {
         </Col>
 
         <Col span={12} spanLg={8} className="lg:col-start-3">
-          <div ref={statementRef} className="pt-4 text-center lg:pt-8">
+          <div ref={statementRef} className="problem-statement">
             {STATEMENT_WARM.map((line, i) => (
-              <div key={line} className="overflow-hidden py-0.5">
+              <div key={line} className="problem-statement-line">
                 <span
                   ref={(el) => {
                     lineRefs.current[i] = el;
                   }}
-                  className="type-subhead block text-primary opacity-0"
+                  className="problem-statement-text"
                 >
                   {line}
                 </span>
               </div>
             ))}
-            <div className="overflow-hidden py-0.5">
-              <span ref={punchlineRef} className="type-section block italic text-gold-300 opacity-0">
+            <div className="problem-statement-line">
+              <span ref={punchlineRef} className="problem-statement-punch">
                 you are invisible.
               </span>
             </div>

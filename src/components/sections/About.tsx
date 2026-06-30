@@ -94,17 +94,34 @@ function FactCard({
 export default function About() {
   return (
     <Section id="about" tone="deep" className="founder-section">
-      <SiteGrid className="founder-layout items-start">
+      <SiteGrid className="founder-layout">
         <Col span={12} spanLg={7} className="order-2 lg:order-1">
           <div className="founder-copy-panel">
             <SectionHeader label="The founder" title="Execution over everything." />
             <p className="founder-subtitle type-caption text-gold-300">Former COO &amp; CMO</p>
-            <div className="mt-6">
+            <div className="mt-5">
               <FounderBioScroll />
             </div>
           </div>
+        </Col>
 
-          <div className="fact-cards-grid mt-6">
+        <Col span={12} spanLg={5} className="order-1 lg:order-2">
+          <div className="founder-image-container surface-card overflow-hidden">
+            <Image
+              src={ASSETS.portrait}
+              alt="Yogii Kumar — Founder"
+              width={600}
+              height={750}
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="founder-image h-full w-full"
+              style={{ objectFit: "cover", objectPosition: "center 18%" }}
+              priority
+            />
+          </div>
+        </Col>
+
+        <Col span={12} className="order-3">
+          <div className="fact-cards-grid founder-facts-grid">
             {FOUNDER_FACTS.map((fact) => (
               <FactCard key={fact.label} {...fact} />
             ))}
@@ -114,26 +131,11 @@ export default function About() {
             href={SITE.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="instagram-btn hoverable tap-target mt-8 inline-flex items-center gap-2 rounded-full border border-white px-5 py-3 font-sans text-sm font-semibold text-white transition-colors duration-200"
+            className="instagram-btn hoverable tap-target mt-6 inline-flex items-center gap-2 rounded-full border border-white px-5 py-3 font-sans text-sm font-semibold text-white transition-colors duration-200"
           >
             <FaInstagram size={18} />
             Follow on Instagram
           </a>
-        </Col>
-
-        <Col span={12} spanLg={5} className="order-1 lg:order-2">
-          <div className="founder-image-container surface-card overflow-hidden lg:sticky lg:top-28">
-            <Image
-              src="/images/yogii-portrait.jpg"
-              alt="Yogii Kumar — Founder"
-              width={600}
-              height={750}
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="founder-image h-auto w-full"
-              style={{ objectFit: "cover", objectPosition: "center 12%" }}
-              priority
-            />
-          </div>
         </Col>
       </SiteGrid>
     </Section>

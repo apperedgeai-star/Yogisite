@@ -117,7 +117,7 @@ function CenterReel() {
 
 export default function ReelShowcaseDesktop() {
   return (
-    <div className="reel-desktop-showcase relative hidden min-h-[560px] overflow-hidden py-10 lg:block">
+    <div className="reel-desktop-showcase relative hidden min-h-[480px] overflow-hidden py-6 lg:block">
       <div className="absolute left-[5%] top-0 h-full w-[min(22vw,260px)] scale-95 opacity-80 transition-transform duration-300 hover:scale-[0.97] hover:opacity-100">
         <ScrollColumn videos={leftVideos} direction="up" />
       </div>

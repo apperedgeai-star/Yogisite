@@ -679,9 +679,48 @@ button:active {
 }
 
 /* ── STATS + REELS GAP ── */
-.problem-section { padding-bottom: 0; }
-.reels-section { padding-top: 3rem; padding-bottom: 0; }
-.reels-section.section-block { padding-top: 3rem; padding-bottom: 2rem; }
+.problem-section {
+  padding-bottom: 0;
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.problem-statement {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.problem-statement-line {
+  overflow: hidden;
+  padding-block: 0.15rem;
+}
+
+.problem-statement-text {
+  display: block;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--t2);
+}
+
+.problem-statement-punch {
+  display: block;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--g300);
+}
+
+.reels-section {
+  padding-top: 1.25rem;
+  padding-bottom: 0;
+}
+
+.reels-section.section-block {
+  padding-top: 1.25rem;
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+}
 
 .stats-reels-divider {
   height: 1px;
@@ -776,7 +815,310 @@ button:active {
   pointer-events: none;
 }
 
-/* ── Clean node diagram (v3) ── */
+/* ── BRAND SOLAR DIAGRAM (mechanism section) ── */
+.mechanism-panel--diagram {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  background: radial-gradient(circle at 50% 40%, rgba(212, 168, 83, 0.06), transparent 55%), #0a0a0a;
+}
+
+.brand-solar-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0.5rem 0 0.25rem;
+}
+
+.brand-solar-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 320px;
+}
+
+.brand-solar-foreign {
+  overflow: visible;
+}
+
+.brand-solar-orbit-ring {
+  fill: none;
+  stroke-width: 1;
+}
+
+.brand-solar-orbit-ring--outer {
+  stroke: rgba(212, 168, 83, 0.22);
+  stroke-dasharray: 6 10;
+}
+
+.brand-solar-orbit-ring--inner {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.brand-solar-orbit-ring--core {
+  stroke: rgba(212, 168, 83, 0.35);
+}
+
+.brand-solar-pulse {
+  fill: none;
+  stroke: rgba(212, 168, 83, 0.35);
+  stroke-width: 1;
+  animation: brandSolarPulse 3s ease-out infinite;
+}
+
+@keyframes brandSolarPulse {
+  0% {
+    r: 42;
+    opacity: 0.55;
+  }
+  100% {
+    r: 88;
+    opacity: 0;
+  }
+}
+
+.brand-solar-spoke {
+  stroke: rgba(212, 168, 83, 0.32);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: var(--line-len);
+  stroke-dashoffset: var(--line-len);
+  animation: drawLine 1.1s ease forwards;
+}
+
+.brand-solar-dist-orbit {
+  animation: brandSolarOrbit 90s linear infinite;
+}
+
+@keyframes brandSolarOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.brand-solar-dot {
+  fill: #d4a853;
+  opacity: 0.85;
+  animation: brandSolarTwinkle 3.5s ease-in-out infinite;
+}
+
+.brand-solar-dot--ig {
+  fill: #e4405f;
+}
+
+.brand-solar-dot--yt {
+  fill: #ff0000;
+}
+
+@keyframes brandSolarTwinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.brand-solar-arc-label {
+  fill: rgba(255, 255, 255, 0.42);
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.brand-solar-planet {
+  position: relative;
+  display: flex;
+  width: 88px;
+  height: 88px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: brandSolarFloat 7s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes brandSolarFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.brand-solar-planet-halo {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  background: rgba(12, 12, 12, 0.92);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.12);
+}
+
+.brand-solar-planet-icon {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.brand-solar-planet-label {
+  position: relative;
+  z-index: 1;
+  margin-top: 2.75rem;
+  max-width: 84px;
+  text-align: center;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.2;
+}
+
+.brand-solar-core-halo {
+  fill: rgba(212, 168, 83, 0.14);
+  filter: blur(2px);
+}
+
+.brand-solar-core-disc {
+  filter: drop-shadow(0 0 18px rgba(212, 168, 83, 0.45));
+  animation: brandSolarCorePulse 2.8s ease-in-out infinite;
+}
+
+@keyframes brandSolarCorePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+.brand-solar-core {
+  display: flex;
+  width: 104px;
+  height: 104px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.brand-solar-core-title {
+  margin: 0;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1.15;
+  color: #0a0906;
+}
+
+.brand-solar-core-sub {
+  margin: 4px 0 0;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(10, 9, 6, 0.72);
+}
+
+.brand-solar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.brand-solar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.brand-solar-legend-item--total {
+  color: #d4a853;
+  font-weight: 800;
+}
+
+.brand-solar-legend-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.brand-solar-legend-dots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.brand-solar-legend-dots .brand-solar-dot {
+  position: static;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  animation: none;
+}
+
+.node-diagram-wrap.node-diagram-wrapper {
+  background: transparent;
+  border: none;
+  min-height: 0;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .brand-solar-svg {
+    min-height: 280px;
+  }
+
+  .brand-solar-legend {
+    gap: 0.5rem;
+  }
+
+  .brand-solar-legend-item {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-solar-dist-orbit,
+  .brand-solar-pulse,
+  .brand-solar-planet,
+  .brand-solar-core-disc,
+  .brand-solar-dot,
+  .brand-solar-spoke {
+    animation: none;
+  }
+
+  .brand-solar-spoke {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Clean node diagram (legacy) ── */
 .node-diagram--clean {
   max-width: 480px;
   padding: 1rem;
@@ -1049,20 +1391,44 @@ button:active {
 }
 
 /* ── FOUNDER ── */
+.founder-section.section-block {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.founder-layout {
+  row-gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: stretch;
+}
+
+.founder-copy-panel {
+  height: 100%;
+}
+
 .founder-image-container {
   position: relative;
   width: 100%;
+  height: 100%;
+  min-height: clamp(260px, 38vw, 420px);
   border-radius: 12px;
   overflow: hidden;
-  min-height: unset;
 }
 
 .founder-image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
-  object-position: center 12%;
+  object-position: center 18%;
+}
+
+.founder-facts-grid {
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+@media (min-width: 1024px) {
+  .founder-facts-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .founder-bio-scroll-viewport {
@@ -1413,7 +1779,7 @@ button:active {
 }
 
 .reels-section {
-  padding-top: 3rem;
+  padding-top: 1.25rem;
 }
 
 .case-card {
@@ -1684,7 +2050,8 @@ button:active {
 }
 
 .founder-layout {
-  row-gap: clamp(1.5rem, 4vw, 3rem);
+  row-gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: stretch;
 }
 
 .founder-copy-panel {
@@ -2822,7 +3189,7 @@ section,
 }
 
 .founder-layout {
-  row-gap: 36px;
+  row-gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .founder-bio-accordion {

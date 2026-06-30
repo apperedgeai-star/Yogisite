@@ -55,7 +55,7 @@ export default function Mechanism() {
         </Col>
 
         <Col span={12} spanLg={7}>
-          <div className="mechanism-panel surface-card p-4 md:p-6">
+          <div className="mechanism-panel mechanism-panel--diagram p-3 md:p-5">
             <NodeDiagram />
           </div>
         </Col>
