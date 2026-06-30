@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { loadGsap } from "@/lib/gsap-loader";
 import { prefersReducedMotion } from "@/lib/utils";
 
 type StatCounterProps = {
@@ -9,7 +8,6 @@ type StatCounterProps = {
   suffix?: string;
   prefix?: string;
   label: string;
-  /** When set, animates numeric portion then appends affixes (e.g. 50 → "50M+") */
   format?: (n: number) => string;
 };
 
@@ -20,6 +18,10 @@ function finalDisplay(
   format?: (n: number) => string
 ) {
   return format ? format(value) : `${prefix}${value}${suffix}`;
+}
+
+function easeOutExpo(t: number) {
+  return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
 
 export function StatCounter({
@@ -37,10 +39,10 @@ export function StatCounter({
     const el = ref.current;
     if (!el) return;
 
+    let frame = 0;
     let cancelled = false;
-    let tween: { kill?: () => void } | undefined;
 
-    const start = () => {
+    const animate = () => {
       if (cancelled || hasAnimated.current) return;
       hasAnimated.current = true;
 
@@ -49,46 +51,51 @@ export function StatCounter({
         return;
       }
 
-      const counter = { val: 0 };
-      setDisplay(finalDisplay(0, prefix, suffix, format));
+      const duration = 2200;
+      const startTime = performance.now();
 
-      loadGsap().then(({ gsap }) => {
+      const tick = (now: number) => {
         if (cancelled) return;
-        tween = gsap.to(counter, {
-          val: value,
-          duration: 2.2,
-          ease: "expo.out",
-          onUpdate: () => {
-            setDisplay(finalDisplay(Math.round(counter.val), prefix, suffix, format));
-          },
-          onComplete: () => {
-            setDisplay(finalDisplay(value, prefix, suffix, format));
-          },
-        });
-      });
+        const progress = easeOutExpo(Math.min((now - startTime) / duration, 1));
+        const current = Math.round(value * progress);
+        setDisplay(finalDisplay(current, prefix, suffix, format));
+        if (progress < 1) {
+          frame = requestAnimationFrame(tick);
+        } else {
+          setDisplay(finalDisplay(value, prefix, suffix, format));
+        }
+      };
+
+      frame = requestAnimationFrame(tick);
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          start();
+          animate();
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
     );
 
     observer.observe(el);
 
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
-      start();
-      observer.disconnect();
-    }
+    const checkVisible = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+        animate();
+        observer.disconnect();
+      }
+    };
+
+    checkVisible();
+    requestAnimationFrame(checkVisible);
 
     return () => {
       cancelled = true;
       observer.disconnect();
-      tween?.kill?.();
+      cancelAnimationFrame(frame);
     };
   }, [value, prefix, suffix, format]);
 
