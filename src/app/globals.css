@@ -1401,7 +1401,50 @@ button:active {
 }
 
 .founder-copy-panel {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+}
+
+.founder-bio-wrap {
+  flex: 1;
+  min-height: 0;
+}
+
+.founder-bio-scroll-viewport {
+  height: 100%;
+  min-height: clamp(200px, 28vh, 280px);
+  max-height: clamp(280px, 42vh, 480px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 12px;
+  border: 1px solid var(--b1);
+  background: rgba(8, 8, 8, 0.65);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 83, 0.45) transparent;
+}
+
+.founder-bio-scroll-viewport::-webkit-scrollbar {
+  width: 6px;
+}
+
+.founder-bio-scroll-viewport::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(212, 168, 83, 0.45);
+}
+
+.founder-bio-scroll-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.founder-bio-scroll-line {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--t2);
 }
 
 .founder-image-container {
@@ -1429,52 +1472,6 @@ button:active {
   .founder-facts-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
-
-.founder-bio-scroll-viewport {
-  position: relative;
-  height: clamp(220px, 32vh, 320px);
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--b1);
-  background: rgba(8, 8, 8, 0.65);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
-}
-
-.founder-bio-scroll-track {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding: 1.25rem 1.35rem 2rem;
-  animation: founderBioScroll 55s linear infinite;
-}
-
-.founder-bio-scroll-viewport:hover .founder-bio-scroll-track {
-  animation-play-state: paused;
-}
-
-.founder-bio-scroll-line {
-  margin: 0;
-  line-height: 1.75;
-  color: var(--t2);
-}
-
-@keyframes founderBioScroll {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-.founder-bio-scroll-static {
-  max-height: clamp(220px, 32vh, 320px);
-  overflow-y: auto;
-  padding-right: 0.5rem;
-}
-
-.founder-bio-text { font-size: 15px; }
-
-@media (max-width: 767px) {
-  .founder-bio-text { font-size: 14px; line-height: 1.7; }
 }
 
 .fact-cards-grid {

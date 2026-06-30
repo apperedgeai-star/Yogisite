@@ -9,29 +9,17 @@ import { FOUNDER_BIO, FOUNDER_FACTS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
-import { prefersReducedMotion } from "@/lib/utils";
 
-function FounderBioScroll() {
-  const reduced = prefersReducedMotion();
-  const paragraphs = [...FOUNDER_BIO];
-
-  if (reduced) {
-    return (
-      <div className="founder-bio-scroll-static space-y-4">
-        {paragraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 40)} className="type-body">
-            {paragraph}
-          </p>
-        ))}
-      </div>
-    );
-  }
-
+function FounderBioPanel() {
   return (
-    <div className="founder-bio-scroll-viewport" aria-label="Founder biography">
+    <div
+      className="founder-bio-scroll-viewport"
+      aria-label="Founder biography"
+      tabIndex={0}
+    >
       <div className="founder-bio-scroll-track">
-        {[...paragraphs, ...paragraphs].map((paragraph, i) => (
-          <p key={`${paragraph.slice(0, 32)}-${i}`} className="founder-bio-scroll-line type-body">
+        {FOUNDER_BIO.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)} className="founder-bio-scroll-line type-body">
             {paragraph}
           </p>
         ))}
@@ -99,8 +87,8 @@ export default function About() {
           <div className="founder-copy-panel">
             <SectionHeader label="The founder" title="Execution over everything." />
             <p className="founder-subtitle type-caption text-gold-300">Former COO &amp; CMO</p>
-            <div className="mt-5">
-              <FounderBioScroll />
+            <div className="founder-bio-wrap mt-5">
+              <FounderBioPanel />
             </div>
           </div>
         </Col>
