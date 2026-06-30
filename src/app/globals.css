@@ -848,8 +848,158 @@ button:active {
 }
 
 .brand-solar-orbit-ring--outer {
-  stroke: rgba(212, 168, 83, 0.22);
-  stroke-dasharray: 6 10;
+  stroke: rgba(212, 168, 83, 0.38);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 8;
+}
+
+.brand-solar-dot-halo {
+  fill: none;
+  stroke-width: 1;
+  opacity: 0.9;
+}
+
+.brand-solar-dot-halo--ig {
+  stroke: rgba(228, 64, 95, 0.55);
+  fill: rgba(228, 64, 95, 0.14);
+}
+
+.brand-solar-dot-halo--yt {
+  stroke: rgba(255, 0, 0, 0.5);
+  fill: rgba(255, 0, 0, 0.12);
+}
+
+.brand-solar-dot {
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 0.75;
+  animation: brandSolarTwinkle 4s ease-in-out infinite;
+}
+
+.brand-solar-dot--ig {
+  fill: #ff4d73;
+}
+
+.brand-solar-dot--yt {
+  fill: #ff2a2a;
+}
+
+@keyframes brandSolarTwinkle {
+  0%,
+  100% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.brand-solar-arc-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  min-height: 30px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(8, 8, 8, 0.88);
+  text-align: center;
+}
+
+.brand-solar-arc-pill--ig {
+  border-color: rgba(228, 64, 95, 0.35);
+  box-shadow: 0 0 18px rgba(228, 64, 95, 0.12);
+}
+
+.brand-solar-arc-pill--yt {
+  border-color: rgba(255, 42, 42, 0.35);
+  box-shadow: 0 0 18px rgba(255, 42, 42, 0.12);
+}
+
+.brand-solar-arc-pill__count {
+  display: inline-grid;
+  min-width: 1.35rem;
+  place-items: center;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+}
+
+.brand-solar-arc-pill--ig .brand-solar-arc-pill__count {
+  color: #ff6b8a;
+}
+
+.brand-solar-arc-pill--yt .brand-solar-arc-pill__count {
+  color: #ff5555;
+}
+
+.brand-solar-arc-pill__text {
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.brand-solar-planet {
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  animation: brandSolarFloat 7s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.brand-solar-planet-body {
+  position: relative;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+}
+
+.brand-solar-planet-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.42);
+  background: rgba(12, 12, 12, 0.94);
+  box-shadow: 0 0 22px rgba(212, 168, 83, 0.16);
+}
+
+.brand-solar-planet-icon {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+}
+
+.brand-solar-planet-label {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.25;
+}
+
+@keyframes brandSolarFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
 }
 
 .brand-solar-orbit-ring--inner {
@@ -898,93 +1048,6 @@ button:active {
   to {
     transform: rotate(360deg);
   }
-}
-
-.brand-solar-dot {
-  fill: #d4a853;
-  opacity: 0.85;
-  animation: brandSolarTwinkle 3.5s ease-in-out infinite;
-}
-
-.brand-solar-dot--ig {
-  fill: #e4405f;
-}
-
-.brand-solar-dot--yt {
-  fill: #ff0000;
-}
-
-@keyframes brandSolarTwinkle {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.brand-solar-arc-label {
-  fill: rgba(255, 255, 255, 0.42);
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.brand-solar-planet {
-  position: relative;
-  display: flex;
-  width: 88px;
-  height: 88px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: brandSolarFloat 7s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s);
-}
-
-@keyframes brandSolarFloat {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -6px, 0);
-  }
-}
-
-.brand-solar-planet-halo {
-  position: absolute;
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 168, 83, 0.35);
-  background: rgba(12, 12, 12, 0.92);
-  box-shadow: 0 0 20px rgba(212, 168, 83, 0.12);
-}
-
-.brand-solar-planet-icon {
-  position: relative;
-  z-index: 1;
-  width: 24px;
-  height: 24px;
-}
-
-.brand-solar-planet-label {
-  position: relative;
-  z-index: 1;
-  margin-top: 2.75rem;
-  max-width: 84px;
-  text-align: center;
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.2;
 }
 
 .brand-solar-core-halo {
@@ -1039,27 +1102,46 @@ button:active {
 
 .brand-solar-legend {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem 1.25rem;
-  margin-top: 0.75rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
   padding: 0 0.5rem;
+}
+
+.brand-solar-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem 1rem;
+}
+
+.brand-solar-legend-sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .brand-solar-legend-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.brand-solar-legend-item--total {
-  color: #d4a853;
+.brand-solar-legend-total {
+  margin: 0;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 11px;
   font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: #d4a853;
 }
 
 .brand-solar-legend-icon {
@@ -1076,10 +1158,12 @@ button:active {
 .brand-solar-legend-dots .brand-solar-dot {
   position: static;
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   animation: none;
+  opacity: 1;
+  transform: none;
 }
 
 .node-diagram-wrap.node-diagram-wrapper {

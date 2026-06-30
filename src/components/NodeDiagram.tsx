@@ -71,17 +71,45 @@ function PlanetNode({
 
   return (
     <g transform={`translate(${x} ${y})`}>
-      <foreignObject x={-44} y={-44} width={88} height={96} className="brand-solar-foreign">
+      <foreignObject x={-50} y={-48} width={100} height={94} className="brand-solar-foreign">
         <div className="brand-solar-planet" style={floatStyle}>
-          <div className="brand-solar-planet-halo" aria-hidden />
-          <Icon
-            className="brand-solar-planet-icon"
-            style={{ color: planet.brandColor }}
-            aria-hidden
-          />
+          <div className="brand-solar-planet-body">
+            <div className="brand-solar-planet-halo" aria-hidden />
+            <Icon
+              className="brand-solar-planet-icon"
+              style={{ color: planet.brandColor }}
+              aria-hidden
+            />
+          </div>
           <span className="brand-solar-planet-label">{planet.label}</span>
         </div>
       </foreignObject>
+    </g>
+  );
+}
+
+function DistNode({
+  x,
+  y,
+  type,
+  index,
+}: {
+  x: number;
+  y: number;
+  type: "ig" | "yt";
+  index: number;
+}) {
+  const glow = type === "ig" ? "url(#dotGlowIg)" : "url(#dotGlowYt)";
+
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <circle r={11} className={`brand-solar-dot-halo brand-solar-dot-halo--${type}`} />
+      <circle
+        r={6.5}
+        className={`brand-solar-dot brand-solar-dot--${type}`}
+        filter={glow}
+        style={{ animationDelay: `${index * 0.14}s` }}
+      />
     </g>
   );
 }
@@ -111,6 +139,20 @@ export default function NodeDiagram() {
             <stop offset="55%" stopColor="#D4A853" />
             <stop offset="100%" stopColor="#7A5E14" />
           </radialGradient>
+          <filter id="dotGlowIg" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="dotGlowYt" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
         {/* Orbit paths */}
@@ -151,45 +193,37 @@ export default function NodeDiagram() {
           );
         })}
 
-        {/* Distribution satellites — slow orbit */}
-        <g
-          className={reduced ? undefined : "brand-solar-dist-orbit"}
-          style={{ transformOrigin: `${CX}px ${CY}px` }}
-        >
-          {IG_DIST.map((dot, i) => (
-            <circle
-              key={`ig-dot-${i}`}
-              cx={dot.x}
-              cy={dot.y}
-              r={5}
-              className="brand-solar-dot brand-solar-dot--ig"
-              style={{ animationDelay: `${i * 0.12}s` }}
-            />
-          ))}
-          {YT_DIST.map((dot, i) => (
-            <circle
-              key={`yt-dot-${i}`}
-              cx={dot.x}
-              cy={dot.y}
-              r={5}
-              className="brand-solar-dot brand-solar-dot--yt"
-              style={{ animationDelay: `${i * 0.12 + 0.5}s` }}
-            />
-          ))}
-        </g>
-
         {/* Arc labels */}
-        <text x={CX} y={42} textAnchor="middle" className="brand-solar-arc-label">
-          9 Instagram distribution pages
-        </text>
-        <text x={CX} y={SIZE - 36} textAnchor="middle" className="brand-solar-arc-label">
-          9 YouTube distribution pages
-        </text>
+        <foreignObject x={CX - 118} y={12} width={236} height={40} className="brand-solar-foreign">
+          <div className="brand-solar-arc-pill brand-solar-arc-pill--ig">
+            <span className="brand-solar-arc-pill__count">9</span>
+            <span className="brand-solar-arc-pill__text">Instagram distribution pages</span>
+          </div>
+        </foreignObject>
+        <foreignObject x={CX - 118} y={SIZE - 52} width={236} height={40} className="brand-solar-foreign">
+          <div className="brand-solar-arc-pill brand-solar-arc-pill--yt">
+            <span className="brand-solar-arc-pill__count">9</span>
+            <span className="brand-solar-arc-pill__text">YouTube distribution pages</span>
+          </div>
+        </foreignObject>
 
         {/* Main platform planets */}
         {planets.map((planet) => (
           <PlanetNode key={planet.id} x={planet.x} y={planet.y} planet={planet} />
         ))}
+
+        {/* Distribution satellites — slow orbit (on top for visibility) */}
+        <g
+          className={reduced ? undefined : "brand-solar-dist-orbit"}
+          style={{ transformOrigin: `${CX}px ${CY}px` }}
+        >
+          {IG_DIST.map((dot, i) => (
+            <DistNode key={`ig-dot-${i}`} x={dot.x} y={dot.y} type="ig" index={i} />
+          ))}
+          {YT_DIST.map((dot, i) => (
+            <DistNode key={`yt-dot-${i}`} x={dot.x} y={dot.y} type="yt" index={i} />
+          ))}
+        </g>
 
         {/* Center sun — YOUR BRAND */}
         <g transform={`translate(${CX} ${CY})`}>
@@ -206,20 +240,21 @@ export default function NodeDiagram() {
       </svg>
 
       <div className="brand-solar-legend">
-        <div className="brand-solar-legend-item">
-          <FaInstagram className="brand-solar-legend-icon" style={{ color: "#E4405F" }} aria-hidden />
-          <span>4 main accounts</span>
+        <div className="brand-solar-legend-row">
+          <div className="brand-solar-legend-item">
+            <FaInstagram className="brand-solar-legend-icon" style={{ color: "#E4405F" }} aria-hidden />
+            <span>4 main accounts</span>
+          </div>
+          <span className="brand-solar-legend-sep" aria-hidden />
+          <div className="brand-solar-legend-item">
+            <span className="brand-solar-legend-dots" aria-hidden>
+              <span className="brand-solar-dot brand-solar-dot--ig" />
+              <span className="brand-solar-dot brand-solar-dot--yt" />
+            </span>
+            <span>18 distribution pages</span>
+          </div>
         </div>
-        <div className="brand-solar-legend-item">
-          <span className="brand-solar-legend-dots" aria-hidden>
-            <span className="brand-solar-dot brand-solar-dot--ig" />
-            <span className="brand-solar-dot brand-solar-dot--yt" />
-          </span>
-          <span>18 distribution pages</span>
-        </div>
-        <div className="brand-solar-legend-item brand-solar-legend-item--total">
-          <span>4 + 18 = 22 channels</span>
-        </div>
+        <p className="brand-solar-legend-total">4 + 18 = 22 channels</p>
       </div>
     </div>
   );
