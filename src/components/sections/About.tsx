@@ -9,13 +9,36 @@ import { FOUNDER_BIO, FOUNDER_FACTS } from "@/lib/content";
 import { SITE } from "@/lib/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
+import { prefersReducedMotion } from "@/lib/utils";
 
-const BIO_SECTIONS = [
-  { title: "Origin", paragraphs: FOUNDER_BIO.slice(0, 2) },
-  { title: "Startup Operating Experience", paragraphs: FOUNDER_BIO.slice(2, 6) },
-  { title: "Master's Union Decision", paragraphs: FOUNDER_BIO.slice(6, 9) },
-  { title: "What I Bring", paragraphs: FOUNDER_BIO.slice(9) },
-] as const;
+function FounderBioScroll() {
+  const reduced = prefersReducedMotion();
+  const paragraphs = [...FOUNDER_BIO];
+
+  if (reduced) {
+    return (
+      <div className="founder-bio-scroll-static space-y-4">
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)} className="type-body">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="founder-bio-scroll-viewport" aria-label="Founder biography">
+      <div className="founder-bio-scroll-track">
+        {[...paragraphs, ...paragraphs].map((paragraph, i) => (
+          <p key={`${paragraph.slice(0, 32)}-${i}`} className="founder-bio-scroll-line type-body">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function FactCard({
   label,
@@ -27,7 +50,6 @@ function FactCard({
   full: string;
 }) {
   const [open, setOpen] = useState(false);
-
   const toggle = () => setOpen((o) => !o);
 
   return (
@@ -70,8 +92,6 @@ function FactCard({
 }
 
 export default function About() {
-  const [openBio, setOpenBio] = useState(0);
-
   return (
     <Section id="about" tone="deep" className="founder-section">
       <SiteGrid className="founder-layout items-start">
@@ -79,43 +99,8 @@ export default function About() {
           <div className="founder-copy-panel">
             <SectionHeader label="The founder" title="Execution over everything." />
             <p className="founder-subtitle type-caption text-gold-300">Former COO &amp; CMO</p>
-
-            <div className="founder-bio-accordion mt-6">
-              {BIO_SECTIONS.map((section, index) => {
-                const open = openBio === index;
-                return (
-                  <article key={section.title} className="founder-bio-panel">
-                    <button
-                      type="button"
-                      className="founder-bio-toggle"
-                      onClick={() => setOpenBio(open ? -1 : index)}
-                      aria-expanded={open}
-                    >
-                      <span>{section.title}</span>
-                      <span aria-hidden>{open ? "Close" : "Read"}</span>
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.28, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <div className="founder-bio-text space-y-4">
-                            {section.paragraphs.map((paragraph) => (
-                              <p key={paragraph} className="type-body">
-                                {paragraph}
-                              </p>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </article>
-                );
-              })}
+            <div className="mt-6">
+              <FounderBioScroll />
             </div>
           </div>
 
@@ -139,12 +124,14 @@ export default function About() {
         <Col span={12} spanLg={5} className="order-1 lg:order-2">
           <div className="founder-image-container surface-card overflow-hidden lg:sticky lg:top-28">
             <Image
-              src={ASSETS.portrait}
+              src="/images/yogii-portrait.jpg"
               alt="Yogii Kumar — Founder"
-              fill
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="founder-image object-cover"
-              style={{ objectFit: "cover", objectPosition: "center 18%" }}
+              width={600}
+              height={750}
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="founder-image h-auto w-full"
+              style={{ objectFit: "cover", objectPosition: "center 12%" }}
+              priority
             />
           </div>
         </Col>

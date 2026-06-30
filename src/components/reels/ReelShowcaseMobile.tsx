@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { LazyVideo } from "@/components/ui/LazyVideo";
-import { subVideos, HERO_FEATURED_VIDEOS } from "@/lib/videos";
+import { INFLUENCER_VIDEOS, subVideos } from "@/lib/videos";
 import { prefersReducedMotion } from "@/lib/utils";
 
 function SquareThumb({
@@ -33,15 +33,9 @@ function SquareThumb({
 function ScrollStrip({
   videos,
   direction,
-  activeSrc,
-  onSelect,
-  labels,
 }: {
   videos: string[];
   direction: "left" | "right";
-  activeSrc: string;
-  onSelect: (src: string) => void;
-  labels: Record<string, string>;
 }) {
   const reduced = prefersReducedMotion();
   const doubled = [...videos, ...videos];
@@ -53,9 +47,9 @@ function ScrollStrip({
           <SquareThumb
             key={src}
             src={src}
-            selected={activeSrc === src}
-            onSelect={() => onSelect(src)}
-            label={labels[src] ?? "Featured reel"}
+            selected={false}
+            onSelect={() => {}}
+            label="Reel"
           />
         ))}
       </div>
@@ -74,9 +68,9 @@ function ScrollStrip({
           <SquareThumb
             key={`${src}-${i}`}
             src={src}
-            selected={activeSrc === src}
-            onSelect={() => onSelect(src)}
-            label={labels[src] ?? "Featured reel"}
+            selected={false}
+            onSelect={() => {}}
+            label="Reel"
           />
         ))}
       </motion.div>
@@ -84,43 +78,42 @@ function ScrollStrip({
   );
 }
 
-const FEATURED_LABELS: Record<string, string> = Object.fromEntries(
-  HERO_FEATURED_VIDEOS.map((video) => [video.src, video.label])
-);
-
 export default function ReelShowcaseMobile() {
-  const featuredSrcs = HERO_FEATURED_VIDEOS.map((video) => video.src);
   const half = Math.ceil(subVideos.length / 2);
-  const row1 = [...featuredSrcs, ...subVideos.slice(0, half)];
+  const row1 = subVideos.slice(0, half);
   const row2 = subVideos.slice(half);
-  const [activeSrc, setActiveSrc] = useState<string>(featuredSrcs[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = INFLUENCER_VIDEOS[activeIndex];
 
   return (
     <div className="reel-mobile-showcase pb-10 pt-4 lg:hidden">
-      <ScrollStrip
-        videos={row1}
-        direction="left"
-        activeSrc={activeSrc}
-        onSelect={setActiveSrc}
-        labels={FEATURED_LABELS}
-      />
+      <ScrollStrip videos={row1} direction="left" />
 
       <div className="flex justify-center px-4 py-4">
-        <div className="reel-mobile-main">
+        <div className="reel-mobile-main w-full max-w-[280px]">
           <p className="type-label mb-2 text-center">Featured Work</p>
           <div className="reel-mobile-main__card">
-            <LazyVideo key={activeSrc} src={activeSrc} eager pauseWhenHidden={false} />
+            <LazyVideo key={active.id} src={active.src} eager pauseWhenHidden={false} />
+          </div>
+          <div className="mt-3 flex justify-center gap-3">
+            {INFLUENCER_VIDEOS.map((video, i) => (
+              <button
+                key={video.id}
+                type="button"
+                className={`reel-square-thumb tap-target ${activeIndex === i ? "reel-square-thumb--active" : ""}`}
+                onClick={() => setActiveIndex(i)}
+                aria-label={video.label}
+                aria-pressed={activeIndex === i}
+              >
+                <LazyVideo src={video.src} eager pauseWhenHidden poster={undefined} />
+                <span className="reel-square-thumb__label">{video.label}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      <ScrollStrip
-        videos={row2}
-        direction="right"
-        activeSrc={activeSrc}
-        onSelect={setActiveSrc}
-        labels={FEATURED_LABELS}
-      />
+      <ScrollStrip videos={row2} direction="right" />
     </div>
   );
 }

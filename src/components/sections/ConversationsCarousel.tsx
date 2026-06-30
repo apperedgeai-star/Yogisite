@@ -82,28 +82,30 @@ export function ConversationsCarousel() {
           onTouchEnd={onTouchEnd}
         >
           {!hasError ? (
-            <Image
-              key={slide.id}
-              src={slide.image}
-              alt={`${slide.name} - ${slide.session}`}
-              fill
-              quality={90}
-              priority={current === 0}
-              sizes="(max-width: 768px) 100vw, 90vw"
-              style={{
-                objectFit: "cover",
-                objectPosition: slide.focal ?? "center center",
-                background: "#0a0a0a",
-              }}
-              onError={() => handleImageError(slide.id)}
-            />
+            <div className="carousel-image-frame">
+              <Image
+                key={slide.id}
+                src={slide.image}
+                alt={`${slide.name} - ${slide.session}`}
+                fill
+                quality={92}
+                priority={current === 0}
+                sizes="(max-width: 768px) 100vw, 900px"
+                className="carousel-image"
+                style={{
+                  objectFit: "contain",
+                  objectPosition: "center center",
+                }}
+                onError={() => handleImageError(slide.id)}
+              />
+            </div>
           ) : (
             <div className="carousel-fallback">
               <div className="carousel-fallback__initials">{getInitials(slide.name)}</div>
               <p className="carousel-fallback__label">Session photo uploading soon</p>
             </div>
           )}
-          {!hasError && <div className="carousel-image-overlay" />}
+          {!hasError && <div className="carousel-image-overlay carousel-image-overlay--subtle" />}
 
           <button
             type="button"

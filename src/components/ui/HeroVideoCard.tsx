@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { heroVideoEngine } from "@/lib/hero-video";
-import { HERO_FEATURED_VIDEOS } from "@/lib/videos";
+import { HERO_VIDEO } from "@/lib/videos";
 import { ASSETS } from "@/lib/assets";
 
 type HeroVideoCardProps = {
@@ -13,9 +13,7 @@ type HeroVideoCardProps = {
 
 export function HeroVideoCard({ className }: HeroVideoCardProps) {
   const ref = useRef<HTMLVideoElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [audible, setAudible] = useState(false);
-  const active = HERO_FEATURED_VIDEOS[activeIndex];
 
   useEffect(() => heroVideoEngine.subscribe(setAudible), []);
 
@@ -23,7 +21,6 @@ export function HeroVideoCard({ className }: HeroVideoCardProps) {
     const el = ref.current;
     if (!el) return;
 
-    heroVideoEngine.mute();
     const unregister = heroVideoEngine.register(el);
 
     const tryPlay = () => {
@@ -63,69 +60,33 @@ export function HeroVideoCard({ className }: HeroVideoCardProps) {
       observer?.disconnect();
       unregister();
     };
-  }, [activeIndex]);
-
-  const selectVideo = (index: number) => {
-    if (index === activeIndex) return;
-    heroVideoEngine.mute();
-    setActiveIndex(index);
-  };
+  }, []);
 
   return (
-    <div className={cn("hero-video-card-stack", className)}>
-      <div className="hero-video-card">
-        <video
-          key={active.id}
-          ref={ref}
-          src={active.src}
-          className="hero-video-card__video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={ASSETS.heroAmbient}
-          style={{ objectFit: "cover", objectPosition: "center top", width: "100%", height: "100%" }}
-          disablePictureInPicture
-          disableRemotePlayback
-        />
-        <button
-          type="button"
-          className="hero-video-card__sound tap-target"
-          onClick={() => void heroVideoEngine.toggle()}
-          aria-label={audible ? "Mute video" : "Unmute video"}
-          aria-pressed={audible}
-        >
-          {audible ? <Volume2 size={18} /> : <VolumeX size={18} />}
-        </button>
-      </div>
-
-      <div className="hero-video-card__thumbs" role="tablist" aria-label="Featured work videos">
-        {HERO_FEATURED_VIDEOS.map((video, index) => (
-          <button
-            key={video.id}
-            type="button"
-            role="tab"
-            aria-selected={index === activeIndex}
-            aria-label={video.label}
-            className={cn(
-              "hero-video-card__thumb tap-target",
-              index === activeIndex && "hero-video-card__thumb--active"
-            )}
-            onClick={() => selectVideo(index)}
-          >
-            <video
-              src={video.src}
-              muted
-              playsInline
-              preload="metadata"
-              poster={ASSETS.heroAmbient}
-              aria-hidden
-            />
-            <span className="hero-video-card__thumb-label">{video.label}</span>
-          </button>
-        ))}
-      </div>
+    <div className={cn("hero-video-card", className)}>
+      <video
+        ref={ref}
+        src={HERO_VIDEO}
+        className="hero-video-card__video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={ASSETS.heroAmbient}
+        style={{ objectFit: "cover", objectPosition: "center top", width: "100%", height: "100%" }}
+        disablePictureInPicture
+        disableRemotePlayback
+      />
+      <button
+        type="button"
+        className="hero-video-card__sound tap-target"
+        onClick={() => void heroVideoEngine.toggle()}
+        aria-label={audible ? "Mute video" : "Unmute video"}
+        aria-pressed={audible}
+      >
+        {audible ? <Volume2 size={18} /> : <VolumeX size={18} />}
+      </button>
     </div>
   );
 }
