@@ -25,7 +25,7 @@ export default function Programs() {
                 <span className="type-caption ml-2 font-normal">with internship</span>
               </p>
               <a
-                href={SITE.booking}
+                href={SITE.tallyRecunAI}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"
@@ -45,7 +45,7 @@ export default function Programs() {
               <p className="type-body mt-3 flex-1">{PROGRAM_DESCRIPTIONS.contentSeCrore}</p>
               <p className="price-number mt-6 text-xl text-gold-300">₹99,000</p>
               <a
-                href={SITE.booking}
+                href={SITE.tallyContentSeCrore}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-cta-primary hoverable tap-target mt-6 inline-flex w-full sm:w-auto"

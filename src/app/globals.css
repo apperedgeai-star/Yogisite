@@ -1401,11 +1401,17 @@ button:active {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  min-height: 260px;
+  min-height: 220px;
   overflow: hidden;
   border-radius: 14px;
   border: 1px solid var(--b1);
-  background: var(--deep);
+  background: #0a0a0a;
+}
+
+@media (min-width: 768px) {
+  .service-image-container {
+    min-height: 280px;
+  }
 }
 
 .service-image-container__scrim {
@@ -3011,16 +3017,28 @@ button:active {
 .carousel-image-area {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 10px 10px 0 0;
   background-color: #080808;
 }
 
+@media (min-width: 768px) {
+  .carousel-image-area {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 .carousel-image-frame {
   position: absolute;
-  inset: 12px;
+  inset: 8px;
+}
+
+@media (min-width: 768px) {
+  .carousel-image-frame {
+    inset: 12px;
+  }
 }
 
 .carousel-image {

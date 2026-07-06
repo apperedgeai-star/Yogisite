@@ -129,7 +129,35 @@ export default function Footer() {
         </Col>
 
         <Col span={12} className="border-t border-[var(--b1)] pt-6">
-          <p className="type-caption">© 2026 Recun Marketing 18 Pvt Ltd · All rights reserved</p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <p className="type-caption">© 2026 Recun Marketing 18 Pvt Ltd · All rights reserved</p>
+            <nav className="flex flex-wrap items-center gap-x-4 gap-y-2" aria-label="Legal">
+              <a
+                href={SITE.legal.privacy}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="type-caption hoverable"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href={SITE.legal.cookie}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="type-caption hoverable"
+              >
+                Cookie Policy
+              </a>
+              <a
+                href={SITE.legal.terms}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="type-caption hoverable"
+              >
+                Terms &amp; Conditions
+              </a>
+            </nav>
+          </div>
         </Col>
       </SiteGrid>
     </Section>

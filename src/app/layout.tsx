@@ -67,6 +67,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preload" href={HERO_VIDEO} as="video" type="video/mp4" />
+        <link rel="preload" href="/dragon.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/jupiter.webp" as="image" type="image/webp" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} bg-void font-sans text-primary antialiased`}>
         <ScrollInitProvider>

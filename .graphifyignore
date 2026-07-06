@@ -1,0 +1,20 @@
+# Media & large asset folders (not useful for code knowledge graph)
+public/
+Main Videos*/
+Sub Videos*/
+yodi new/
+screenshots/
+*.mp4
+*.mp3
+*.MOV
+*.gif
+*.webp
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Build artifacts
+node_modules/
+.next/
+graphify-out/

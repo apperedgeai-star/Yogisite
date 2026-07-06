@@ -6,14 +6,16 @@ type ServiceImageBlockProps = {
   overlayLabel?: string;
   objectPosition?: string;
   priority?: boolean;
+  objectFit?: "cover" | "contain";
 };
 
 export function ServiceImageBlock({
   src,
   alt,
   overlayLabel,
-  objectPosition = "center 30%",
+  objectPosition = "center center",
   priority = false,
+  objectFit = "contain",
 }: ServiceImageBlockProps) {
   return (
     <div className="service-image-container">
@@ -23,7 +25,8 @@ export function ServiceImageBlock({
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={priority}
-        className="object-cover"
+        loading={priority ? "eager" : "lazy"}
+        className={objectFit === "contain" ? "object-contain" : "object-cover"}
         style={{ objectPosition }}
       />
       <div className="service-image-container__scrim" aria-hidden />

@@ -26,6 +26,13 @@ export function ConversationsCarousel() {
   }, [total]);
 
   useEffect(() => {
+    CONVERSATIONS.slice(0, 3).forEach((conversation) => {
+      const img = new window.Image();
+      img.src = conversation.image;
+    });
+  }, []);
+
+  useEffect(() => {
     if (!isAutoPlaying || total <= 1) return;
 
     const timer = window.setInterval(() => {
@@ -88,8 +95,8 @@ export function ConversationsCarousel() {
                 src={slide.image}
                 alt={`${slide.name} - ${slide.session}`}
                 fill
-                quality={92}
-                priority={current === 0}
+                quality={85}
+                priority={current <= 1}
                 sizes="(max-width: 768px) 100vw, 900px"
                 className="carousel-image"
                 style={{

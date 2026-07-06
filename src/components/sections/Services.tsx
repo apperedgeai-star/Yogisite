@@ -1,10 +1,10 @@
 "use client";
 
 import {
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ServiceImageBlock } from "@/components/ui/ServiceImageBlock";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Col, Section, SiteGrid } from "@/components/layout/Section";
@@ -34,13 +34,6 @@ const TABS = [
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
-
-const TAB_MOTION = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 10 },
-  transition: { duration: 0.35, ease: "easeOut" },
-};
 
 function ServiceCell({ className, children }: { className?: string; children: ReactNode }) {
   return (
@@ -72,7 +65,13 @@ function DragonsHeadTab() {
   return (
     <SiteGrid className="items-start">
       <Col span={12} spanLg={5}>
-        <ServiceImageBlock src={ASSETS.services.dragon} alt="Dragon's Head" overlayLabel="Personal Branding System" />
+        <ServiceImageBlock
+          src={ASSETS.services.dragon}
+          alt="Dragon's Head"
+          overlayLabel="Personal Branding System"
+          priority
+          objectPosition="center 42%"
+        />
       </Col>
 
       <Col span={12} spanLg={7}>
@@ -134,7 +133,13 @@ function JupiterNodeTab() {
   return (
     <SiteGrid className="items-start">
       <Col span={12} spanLg={5}>
-        <ServiceImageBlock src={ASSETS.services.jupiter} alt="Jupiter Node" overlayLabel="Campaign System" />
+        <ServiceImageBlock
+          src={ASSETS.services.jupiter}
+          alt="Jupiter Node"
+          overlayLabel="Campaign System"
+          priority
+          objectPosition="center 38%"
+        />
       </Col>
 
       <Col span={12} spanLg={7}>
@@ -217,6 +222,13 @@ function JupiterNodeTab() {
 export default function Services() {
   const [activeTab, setActiveTab] = useState<TabId>("dragon");
 
+  useEffect(() => {
+    [ASSETS.services.dragon, ASSETS.services.jupiter].forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+  }, []);
+
   return (
     <Section id="services" tone="elevated" fullBleed>
       <div className="site-container">
@@ -258,11 +270,12 @@ export default function Services() {
         </div>
 
         <div className="pt-8 md:pt-10">
-          <AnimatePresence mode="wait">
-            <motion.div key={activeTab} {...TAB_MOTION}>
-              {activeTab === "dragon" ? <DragonsHeadTab /> : <JupiterNodeTab />}
-            </motion.div>
-          </AnimatePresence>
+          <div className={activeTab === "dragon" ? "block" : "hidden"} aria-hidden={activeTab !== "dragon"}>
+            <DragonsHeadTab />
+          </div>
+          <div className={activeTab === "jupiter" ? "block" : "hidden"} aria-hidden={activeTab !== "jupiter"}>
+            <JupiterNodeTab />
+          </div>
         </div>
       </div>
     </Section>
