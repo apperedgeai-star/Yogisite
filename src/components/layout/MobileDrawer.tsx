@@ -114,13 +114,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             rel="noopener noreferrer"
             className="tap-target hoverable text-base transition-colors hover:text-gold-300"
           >
-            WhatsApp — {SITE.whatsapp}
-          </a>
-          <a
-            href={`tel:${SITE.phoneTel}`}
-            className="tap-target hoverable transition-colors hover:text-gold-300"
-          >
-            {SITE.phone}
+            WhatsApp
           </a>
           <a
             href={`mailto:${SITE.emails.yogii}`}

@@ -111,7 +111,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="type-body-strong hoverable block text-gold-300"
             >
-              WhatsApp — {SITE.whatsapp}
+              WhatsApp · {SITE.whatsapp}
             </a>
             <a href={`mailto:${SITE.emails.company}`} className="type-body hoverable block">
               {SITE.emails.company}
