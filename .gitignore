@@ -23,6 +23,10 @@ yodi new/
 .cursor/
 .tools/
 
+# dev tooling artifacts
+graphify-out/
+src/graphify-out/
+
 # duplicate assets at repo root
 /dragon.webp
 /jupitorwebp.webp
