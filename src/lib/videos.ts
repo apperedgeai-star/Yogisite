@@ -4,8 +4,8 @@ export const HERO_VIDEO = "/videos/hero/homepage.mp4";
 
 /** Influencer spotlight reels — Nawaz & Riya only (Featured Work center) */
 export const INFLUENCER_VIDEOS = [
-  { id: "nawaz", src: "/videos/main/video-1.mp4", label: "Nawaz Shaikh" },
-  { id: "riya", src: "/videos/main/video-2.mp4", label: "Riya Upreti" },
+  { id: "nawaz", src: "/videos/main/video-2.mp4", label: "Nawaz Shaikh" },
+  { id: "riya", src: "/videos/main/video-1.mp4", label: "Riya Upreti" },
 ] as const;
 
 export const INFLUENCER_VIDEO_SRCS = INFLUENCER_VIDEOS.map((v) => v.src);
